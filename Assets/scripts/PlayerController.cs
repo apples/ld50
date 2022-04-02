@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour
     private Vector2 aimInput;
     private bool jumpInput;
     private bool isOnGround;
+    private float coyoteTime;
+    private int coyoteCharges = 1;
     private Rigidbody groundRigidbody;
     private bool isJumping;
 
@@ -164,11 +166,14 @@ public class PlayerController : MonoBehaviour
             }
 
             isOnGround = true;
+            coyoteTime = 0;
+            coyoteCharges = 1;
             groundRigidbody = hitInfo.rigidbody;
         }
         else
         {
             isOnGround = false;
+            coyoteTime += Time.fixedDeltaTime;
             groundRigidbody = null;
         }
     }
@@ -184,8 +189,9 @@ public class PlayerController : MonoBehaviour
         // jump
 
         //float j = Input.GetAxisRaw("Jump");
-        if (jumpInput && isOnGround && !isJumping)
+        if (jumpInput && coyoteTime < .5 && coyoteCharges > 0)//&& isOnGround && !isJumping)
         {
+            coyoteCharges--;
             var vel = rigidbody.velocity;
             vel.y =
                 jumpSpeed +
