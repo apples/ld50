@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
                         heldItem.transform.localPosition = new Vector3(0, 1.5f, 0);
                         heldItem.detectCollisions = false;
                         heldItem.isKinematic = true;
+                        break;
                     }
                 }
             }
