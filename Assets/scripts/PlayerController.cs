@@ -269,13 +269,16 @@ public class PlayerController : MonoBehaviour
                 DestroyHand();
             }
 
-            coyoteCharges--;
-            var vel = rigidbody.velocity;
-            vel.y =
-                jumpSpeed +
-                (groundRigidbody != null ? groundRigidbody.velocity.y : 0);
-            rigidbody.velocity = vel;
-            isJumping = true;
+            if (canJump)
+            {
+                coyoteCharges--;
+                var vel = rigidbody.velocity;
+                vel.y =
+                    jumpSpeed +
+                    (groundRigidbody != null ? groundRigidbody.velocity.y : 0);
+                rigidbody.velocity = vel;
+                isJumping = true;
+            }
         }
     }
 
