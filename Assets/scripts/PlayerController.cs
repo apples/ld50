@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
     public float legSpringConstant;
     public float legDamping;
 
+    public float groundMovementDamping;
+
+    public float throwForce;
+
     private new Rigidbody rigidbody;
 
     private Vector2 movementInput;
@@ -25,7 +29,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody groundRigidbody;
     private bool isJumping;
 
-    private Vector3 debug_legSpringForce;
+    private Rigidbody heldItem;
 
     void Awake()
     {
@@ -49,6 +53,40 @@ public class PlayerController : MonoBehaviour
         movementInput += new Vector2(h, v) * speed * Time.deltaTime;
         aimInput += new Vector2(mouseX, mouseY) * sensitivity * Time.deltaTime;
         if (jumpPressed) jumpInput = true;
+
+        // pick up / throw
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (heldItem == null)
+            {
+                var colliders = Physics.OverlapSphere(transform.position, 1f);
+
+                foreach (var collider in colliders)
+                {
+                    if (collider.gameObject.CompareTag("Crate"))
+                    {
+                        heldItem = collider.attachedRigidbody;
+                        heldItem.transform.SetParent(transform);
+                        heldItem.transform.localPosition = new Vector3(0, 1.5f, 0);
+                        heldItem.detectCollisions = false;
+                        heldItem.isKinematic = true;
+                    }
+                }
+            }
+            else
+            {
+                var forward = cameraBoom.transform.forward;
+                var up = cameraBoom.transform.up;
+                var throwDir = (forward + up * 0.75f).normalized;
+
+                heldItem.transform.SetParent(null);
+                heldItem.isKinematic = false;
+                heldItem.detectCollisions = true;
+                heldItem.AddForce(throwDir * throwForce, ForceMode.Impulse);
+
+                heldItem = null;
+            }
+        }
     }
 
     void FixedUpdate()
@@ -80,13 +118,23 @@ public class PlayerController : MonoBehaviour
             if (springForce < 0 || !isJumping)
             {
                 rigidbody.AddForce(rayDir * springForce);
-                debug_legSpringForce = rayDir * springForce;
             }
 
             // reset isJumping if we're travelling downwards towards ground
             if (springForce < 0)
             {
                 isJumping = false;
+            }
+
+            // apply ground movement damping
+            if (!isJumping)
+            {
+                var selfLateralVel = rigidbody.velocity - selfVel * rayDir;
+                var groundLateralVel = hitInfo.rigidbody != null ? hitInfo.rigidbody.velocity - groundVel * rayDir : Vector3.zero;
+
+                var relLateralVel = groundLateralVel - selfLateralVel;
+
+                rigidbody.velocity += relLateralVel * groundMovementDamping;
             }
 
             isOnGround = true;

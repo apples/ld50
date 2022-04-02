@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6917387010893595224}
   - component: {fileID: 5100417658434081998}
   - component: {fileID: 8447092590700802313}
+  - component: {fileID: 3235115256667198539}
   m_Layer: 0
   m_Name: Crate
   m_TagString: Crate
@@ -57,12 +58,24 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 21420973097778823}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 9b008c7688c9993419ffe6c22a56f30a, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!75 &3235115256667198539
+ConstantForce:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21420973097778823}
+  m_Enabled: 1
+  m_Force: {x: 0, y: -15, z: 0}
+  m_RelativeForce: {x: 0, y: 0, z: 0}
+  m_Torque: {x: 0, y: 0, z: 0}
+  m_RelativeTorque: {x: 0, y: 0, z: 0}
 --- !u!1001 &7231081296235046886
 PrefabInstance:
   m_ObjectHideFlags: 0
