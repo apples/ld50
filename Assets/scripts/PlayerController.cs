@@ -39,11 +39,31 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
         Debug.Assert(cameraBoom != null);
     }
 
     void Update()
     {
+        // If we don't have focus and you click in the game, capture the mouse
+        if (Cursor.lockState == CursorLockMode.None && Input.GetMouseButtonDown(0))
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            return;
+        }
+
+        // Don't update if we don't have focus
+        if (Cursor.lockState != CursorLockMode.Locked)
+        {
+            return;
+        }
+
+        // Press Escapse to release mouse control
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
         float mouseX = Input.GetAxisRaw("Mouse X");
@@ -93,12 +113,17 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         ProcessLegs();
-        ProcessMouseInput();
-        ProcessMovementInput();
 
-        movementInput = default;
-        aimInput = default;
-        jumpInput = false;
+        // Only process input if we have focus
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            ProcessMouseInput();
+            ProcessMovementInput();
+
+            movementInput = default;
+            aimInput = default;
+            jumpInput = false;
+        }
     }
 
     private void ProcessLegs()
@@ -186,5 +211,14 @@ public class PlayerController : MonoBehaviour
         if (camRotation.x <= 180 && camRotation.x > 90) camRotation.x = 90;
         if (camRotation.x > 180 && camRotation.x < 270) camRotation.x = 270;
         cameraBoom.transform.localEulerAngles = camRotation;
+    }
+
+    // If the game loses focus, unlock the cursor
+    private void OnApplicationFocus(bool hasFocus)
+    {
+        if (hasFocus == false)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 }
