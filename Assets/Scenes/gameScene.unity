@@ -560,6 +560,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6191655778824521751, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: m_text
+      value: 'Fuel time: 0
+
+        Max Altitude: 0'
+      objectReference: {fileID: 0}
     - target: {fileID: 6191655779226375340, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -25
@@ -568,6 +574,10 @@ PrefabInstance:
       propertyPath: scoreManager
       value: 
       objectReference: {fileID: 1665376228}
+    - target: {fileID: 6191655779226375341, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: maxRaftHeight
+      value: 
+      objectReference: {fileID: 11400000, guid: 4262452a8e5d5854b9a560ae9960f410, type: 2}
     - target: {fileID: 6191655779226375341, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: raftController
       value: 
