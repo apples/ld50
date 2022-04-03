@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 883960999}
   - component: {fileID: 883961000}
+  - component: {fileID: 353716320}
   m_Layer: 2
   m_Name: ScoreZone
   m_TagString: Untagged
