@@ -13,4 +13,8 @@ public class MenuOptions : MonoBehaviour
         Debug.Log("Quitting Game...");
         Application.Quit();
     }
+
+    public void GoToIntroMenu(){
+        SceneManager.LoadScene("introMenu");
+    }
 }
