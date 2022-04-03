@@ -67,6 +67,4 @@ public class Balloon : MonoBehaviour
 
         rigidbody.velocity = floatDirection * floatSpeed;
     }
-
-
 }

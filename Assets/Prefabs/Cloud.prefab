@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3071514378049685728}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -41,7 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7648653956229493285}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 6598239962375353902}
   - component: {fileID: 6916053808026844055}
   - component: {fileID: 2427761268422568287}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 2360318845809805946}
   - component: {fileID: 7148975038729179206}
   - component: {fileID: 4784249308593321198}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: CloudCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

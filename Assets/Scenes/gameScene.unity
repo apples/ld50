@@ -647,6 +647,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6191655779226375340, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -25
+      objectReference: {fileID: 0}
     - target: {fileID: 6191655779226375341, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: scoreManager
       value: 
@@ -915,10 +919,6 @@ PrefabInstance:
     - target: {fileID: 4195299652747866179, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4195299652747866180, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
-      propertyPath: sensitivity
-      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4195299652747866181, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
       propertyPath: m_Name
