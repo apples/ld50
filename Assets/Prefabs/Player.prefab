@@ -285,6 +285,7 @@ GameObject:
   - component: {fileID: 4195299652747866180}
   - component: {fileID: 4195299652747866178}
   - component: {fileID: 2198019468380560767}
+  - component: {fileID: 8656908677814280122}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -367,6 +368,19 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!135 &8656908677814280122
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195299652747866181}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.4
+  m_Center: {x: 0, y: 0.4, z: 0}
 --- !u!1 &7325253574086228801
 GameObject:
   m_ObjectHideFlags: 0
