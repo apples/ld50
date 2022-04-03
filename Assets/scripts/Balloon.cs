@@ -15,28 +15,58 @@ public class Balloon : MonoBehaviour
 
     private GameObject raft;
 
+    public bool isAnchored = false;
+    public bool IsAnchored
+    { 
+        get => isAnchored;
+        set
+        {
+            isAnchored = value;
+            if (rigidbody != null && isAnchored == true)
+            {
+                rigidbody.velocity = Vector3.zero;
+            }
+        }
+    }
+
+    private new Rigidbody rigidbody;
 
     void Start()
     {
-        DetermineFloatPath();
+        rigidbody = GetComponent<Rigidbody>();
+        Debug.Assert(rigidbody != null);
+
+        if (isAnchored == false)
+        {
+            DetermineFloatPath();
+        }
     }
 
     void Update()
     {
-        floatDirectionTimer += Time.deltaTime;
-        if(floatDirectionTimer >= floatDirectionTime){
-            DetermineFloatPath();
-        }
+        if (isAnchored)
+        {
 
-        transform.position += floatDirection * floatSpeed * Time.deltaTime;
+        }
+        else
+        {
+            floatDirectionTimer += Time.deltaTime;
+            if(floatDirectionTimer >= floatDirectionTime){
+                DetermineFloatPath();
+            }
+        }
     }
 
-    private void DetermineFloatPath(){
+    private void DetermineFloatPath()
+    {
         floatDirectionTimer = 0f;
         floatDirectionTime = Random.Range(minFloatDirectionTime, maxFloatDirectionTime);
 
         floatDirection = new Vector3(Random.Range(-.1f,1), Random.Range(-.3f,1), Random.Range(-1,1)).normalized;
         floatSpeed = Random.Range(minFloatSpeed, maxFloatSpeed);
+
+        rigidbody.velocity = floatDirection * floatSpeed;
     }
+
 
 }
