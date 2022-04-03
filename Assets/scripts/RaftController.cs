@@ -82,6 +82,11 @@ public class RaftController : MonoBehaviour
         var accel = new Vector3(0, fuelTime > 0 ? upwardSpeed - vel.y : -upwardSpeed * Time.fixedDeltaTime, 0);
 
         rigidbody.AddForce(accel, ForceMode.VelocityChange);
+
+        anchorPointA1.AdjustBalloonPosition(vel + accel);
+        anchorPointA2.AdjustBalloonPosition(vel + accel);
+        anchorPointB1.AdjustBalloonPosition(vel + accel);
+        anchorPointB2.AdjustBalloonPosition(vel + accel);
     }
 
     void LateUpdate()

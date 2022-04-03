@@ -18,11 +18,6 @@ public class AnchorPoint : MonoBehaviour
         Debug.Assert(rigidbody != null);
     }
 
-    void FixedUpdate()
-    {
-        ApplyAnchorVelocityToBalloons();
-    }
-
     public void GiveBalloon(GameObject obj)
     {
         var balloon = obj.GetComponent<Balloon>();
@@ -30,11 +25,11 @@ public class AnchorPoint : MonoBehaviour
         balloon.AnchorTo(rigidbody);
     }
 
-    public void ApplyAnchorVelocityToBalloons()
+    public void AdjustBalloonPosition(Vector3 vel)
     {
         foreach (var balloon in balloons)
         {
-            balloon.Rigidbody.MovePosition(balloon.Rigidbody.position + rigidbody.velocity * Time.deltaTime);
+            balloon.Rigidbody.MovePosition(balloon.Rigidbody.position + vel * Time.deltaTime);
         }
     }
 }
