@@ -327,7 +327,7 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8523581262739387891}
   sensitivity: 1000
   speed: 10
-  jumpSpeed: 10
+  jumpSpeed: 15
   attachedHandMaxJumpDist: 1.5
   legRideHeight: 1
   legRayDistance: 1.3
