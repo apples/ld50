@@ -31,6 +31,12 @@ public class PlayerController : MonoBehaviour
     public float maxHandDist;
     public float handGrappleForce;
 
+    public float inputAcceleration;
+
+    public float noInputAcceleration;
+
+    public float airAccelerationFactor;
+
     private new Rigidbody rigidbody;
 
     private Vector2 movementInput;
@@ -98,19 +104,30 @@ public class PlayerController : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X");
         float mouseY = Input.GetAxisRaw("Mouse Y");
         var jumpPressed = Input.GetKeyDown(KeyCode.Space);
+        var interactPressed = Input.GetKeyDown(KeyCode.E);
 
-        movementInput += new Vector2(h, v) * speed * Time.deltaTime;
-        aimInput += new Vector2(mouseX, mouseY) * sensitivity * Time.deltaTime;
-        if (jumpPressed) jumpInput = true;
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            movementInput = new Vector2(h, v);
+            aimInput += new Vector2(mouseX, mouseY) * sensitivity * Time.deltaTime;
+            if (jumpPressed) jumpInput = true;
+        }
 
         // pick up / throw
         if (Input.GetMouseButtonDown(0))
         {
+            ThrowHand();
+        }
+
+        if(interactPressed){
             if (heldItem == null)
             {
-                if (!TryGrabCrate())
-                {
-                    ThrowHand();
+                if(TryGrabCrate()){
+                    if (thrownHand != null)
+                    {
+                        DestroyHand();
+                        return;
+                    }
                 }
             }
             else
@@ -133,17 +150,11 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         ProcessLegs();
+        ProcessMouseInput();
+        ProcessMovementInput();
 
-        // Only process input if we have focus
-        if (Cursor.lockState == CursorLockMode.Locked)
-        {
-            ProcessMouseInput();
-            ProcessMovementInput();
-
-            movementInput = default;
-            aimInput = default;
-            jumpInput = false;
-        }
+        aimInput = default;
+        jumpInput = false;
 
         // grapple to hand
         if (thrownHand != null && thrownHand.IsAttached && !thrownHand.IsAttachedTo.isPulled)
@@ -255,17 +266,6 @@ public class PlayerController : MonoBehaviour
                 isJumping = false;
             }
 
-            // apply ground movement damping
-            if (!isJumping)
-            {
-                var selfLateralVel = rigidbody.velocity - selfVel * rayDir;
-                var groundLateralVel = hitInfo.rigidbody != null ? hitInfo.rigidbody.velocity - groundVel * rayDir : Vector3.zero;
-
-                var relLateralVel = groundLateralVel - selfLateralVel;
-
-                rigidbody.velocity += relLateralVel * groundMovementDamping;
-            }
-
             isOnGround = true;
             coyoteTime = 0;
             coyoteCharges = 1;
@@ -283,6 +283,41 @@ public class PlayerController : MonoBehaviour
     {
         // move
 
+        var localVelocity = transform.InverseTransformDirection(rigidbody.velocity);
+        var velocity = new Vector2(localVelocity.x, localVelocity.z);
+
+        Vector2 direction;
+        float acceleration = 0;
+        if (movementInput != Vector2.zero)
+        {
+            direction = movementInput.normalized;
+            acceleration = inputAcceleration;
+        }
+        else
+        {
+            direction = velocity.normalized * -1;
+            acceleration = velocity.magnitude / speed * noInputAcceleration;
+        }
+
+        if (isOnGround == false)
+        {
+            acceleration /= airAccelerationFactor;
+        }
+
+        velocity = velocity + direction * acceleration * Time.fixedDeltaTime;
+
+        if (velocity.magnitude > speed)
+        {
+            velocity = velocity.normalized * speed;
+        }
+
+        rigidbody.velocity = transform.TransformDirection(
+            new Vector3(
+                velocity.x,
+                localVelocity.y,
+                velocity.y
+            )
+        );
         var inputDir = new Vector3(movementInput.x, 0, movementInput.y).normalized;
 
         if (inputDir != Vector3.zero)
@@ -294,10 +329,6 @@ public class PlayerController : MonoBehaviour
         {
             isWalking = false;
         }
-
-        transform.position +=
-            transform.forward * movementInput.y +
-            transform.right * movementInput.x;
 
         // jump
 
