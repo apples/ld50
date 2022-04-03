@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     public Animator animator;
     public SpriteRenderer spriteRenderer;
 
+    public new Collider collider;
+
     public float sensitivity = 1;
     public float speed = 1;
     public float jumpSpeed;
@@ -61,6 +63,9 @@ public class PlayerController : MonoBehaviour
     private Vector3 facingDir = Vector3.forward;
     private bool isWalking;
 
+    private int cloudPhysicsLayer = 7;
+    private int playerPhysicsLayer = 9;
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -74,6 +79,7 @@ public class PlayerController : MonoBehaviour
         Debug.Assert(animator != null);
         Debug.Assert(spriteRenderer != null);
         Debug.Assert(handPrefab != null);
+        Debug.Assert(collider != null);
 
         Cursor.lockState = CursorLockMode.None;
     }
@@ -170,6 +176,8 @@ public class PlayerController : MonoBehaviour
             var forceDir = thrownHand.transform.position - transform.position;
             rigidbody.AddForce(forceDir * handGrappleForce);
         }
+
+        Physics.IgnoreLayerCollision(playerPhysicsLayer, cloudPhysicsLayer, rigidbody.velocity.y > 0);
     }
 
     private void ThrowHand()

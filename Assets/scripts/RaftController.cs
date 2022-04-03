@@ -18,6 +18,8 @@ public class RaftController : MonoBehaviour
     public float tiltSpringConstant;
     public float tiltDamping;
 
+    public float upwardSpeed;
+
     private new Rigidbody rigidbody;
 
     private float debug_desiredAngle;
@@ -57,6 +59,10 @@ public class RaftController : MonoBehaviour
     {
         ProcessAnchorPoints(anchorPointA1, anchorPointA2);
         ProcessAnchorPoints(anchorPointB1, anchorPointB2);
+
+        var vel = rigidbody.velocity;
+        vel.y = upwardSpeed;
+        rigidbody.velocity = vel;
     }
 
     void LateUpdate()

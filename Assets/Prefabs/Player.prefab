@@ -326,6 +326,7 @@ MonoBehaviour:
   camera: {fileID: 4195299652306973753}
   animator: {fileID: 2495143339515635799}
   spriteRenderer: {fileID: 8523581262739387891}
+  collider: {fileID: 8656908677814280122}
   sensitivity: 500
   speed: 10
   jumpSpeed: 10
