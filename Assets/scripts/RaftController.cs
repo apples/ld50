@@ -11,6 +11,8 @@ public class RaftController : MonoBehaviour
     public AnchorPoint anchorPointB1;
     public AnchorPoint anchorPointB2;
 
+    public GameObject bigBalloon;
+
     public float tiltSpringConstant;
     public float tiltDamping;
 
@@ -28,11 +30,25 @@ public class RaftController : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         Debug.Assert(rigidbody != null);
     }
-    
+
+    void Start()
+    {
+        Debug.Assert(anchorPointA1 != null);
+        Debug.Assert(anchorPointA2 != null);
+        Debug.Assert(anchorPointB1 != null);
+        Debug.Assert(anchorPointB2 != null);
+        Debug.Assert(bigBalloon != null);
+    }
+
     void FixedUpdate()
     {
         ProcessAnchorPoints(anchorPointA1, anchorPointA2);
         ProcessAnchorPoints(anchorPointB1, anchorPointB2);
+    }
+
+    void LateUpdate()
+    {
+        bigBalloon.transform.rotation = Quaternion.identity;
     }
 
     private void ProcessAnchorPoints(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2)
