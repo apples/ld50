@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 7785ec891762c5342870261300cef724, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 203b01f528eefbb44a92ab8a3b971d8e, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -225,6 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1916620851}
   rotateSpeed: -5
+  zOffset: 15
 --- !u!81 &74396480
 AudioListener:
   m_ObjectHideFlags: 0
@@ -355,6 +356,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7563183740146044203, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
+      propertyPath: refuelTime
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7563183740146044203, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
+      propertyPath: infiniteFuel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8900917675488513147, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
       propertyPath: m_Name
       value: Raft
@@ -1020,9 +1029,33 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4733646570074560068, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 731492349010923786, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 626.7297
+      objectReference: {fileID: 0}
+    - target: {fileID: 731492349010923786, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -559.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 731492349010923786, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -420
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479292505710191320, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 617
+      objectReference: {fileID: 0}
+    - target: {fileID: 2479292505710191320, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -420
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185950050020953175, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 254.7643
+      objectReference: {fileID: 0}
+    - target: {fileID: 3185950050020953175, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10.5499
       objectReference: {fileID: 0}
     - target: {fileID: 6350757077727216302, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
       propertyPath: m_RootOrder
@@ -1071,14 +1104,6 @@ PrefabInstance:
     - target: {fileID: 6350757077727216303, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
       propertyPath: m_Name
       value: MainMenuUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 6350757079062385332, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6350757079268250047, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}

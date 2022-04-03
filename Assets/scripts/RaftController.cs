@@ -24,6 +24,7 @@ public class RaftController : MonoBehaviour
     public ScoreManager scoreManager;
 
     public float refuelTime;
+    public bool infiniteFuel = false;
 
     private new Rigidbody rigidbody;
 
@@ -72,8 +73,10 @@ public class RaftController : MonoBehaviour
 
     void Update()
     {
-        fuelTime -= Time.deltaTime;
-        if (fuelTime < 0) fuelTime = 0;
+        if(!infiniteFuel){
+            fuelTime -= Time.deltaTime;
+            if (fuelTime < 0) fuelTime = 0;
+        }
     }
 
     void FixedUpdate()

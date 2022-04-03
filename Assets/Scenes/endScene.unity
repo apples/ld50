@@ -97,8 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: d7a910bed3c686849a3f42c3426df655, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: 1f593a3d06f8a58429a2dae3b3444bed, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1610,6 +1610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1638236743}
   rotateSpeed: -5
+  zOffset: 15
 --- !u!81 &1333084224
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1987,6 +1988,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7563183740146044203, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
+      propertyPath: infiniteFuel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8900917675488513147, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
       propertyPath: m_Name
       value: Raft
