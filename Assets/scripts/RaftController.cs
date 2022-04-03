@@ -13,6 +13,8 @@ public class RaftController : MonoBehaviour
 
     public GameObject bigBalloon;
 
+    public GameObject balloonPrefab;
+
     public float tiltSpringConstant;
     public float tiltDamping;
 
@@ -38,6 +40,17 @@ public class RaftController : MonoBehaviour
         Debug.Assert(anchorPointB1 != null);
         Debug.Assert(anchorPointB2 != null);
         Debug.Assert(bigBalloon != null);
+        Debug.Assert(balloonPrefab != null);
+
+        GiveBalloonTo(anchorPointA1);
+        GiveBalloonTo(anchorPointA2);
+        GiveBalloonTo(anchorPointB1);
+        GiveBalloonTo(anchorPointB2);
+
+        void GiveBalloonTo(AnchorPoint anchorPoint)
+        {
+            anchorPoint.GiveBalloon(Instantiate(balloonPrefab, anchorPointA1.transform.position, Quaternion.identity));
+        }
     }
 
     void FixedUpdate()
@@ -53,8 +66,8 @@ public class RaftController : MonoBehaviour
 
     private void ProcessAnchorPoints(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2)
     {
-        var c1 = anchorPoint1.balloonCount;
-        var c2 = anchorPoint2.balloonCount;
+        var c1 = anchorPoint1.BalloonCount;
+        var c2 = anchorPoint2.BalloonCount;
 
         if (c1 == 0 && c2 == 0) return;
 
@@ -75,7 +88,7 @@ public class RaftController : MonoBehaviour
 
         var mnAnchorPoint = mn == c1 ? anchorPoint1 : anchorPoint2;
 
-        var toMn = (mnAnchorPoint.transform.position - transform.position).normalized;
+        var toMn = (mnAnchorPoint.transform.position + mnAnchorPoint.offset - transform.position).normalized;
 
         var curAngle = Vector3.Angle(Vector3.up, toMn) - 90f;
         debug_curAngle = curAngle;

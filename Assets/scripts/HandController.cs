@@ -81,6 +81,8 @@ public class HandController : MonoBehaviour
 
         if (grapplePoint == null) return;
 
+        if (grapplePoint.disabled) return;
+
         var attachPoint = collider.ClosestPoint(transform.position);
 
         transform.rotation = Quaternion.LookRotation((attachPoint - transform.position).normalized, Vector3.up);

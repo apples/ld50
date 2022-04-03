@@ -19,12 +19,19 @@ public class Balloon : MonoBehaviour
 
     private new Rigidbody rigidbody;
     private SpringJoint spring;
+    private GrapplePoint grapplePoint;
 
-    void Start()
+    void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
         Debug.Assert(rigidbody != null);
 
+        grapplePoint = GetComponent<GrapplePoint>();
+        Debug.Assert(grapplePoint != null);
+    }
+
+    void Start()
+    {
         if (isAnchored == false)
         {
             DetermineFloatPath();
@@ -70,6 +77,8 @@ public class Balloon : MonoBehaviour
             spring.connectedAnchor = Vector3.zero;
             spring.maxDistance = springMaxDist;
             spring.connectedMassScale = 0.00001f;
+
+            grapplePoint.disabled = true;
         }
         else
         {
@@ -78,6 +87,8 @@ public class Balloon : MonoBehaviour
             isAnchored = false;
             Destroy(spring);
             spring = null;
+
+            grapplePoint.disabled = false;
         }
     }
 }
