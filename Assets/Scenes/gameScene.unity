@@ -595,6 +595,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 724252484}
+    - target: {fileID: 825691490, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: maxHeight
+      value: 500.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 825691490, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: minHeight
+      value: -100.02
+      objectReference: {fileID: 0}
     - target: {fileID: 40712771494184231, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: m_RootOrder
       value: 11
