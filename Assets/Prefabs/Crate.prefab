@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5100417658434081998}
   - component: {fileID: 8447092590700802313}
   - component: {fileID: 3235115256667198539}
+  - component: {fileID: 4947253612405296331}
   m_Layer: 0
   m_Name: Crate
   m_TagString: Crate
@@ -76,6 +77,18 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!114 &4947253612405296331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 21420973097778823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a02e0eced06e67439141757f15a1254, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &7231081296235046886
 PrefabInstance:
   m_ObjectHideFlags: 0

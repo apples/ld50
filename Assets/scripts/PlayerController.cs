@@ -7,9 +7,11 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public GameObject cameraBoom;
+    public new Camera camera;
     public float sensitivity = 1;
     public float speed = 1;
     public float jumpSpeed;
+    public float attachedHandMaxJumpDist;
 
     public float legRideHeight;
     public float legRayDistance;
@@ -20,16 +22,25 @@ public class PlayerController : MonoBehaviour
 
     public float throwForce;
 
+    public GameObject handPrefab;
+    public float handLaunchSpeed;
+    public float maxHandDist;
+    public float handGrappleForce;
+
     private new Rigidbody rigidbody;
 
     private Vector2 movementInput;
     private Vector2 aimInput;
     private bool jumpInput;
     private bool isOnGround;
+    private float coyoteTime;
+    private int coyoteCharges = 1;
     private Rigidbody groundRigidbody;
     private bool isJumping;
 
     private Rigidbody heldItem;
+
+    private HandController thrownHand;
 
     void Awake()
     {
@@ -39,8 +50,11 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Cursor.lockState = CursorLockMode.None;
         Debug.Assert(cameraBoom != null);
+        Debug.Assert(camera != null);
+        Debug.Assert(handPrefab != null);
+
+        Cursor.lockState = CursorLockMode.None;
     }
 
     void Update()
@@ -79,35 +93,86 @@ public class PlayerController : MonoBehaviour
         {
             if (heldItem == null)
             {
-                var colliders = Physics.OverlapSphere(transform.position, 1f);
-
-                foreach (var collider in colliders)
+                if (!TryGrabCrate())
                 {
-                    if (collider.gameObject.CompareTag("Crate"))
-                    {
-                        heldItem = collider.attachedRigidbody;
-                        heldItem.transform.SetParent(transform);
-                        heldItem.transform.localPosition = new Vector3(0, 1.5f, 0);
-                        heldItem.detectCollisions = false;
-                        heldItem.isKinematic = true;
-                        break;
-                    }
+                    ThrowHand();
                 }
             }
             else
             {
-                var forward = cameraBoom.transform.forward;
-                var up = cameraBoom.transform.up;
-                var throwDir = (forward + up * 0.75f).normalized;
-
-                heldItem.transform.SetParent(null);
-                heldItem.isKinematic = false;
-                heldItem.detectCollisions = true;
-                heldItem.AddForce(throwDir * throwForce * heldItem.mass, ForceMode.Impulse);
-
-                heldItem = null;
+                ThrowHeldItem();
             }
         }
+    }
+
+    private void ThrowHand()
+    {
+        if (thrownHand != null)
+        {
+            DestroyHand();
+            return;
+        }
+
+        var cameraRaycastDist = maxHandDist - cameraBoom.transform.localPosition.z;
+
+        var target = camera.transform.position + camera.transform.forward * cameraRaycastDist;
+        
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, cameraRaycastDist))
+        {
+            target = hitInfo.point;
+        }
+
+        var hand = Instantiate(handPrefab);
+        hand.transform.position = transform.position + transform.forward * 1f;
+        hand.transform.rotation = Quaternion.LookRotation((target - hand.transform.position).normalized, Vector3.up);
+
+        var handBody = hand.GetComponent<Rigidbody>();
+        handBody.velocity = hand.transform.forward * handLaunchSpeed;
+
+        thrownHand = hand.GetComponent<HandController>();
+        Debug.Assert(thrownHand != null);
+        thrownHand.playerController = this;
+    }
+
+    public void DestroyHand()
+    {
+        Debug.Assert(thrownHand != null);
+        Destroy(thrownHand.gameObject);
+        thrownHand = null;
+    }
+
+    private void ThrowHeldItem()
+    {
+        var forward = cameraBoom.transform.forward;
+        var up = cameraBoom.transform.up;
+        var throwDir = (forward + up * 0.75f).normalized;
+
+        heldItem.transform.SetParent(null);
+        heldItem.isKinematic = false;
+        heldItem.detectCollisions = true;
+        heldItem.AddForce(throwDir * throwForce * heldItem.mass, ForceMode.Impulse);
+
+        heldItem = null;
+    }
+
+    private bool TryGrabCrate()
+    {
+        var colliders = Physics.OverlapSphere(transform.position, 1f);
+
+        foreach (var collider in colliders)
+        {
+            if (collider.gameObject.CompareTag("Crate"))
+            {
+                heldItem = collider.attachedRigidbody;
+                heldItem.transform.SetParent(transform);
+                heldItem.transform.localPosition = new Vector3(0, 1.5f, 0);
+                heldItem.detectCollisions = false;
+                heldItem.isKinematic = true;
+                return true;
+            }
+        }
+
+        return false;
     }
 
     void FixedUpdate()
@@ -123,6 +188,13 @@ public class PlayerController : MonoBehaviour
             movementInput = default;
             aimInput = default;
             jumpInput = false;
+        }
+
+        // grapple to hand
+        if (thrownHand != null && thrownHand.IsAttached)
+        {
+            var forceDir = thrownHand.transform.position - transform.position;
+            rigidbody.AddForce(forceDir * handGrappleForce);
         }
     }
 
@@ -164,11 +236,14 @@ public class PlayerController : MonoBehaviour
             }
 
             isOnGround = true;
+            coyoteTime = 0;
+            coyoteCharges = 1;
             groundRigidbody = hitInfo.rigidbody;
         }
         else
         {
             isOnGround = false;
+            coyoteTime += Time.fixedDeltaTime;
             groundRigidbody = null;
         }
     }
@@ -184,16 +259,30 @@ public class PlayerController : MonoBehaviour
         // jump
 
         //float j = Input.GetAxisRaw("Jump");
-        if (jumpInput && isOnGround && !isJumping)
+        if (jumpInput)
         {
-            var vel = rigidbody.velocity;
-            vel.y =
-                jumpSpeed +
-                (groundRigidbody != null ? groundRigidbody.velocity.y : 0);
-            rigidbody.velocity = vel;
-            isJumping = true;
+            var canJump = CanJump();
+
+            if (thrownHand != null && thrownHand.IsAttached && (thrownHand.transform.position - transform.position).magnitude < attachedHandMaxJumpDist)
+            {
+                canJump = true;
+                DestroyHand();
+            }
+
+            if (canJump)
+            {
+                coyoteCharges--;
+                var vel = rigidbody.velocity;
+                vel.y =
+                    jumpSpeed +
+                    (groundRigidbody != null ? groundRigidbody.velocity.y : 0);
+                rigidbody.velocity = vel;
+                isJumping = true;
+            }
         }
     }
+
+    private bool CanJump() => coyoteTime < .5 && coyoteCharges > 0;//&& isOnGround && !isJumping
 
     private void ProcessMouseInput()
     {

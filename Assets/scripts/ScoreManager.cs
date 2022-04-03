@@ -23,17 +23,17 @@ public class ScoreManager : MonoBehaviour
     {
         
     }
-
-    private void OnCollisionEnter(Collision other) {
+    private void OnTriggerEnter(Collider other) {
         if(other.gameObject.CompareTag("Crate")){
             score++;
             OnScoreChanged?.Invoke(this, new OnScoreChangedEventArgs{score = score});
         }
     }
 
-    private void OnCollisionExit(Collision other) {
+    private void OnTriggerExit(Collider other){
         if(other.gameObject.CompareTag("Crate")){
             score--;
+            OnScoreChanged?.Invoke(this, new OnScoreChangedEventArgs{score = score});
         }
     }
 
