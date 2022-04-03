@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour
         float mouseX = Input.GetAxisRaw("Mouse X");
         float mouseY = Input.GetAxisRaw("Mouse Y");
         var jumpPressed = Input.GetKeyDown(KeyCode.Space);
+        var interactPressed = Input.GetKeyDown(KeyCode.E);
 
         if (Cursor.lockState == CursorLockMode.Locked)
         {
@@ -115,11 +116,18 @@ public class PlayerController : MonoBehaviour
         // pick up / throw
         if (Input.GetMouseButtonDown(0))
         {
+            ThrowHand();
+        }
+
+        if(interactPressed){
             if (heldItem == null)
             {
-                if (!TryGrabCrate())
-                {
-                    ThrowHand();
+                if(TryGrabCrate()){
+                    if (thrownHand != null)
+                    {
+                        DestroyHand();
+                        return;
+                    }
                 }
             }
             else
