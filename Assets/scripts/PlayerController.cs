@@ -119,10 +119,18 @@ public class PlayerController : MonoBehaviour
             ThrowHand();
         }
 
-        if(interactPressed){
+        // tie balloon
+        if (Input.GetMouseButtonDown(1))
+        {
+            TryTieBalloon();
+        }
+
+        if (interactPressed)
+        {
             if (heldItem == null)
             {
-                if(TryGrabCrate()){
+                if (TryGrabCrate())
+                {
                     if (thrownHand != null)
                     {
                         DestroyHand();
@@ -223,6 +231,27 @@ public class PlayerController : MonoBehaviour
             if (collider.gameObject.CompareTag("Crate"))
             {
                 GrabCrate(collider.attachedRigidbody);
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private bool TryTieBalloon()
+    {
+        if (balloons.Count == 0) return false;
+
+        var colliders = Physics.OverlapSphere(transform.position - new Vector3(0, 0.5f, 0), 1f);
+
+        foreach (var collider in colliders)
+        {
+            if (collider.GetComponent<AnchorPoint>() is AnchorPoint anchorPoint)
+            {
+                var balloon = balloons[balloons.Count - 1];
+                balloon.AnchorTo(null);
+                anchorPoint.GiveBalloon(balloon.gameObject);
+                balloons.RemoveAt(balloons.Count - 1);
                 return true;
             }
         }

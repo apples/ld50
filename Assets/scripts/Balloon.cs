@@ -20,6 +20,7 @@ public class Balloon : MonoBehaviour
     private new Rigidbody rigidbody;
     private SpringJoint spring;
     private GrapplePoint grapplePoint;
+    private new ConstantForce constantForce;
 
     void Awake()
     {
@@ -28,6 +29,9 @@ public class Balloon : MonoBehaviour
 
         grapplePoint = GetComponent<GrapplePoint>();
         Debug.Assert(grapplePoint != null);
+
+        constantForce = GetComponent<ConstantForce>();
+        Debug.Assert(constantForce != null);
     }
 
     void Start()
@@ -78,6 +82,8 @@ public class Balloon : MonoBehaviour
             spring.maxDistance = springMaxDist;
             spring.connectedMassScale = 0.00001f;
 
+            constantForce.enabled = true;
+
             grapplePoint.disabled = true;
         }
         else
@@ -87,6 +93,8 @@ public class Balloon : MonoBehaviour
             isAnchored = false;
             Destroy(spring);
             spring = null;
+
+            constantForce.enabled = false;
 
             grapplePoint.disabled = false;
         }
