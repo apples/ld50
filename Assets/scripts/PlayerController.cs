@@ -59,6 +59,7 @@ public class PlayerController : MonoBehaviour
     private int paramFacingX = Animator.StringToHash("FacingX");
     private int paramFacingY = Animator.StringToHash("FacingY");
     private int paramIsWalking = Animator.StringToHash("IsWalking");
+    private int paramIsHolding = Animator.StringToHash("IsHolding");
 
     private Vector3 facingDir = Vector3.forward;
     private bool isWalking;
@@ -157,6 +158,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat(paramFacingX, -animatorFacing.x);
         animator.SetFloat(paramFacingY, animatorFacing.z);
         animator.SetBool(paramIsWalking, isWalking);
+        animator.SetBool(paramIsHolding, heldItem != null);
 
         spriteRenderer.flipX = -animatorFacing.x > 0 && -animatorFacing.x > animatorFacing.z;
     }
