@@ -304,7 +304,7 @@ MonoBehaviour:
   camera: {fileID: 4195299652306973753}
   sensitivity: 1000
   speed: 10
-  jumpSpeed: 15
+  jumpSpeed: 10
   attachedHandMaxJumpDist: 1.5
   legRideHeight: 1
   legRayDistance: 1.3
@@ -316,6 +316,9 @@ MonoBehaviour:
   handLaunchSpeed: 20
   maxHandDist: 20
   handGrappleForce: 12
+  inputAcceleration: 100
+  noInputAcceleration: 60
+  airAccelerationFactor: 3
 --- !u!54 &4195299652747866178
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -352,7 +355,7 @@ ConstantForce:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4195299652747866181}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Force: {x: 0, y: -15, z: 0}
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
