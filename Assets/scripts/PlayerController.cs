@@ -103,7 +103,7 @@ public class PlayerController : MonoBehaviour
                 heldItem.transform.SetParent(null);
                 heldItem.isKinematic = false;
                 heldItem.detectCollisions = true;
-                heldItem.AddForce(throwDir * throwForce, ForceMode.Impulse);
+                heldItem.AddForce(throwDir * throwForce * heldItem.mass, ForceMode.Impulse);
 
                 heldItem = null;
             }
