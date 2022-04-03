@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 883960999}
   - component: {fileID: 883961000}
+  - component: {fileID: 1665376228}
   m_Layer: 2
   m_Name: ScoreZone
   m_TagString: Untagged
@@ -45,6 +46,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 9.974611, y: 1.3503654, z: 10.023285}
   m_Center: {x: 0.003894806, y: -0.17518282, z: 0.010083437}
+--- !u!114 &1665376228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883960998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63996f0c61cf57442a4af595ddaeccc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
 --- !u!1 &1829582191758215796
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,19 +161,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!114 &7375288036117800224
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8900917675488513147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a02e0eced06e67439141757f15a1254, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 0
 --- !u!114 &7563183740146044203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,6 +171,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e2ea9872c22f8534c83b89b4620148ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7375288036117800224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8900917675488513147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a02e0eced06e67439141757f15a1254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &2910161343398492227

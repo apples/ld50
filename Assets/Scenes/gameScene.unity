@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 13ffa75f97d211145bb9993cb34105d7, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4261701, g: 0.4587456, b: 0.48519212, a: 1}
+  m_IndirectSpecularColor: {r: 0.44794452, g: 0.6549965, b: 0.6185643, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &118464596 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4195299652747866181, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
+  m_PrefabInstance: {fileID: 4195299652716358759}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &130403904
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -237,24 +242,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff3cfe93b61f36449bfa2a97c761a833, type: 3}
---- !u!1 &353716317 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 883960998, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
-  m_PrefabInstance: {fileID: 1989995285}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &353716320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 353716317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63996f0c61cf57442a4af595ddaeccc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 0
 --- !u!1001 &416890043
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -449,7 +436,7 @@ GameObject:
   - component: {fileID: 1217891286}
   - component: {fileID: 1217891285}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -477,8 +464,8 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1217891284}
   m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
@@ -566,6 +553,7 @@ MonoBehaviour:
   cloudPrefab: {fileID: 5220239709615968332, guid: f9fc4fb0acf014547b5d78e8705fce46, type: 3}
   cratePrefab: {fileID: 21420973097778823, guid: ff3cfe93b61f36449bfa2a97c761a833, type: 3}
   balloonPrefab: {fileID: 4793763489754372762, guid: 62882d6585703c848bba2cc99012303b, type: 3}
+  player: {fileID: 118464596}
 --- !u!4 &1665224354
 Transform:
   m_ObjectHideFlags: 0
@@ -581,6 +569,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1665376228 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1665376228, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
+  m_PrefabInstance: {fileID: 1989995285}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63996f0c61cf57442a4af595ddaeccc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1671523012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -596,6 +595,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 724252484}
+    - target: {fileID: 825691490, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: maxHeight
+      value: 500.77
+      objectReference: {fileID: 0}
+    - target: {fileID: 825691490, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: minHeight
+      value: -100.02
+      objectReference: {fileID: 0}
     - target: {fileID: 40712771494184231, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -643,7 +650,7 @@ PrefabInstance:
     - target: {fileID: 6191655779226375341, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: scoreManager
       value: 
-      objectReference: {fileID: 353716320}
+      objectReference: {fileID: 1665376228}
     - target: {fileID: 8178481567301916966, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: m_Name
       value: UI
@@ -751,18 +758,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 883961000, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
-      propertyPath: m_Size.y
-      value: 6.0219173
-      objectReference: {fileID: 0}
-    - target: {fileID: 883961000, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
-      propertyPath: m_Center.y
-      value: 2.1605935
-      objectReference: {fileID: 0}
-    - target: {fileID: 883961000, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
-      propertyPath: m_Center.z
-      value: 0.010083199
-      objectReference: {fileID: 0}
     - target: {fileID: 8900917675488513147, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
       propertyPath: m_Name
       value: Raft
@@ -920,6 +915,10 @@ PrefabInstance:
     - target: {fileID: 4195299652747866179, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195299652747866180, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
+      propertyPath: sensitivity
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4195299652747866181, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
       propertyPath: m_Name
