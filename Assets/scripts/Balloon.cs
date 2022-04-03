@@ -6,30 +6,19 @@ public class Balloon : MonoBehaviour
 {
     public float minFloatDirectionTime = 1f;
     public float maxFloatDirectionTime = 3f;
+    public float minFloatSpeed;
+    public float maxFloatSpeed;
+    public float springMaxDist = 1f;
+
     private float floatDirectionTime;
     private float floatDirectionTimer;
     private Vector3 floatDirection;
-    public float minFloatSpeed;
-    public float maxFloatSpeed;
     private float floatSpeed;
 
-    private GameObject raft;
-
-    public bool isAnchored = false;
-    public bool IsAnchored
-    { 
-        get => isAnchored;
-        set
-        {
-            isAnchored = value;
-            if (rigidbody != null && isAnchored == true)
-            {
-                rigidbody.velocity = Vector3.zero;
-            }
-        }
-    }
+    private bool isAnchored = false;
 
     private new Rigidbody rigidbody;
+    private SpringJoint spring;
 
     void Start()
     {
@@ -66,5 +55,29 @@ public class Balloon : MonoBehaviour
         floatSpeed = Random.Range(minFloatSpeed, maxFloatSpeed);
 
         rigidbody.velocity = floatDirection * floatSpeed;
+    }
+
+    public void AnchorTo(Rigidbody connectedRigidbody)
+    {
+        if (connectedRigidbody != null)
+        {
+            Debug.Assert(isAnchored == false);
+            Debug.Assert(spring == null);
+            isAnchored = true;
+            spring = gameObject.AddComponent<SpringJoint>();
+            spring.autoConfigureConnectedAnchor = false;
+            spring.connectedBody = connectedRigidbody;
+            spring.connectedAnchor = Vector3.zero;
+            spring.maxDistance = springMaxDist;
+            spring.connectedMassScale = 0.00001f;
+        }
+        else
+        {
+            Debug.Assert(isAnchored == true);
+            Debug.Assert(spring != null);
+            isAnchored = false;
+            Destroy(spring);
+            spring = null;
+        }
     }
 }

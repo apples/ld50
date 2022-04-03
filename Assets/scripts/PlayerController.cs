@@ -46,7 +46,7 @@ public class PlayerController : MonoBehaviour
 
     private HandController thrownHand;
 
-    private List<GameObject> balloons = new List<GameObject>();
+    private List<Balloon> balloons = new List<Balloon>();
 
     private int paramFacingX = Animator.StringToHash("FacingX");
     private int paramFacingY = Animator.StringToHash("FacingY");
@@ -130,6 +130,29 @@ public class PlayerController : MonoBehaviour
         spriteRenderer.flipX = -animatorFacing.x > 0 && -animatorFacing.x > animatorFacing.z;
     }
 
+    void FixedUpdate()
+    {
+        ProcessLegs();
+
+        // Only process input if we have focus
+        if (Cursor.lockState == CursorLockMode.Locked)
+        {
+            ProcessMouseInput();
+            ProcessMovementInput();
+
+            movementInput = default;
+            aimInput = default;
+            jumpInput = false;
+        }
+
+        // grapple to hand
+        if (thrownHand != null && thrownHand.IsAttached && !thrownHand.IsAttachedTo.isPulled)
+        {
+            var forceDir = thrownHand.transform.position - transform.position;
+            rigidbody.AddForce(forceDir * handGrappleForce);
+        }
+    }
+
     private void ThrowHand()
     {
         if (thrownHand != null)
@@ -188,11 +211,7 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.gameObject.CompareTag("Crate"))
             {
-                heldItem = collider.attachedRigidbody;
-                heldItem.transform.SetParent(transform);
-                heldItem.transform.localPosition = new Vector3(0, 1.5f, 0);
-                heldItem.detectCollisions = false;
-                heldItem.isKinematic = true;
+                GrabCrate(collider.attachedRigidbody);
                 return true;
             }
         }
@@ -200,27 +219,14 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    void FixedUpdate()
+    private void GrabCrate(Rigidbody crateRigidbody)
     {
-        ProcessLegs();
-
-        // Only process input if we have focus
-        if (Cursor.lockState == CursorLockMode.Locked)
-        {
-            ProcessMouseInput();
-            ProcessMovementInput();
-
-            movementInput = default;
-            aimInput = default;
-            jumpInput = false;
-        }
-
-        // grapple to hand
-        if (thrownHand != null && thrownHand.IsAttached)
-        {
-            var forceDir = thrownHand.transform.position - transform.position;
-            rigidbody.AddForce(forceDir * handGrappleForce);
-        }
+        Debug.Assert(crateRigidbody.gameObject.CompareTag("Crate"));
+        heldItem = crateRigidbody;
+        heldItem.transform.SetParent(transform);
+        heldItem.transform.localPosition = new Vector3(0, 1.5f, 0);
+        heldItem.detectCollisions = false;
+        heldItem.isKinematic = true;
     }
 
     private void ProcessLegs()
@@ -345,6 +351,19 @@ public class PlayerController : MonoBehaviour
         if (hasFocus == false)
         {
             Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
+    public void GiveItem(GrapplePoint isAttachedTo)
+    {
+        if (isAttachedTo.gameObject.CompareTag("Crate"))
+        {
+            GrabCrate(isAttachedTo.GetComponent<Rigidbody>());
+        }
+        else if (isAttachedTo.GetComponent<Balloon>() is Balloon balloon)
+        {
+            balloons.Add(balloon);
+            balloon.AnchorTo(rigidbody);
         }
     }
 }

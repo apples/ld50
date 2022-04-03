@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class GrapplePoint : MonoBehaviour
 {
+    public bool isPulled = false;
 }
