@@ -8,6 +8,10 @@ public class PlayerController : MonoBehaviour
 {
     public GameObject cameraBoom;
     public new Camera camera;
+    
+    public Animator animator;
+    public SpriteRenderer spriteRenderer;
+
     public float sensitivity = 1;
     public float speed = 1;
     public float jumpSpeed;
@@ -42,6 +46,15 @@ public class PlayerController : MonoBehaviour
 
     private HandController thrownHand;
 
+    private List<GameObject> balloons = new List<GameObject>();
+
+    private int paramFacingX = Animator.StringToHash("FacingX");
+    private int paramFacingY = Animator.StringToHash("FacingY");
+    private int paramIsWalking = Animator.StringToHash("IsWalking");
+
+    private Vector3 facingDir = Vector3.forward;
+    private bool isWalking;
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -52,6 +65,8 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Assert(cameraBoom != null);
         Debug.Assert(camera != null);
+        Debug.Assert(animator != null);
+        Debug.Assert(spriteRenderer != null);
         Debug.Assert(handPrefab != null);
 
         Cursor.lockState = CursorLockMode.None;
@@ -103,6 +118,16 @@ public class PlayerController : MonoBehaviour
                 ThrowHeldItem();
             }
         }
+
+        // update animator
+
+        var animatorFacing = Quaternion.Inverse(transform.rotation) * facingDir;
+
+        animator.SetFloat(paramFacingX, -animatorFacing.x);
+        animator.SetFloat(paramFacingY, animatorFacing.z);
+        animator.SetBool(paramIsWalking, isWalking);
+
+        spriteRenderer.flipX = -animatorFacing.x > 0 && -animatorFacing.x > animatorFacing.z;
     }
 
     private void ThrowHand()
@@ -251,6 +276,18 @@ public class PlayerController : MonoBehaviour
     private void ProcessMovementInput()
     {
         // move
+
+        var inputDir = new Vector3(movementInput.x, 0, movementInput.y).normalized;
+
+        if (inputDir != Vector3.zero)
+        {
+            facingDir = transform.rotation * inputDir;
+            isWalking = true;
+        }
+        else
+        {
+            isWalking = false;
+        }
 
         transform.position +=
             transform.forward * movementInput.y +

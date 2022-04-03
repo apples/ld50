@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 883960999}
   - component: {fileID: 883961000}
+  - component: {fileID: 353716320}
   m_Layer: 2
   m_Name: ScoreZone
   m_TagString: Untagged
@@ -43,8 +44,21 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9.974611, y: 1.3503654, z: 10.023285}
-  m_Center: {x: 0.003894806, y: -0.17518282, z: 0.010083437}
+  m_Size: {x: 9.974611, y: 6.0219173, z: 10.023285}
+  m_Center: {x: 0.003894806, y: 2.1605935, z: 0.010083199}
+--- !u!114 &353716320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883960998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63996f0c61cf57442a4af595ddaeccc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  score: 0
 --- !u!1 &8900917675488513147
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +70,6 @@ GameObject:
   - component: {fileID: 8900917675488513151}
   - component: {fileID: 8900917675488513146}
   - component: {fileID: 525925143}
-  - component: {fileID: 525925147}
   - component: {fileID: 7375288036117800224}
   m_Layer: 0
   m_Name: Raft
@@ -111,19 +124,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &525925147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8900917675488513147}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63996f0c61cf57442a4af595ddaeccc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  score: 0
 --- !u!114 &7375288036117800224
 MonoBehaviour:
   m_ObjectHideFlags: 0
