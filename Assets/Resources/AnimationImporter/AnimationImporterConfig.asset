@@ -14,13 +14,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animationNamesThatDoNotLoop:
   - death
+  - poof
   _automaticImporting: 0
   _spritePixelsPerUnit: 32
   _pivotAlignmentType: 0
   _targetObjectType: 0
   _pathToSpriteRendererComponent: 
   _pathToImageComponent: 
-  _spriteAlignment: 7
+  _spriteAlignment: 0
   _spriteAlignmentCustomX: 0
   _spriteAlignmentCustomY: 0
   _spritesTargetLocation:

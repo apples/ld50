@@ -14,6 +14,7 @@ public class RaftController : MonoBehaviour
     public GameObject bigBalloon;
 
     public GameObject balloonPrefab;
+    public GameObject poofPrefab;
 
     public float tiltSpringConstant;
     public float tiltDamping;
@@ -34,6 +35,7 @@ public class RaftController : MonoBehaviour
     private Vector3 debug_axis;
 
     private float fuelTime = 30;
+
     public float FuelTime => fuelTime;
 
     void Awake()
@@ -50,6 +52,7 @@ public class RaftController : MonoBehaviour
         Debug.Assert(anchorPointB2 != null);
         Debug.Assert(bigBalloon != null);
         Debug.Assert(balloonPrefab != null);
+        Debug.Assert(poofPrefab != null);
 
         if (scoreManager != null)
         {
@@ -97,7 +100,12 @@ public class RaftController : MonoBehaviour
     private void scoreManager_onCrateGoalReached(object sender, ScoreManager.OnCrateGoalReachedEventArgs e)
     {
         fuelTime += refuelTime;
+        foreach (var crate in scoreManager.Crates)
+        {
+            Instantiate(poofPrefab, crate.transform.position, Quaternion.identity);
+        }
         scoreManager.DestroyAllCrates();
+        ++scoreManager.crateGoal;
     }
 
     private void ProcessAnchorPoints(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2)
