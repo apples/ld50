@@ -521,6 +521,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1589903248 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7563183740146044203, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
+  m_PrefabInstance: {fileID: 1989995285}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2ea9872c22f8534c83b89b4620148ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1665224352
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,6 +666,10 @@ PrefabInstance:
       propertyPath: scoreManager
       value: 
       objectReference: {fileID: 1665376228}
+    - target: {fileID: 6191655779226375341, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: raftController
+      value: 
+      objectReference: {fileID: 1589903248}
     - target: {fileID: 8178481567301916966, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: m_Name
       value: UI
@@ -762,6 +777,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7563183740146044203, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
+      propertyPath: scoreManager
+      value: 
+      objectReference: {fileID: 1665376228}
     - target: {fileID: 8900917675488513147, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
       propertyPath: m_Name
       value: Raft

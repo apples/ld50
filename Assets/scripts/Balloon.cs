@@ -22,6 +22,8 @@ public class Balloon : MonoBehaviour
     private GrapplePoint grapplePoint;
     private new ConstantForce constantForce;
 
+    public Rigidbody Rigidbody => rigidbody;
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();

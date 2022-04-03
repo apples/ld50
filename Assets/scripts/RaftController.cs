@@ -20,6 +20,10 @@ public class RaftController : MonoBehaviour
 
     public float upwardSpeed;
 
+    public ScoreManager scoreManager;
+
+    public float refuelTime;
+
     private new Rigidbody rigidbody;
 
     private float debug_desiredAngle;
@@ -28,6 +32,9 @@ public class RaftController : MonoBehaviour
     private Vector3 debug_inertiaAxis;
     private float debug_inertia;
     private Vector3 debug_axis;
+
+    private float fuelTime = 30;
+    public float FuelTime => fuelTime;
 
     void Awake()
     {
@@ -44,6 +51,11 @@ public class RaftController : MonoBehaviour
         Debug.Assert(bigBalloon != null);
         Debug.Assert(balloonPrefab != null);
 
+        if (scoreManager != null)
+        {
+            scoreManager.OnCrateGoalReached += this.scoreManager_onCrateGoalReached;
+        }
+
         GiveBalloonTo(anchorPointA1);
         GiveBalloonTo(anchorPointA2);
         GiveBalloonTo(anchorPointB1);
@@ -51,8 +63,14 @@ public class RaftController : MonoBehaviour
 
         void GiveBalloonTo(AnchorPoint anchorPoint)
         {
-            anchorPoint.GiveBalloon(Instantiate(balloonPrefab, anchorPointA1.transform.position, Quaternion.identity));
+            anchorPoint.GiveBalloon(Instantiate(balloonPrefab, anchorPoint.transform.position + Vector3.up, Quaternion.identity));
         }
+    }
+
+    void Update()
+    {
+        fuelTime -= Time.deltaTime;
+        if (fuelTime < 0) fuelTime = 0;
     }
 
     void FixedUpdate()
@@ -61,13 +79,20 @@ public class RaftController : MonoBehaviour
         ProcessAnchorPoints(anchorPointB1, anchorPointB2);
 
         var vel = rigidbody.velocity;
-        vel.y = upwardSpeed;
-        rigidbody.velocity = vel;
+        var accel = new Vector3(0, fuelTime > 0 ? upwardSpeed - vel.y : -upwardSpeed * Time.fixedDeltaTime, 0);
+
+        rigidbody.AddForce(accel, ForceMode.VelocityChange);
     }
 
     void LateUpdate()
     {
         bigBalloon.transform.rotation = Quaternion.identity;
+    }
+
+    private void scoreManager_onCrateGoalReached(object sender, ScoreManager.OnCrateGoalReachedEventArgs e)
+    {
+        fuelTime += refuelTime;
+        scoreManager.DestroyAllCrates();
     }
 
     private void ProcessAnchorPoints(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2)

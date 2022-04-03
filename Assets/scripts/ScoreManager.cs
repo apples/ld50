@@ -5,37 +5,53 @@ using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    public event EventHandler<OnScoreChangedEventArgs> OnScoreChanged;
-    public class OnScoreChangedEventArgs : EventArgs{
-        public int score;
+    public event EventHandler<OnCratesChangedEventArgs> OnScoreChanged;
+    public class OnCratesChangedEventArgs : EventArgs{
+        public int numCrates;
     }
 
-    public int score = 0;
-
-    // Start is called before the first frame update
-    void Start()
+    public event EventHandler<OnCrateGoalReachedEventArgs> OnCrateGoalReached;
+    public class OnCrateGoalReachedEventArgs : EventArgs
     {
-        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public int crateGoal = 1;
+
+    private List<GameObject> crates = new List<GameObject>();
+
+    public int NumCrates => crates.Count;
+    public IReadOnlyList<GameObject> Crates => crates;
+
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.CompareTag("Crate")){
-            score++;
-            OnScoreChanged?.Invoke(this, new OnScoreChangedEventArgs{score = score});
+            Debug.Assert(crates.IndexOf(other.gameObject) == -1);
+            crates.Add(other.gameObject);
+            OnScoreChanged?.Invoke(this, new OnCratesChangedEventArgs{numCrates = NumCrates});
+
+            if (NumCrates >= crateGoal)
+            {
+                OnCrateGoalReached?.Invoke(this, new OnCrateGoalReachedEventArgs());
+            }
         }
     }
 
     private void OnTriggerExit(Collider other){
         if(other.gameObject.CompareTag("Crate")){
-            score--;
-            OnScoreChanged?.Invoke(this, new OnScoreChangedEventArgs{score = score});
+            var idx = crates.IndexOf(other.gameObject);
+            if (idx >= 0)
+            {
+                crates.RemoveAt(idx);
+                OnScoreChanged?.Invoke(this, new OnCratesChangedEventArgs { numCrates = NumCrates });
+            }
         }
     }
 
-
+    public void DestroyAllCrates()
+    {
+        foreach (var crate in crates)
+        {
+            Destroy(crate);
+        }
+        crates.Clear();
+    }
 }

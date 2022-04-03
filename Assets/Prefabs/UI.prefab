@@ -344,7 +344,7 @@ GameObject:
   - component: {fileID: 6191655778824521748}
   - component: {fileID: 6191655778824521751}
   m_Layer: 5
-  m_Name: ScoreText
+  m_Name: FuelText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -398,7 +398,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Score: 0'
+  m_text: 'Fuel time: 0'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -480,7 +480,7 @@ GameObject:
   - component: {fileID: 6191655779226375338}
   - component: {fileID: 6191655779226375341}
   m_Layer: 5
-  m_Name: ScorePanel
+  m_Name: FuelPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -504,8 +504,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -25.00003}
-  m_SizeDelta: {x: 200, y: 100}
+  m_AnchoredPosition: {x: 25, y: -25}
+  m_SizeDelta: {x: 300.1321, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!222 &6191655779226375339
 CanvasRenderer:
