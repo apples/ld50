@@ -24,7 +24,7 @@ public class AltitudeDisplay : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerHeight.localScale = new Vector3(1, player.position.y / maxHeight, 1);
-        raftHeight.localScale = new Vector3(1, raft.position.y / maxHeight, 1);
+        playerHeight.localScale = new Vector3(1, Mathf.Clamp(player.position.y / maxHeight, 0, 1), 1);
+        raftHeight.localScale = new Vector3(1, Mathf.Clamp(raft.position.y / maxHeight, 0, 1), 1);
     }
 }
