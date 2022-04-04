@@ -79,6 +79,7 @@ public class PlayerController : MonoBehaviour
     private float comboJumpTimer;
     private int cloudPhysicsLayer = 7;
     private int playerPhysicsLayer = 9;
+    private float debug_yvel;
 
     private bool IsDivingOrGrappling => isDiving || thrownHand != null && thrownHand.IsAttached && !thrownHand.IsPulling;
 
@@ -218,6 +219,8 @@ public class PlayerController : MonoBehaviour
         }
 
         Physics.IgnoreLayerCollision(playerPhysicsLayer, cloudPhysicsLayer, rigidbody.velocity.y > 0);
+
+        debug_yvel = rigidbody.velocity.y;
     }
 
     private void ThrowHand()
