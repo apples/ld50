@@ -11,6 +11,8 @@ public class Floor : MonoBehaviour
 
     private IEnumerator coroutine;
 
+    private List<string> destroyOnFloorCollisionTags = new List<string>{"Crate"};
+
     private void OnCollisionEnter(Collision other) {
         coroutine = EndAfterSeconds(3);
         if(tmpText == null && (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Raft"))){
@@ -25,6 +27,10 @@ public class Floor : MonoBehaviour
             tmpText.gameObject.SetActive(true);
             sfxBoom.Play();
             StartCoroutine(coroutine);
+        }
+
+        if(destroyOnFloorCollisionTags.Contains((other.gameObject.tag))){
+            Destroy(other.gameObject);
         }
     }
 
