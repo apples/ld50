@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnSpeed: 50
+  returnTime: 2
   playerController: {fileID: 0}
 --- !u!54 &2649668209129015433
 Rigidbody:

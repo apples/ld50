@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
 
     public new Collider collider;
 
+    public GameObject tetherGroup;
+
     public float sensitivity = 1;
     public float speed = 1;
     public float acceleration;
@@ -99,8 +101,11 @@ public class PlayerController : MonoBehaviour
         Debug.Assert(spriteRenderer != null);
         Debug.Assert(handPrefab != null);
         Debug.Assert(collider != null);
+        Debug.Assert(tetherGroup != null);
 
         Cursor.lockState = CursorLockMode.None;
+
+        tetherGroup.SetActive(false);
     }
 
     void Update()
@@ -188,21 +193,43 @@ public class PlayerController : MonoBehaviour
         if (comboJumpTimer < 0) comboJumpTimer = 0;
 
         //crosshair color
-        var cameraRaycastDist = maxHandDist - cameraBoom.transform.localPosition.z;
-
-        //var target = camera.transform.position + camera.transform.forward * cameraRaycastDist;
         
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, cameraRaycastDist)){
-            if(!isCrosshairValid){
+        if (Physics.Raycast(cameraBoom.transform.position, camera.transform.forward, out RaycastHit hitInfo, maxHandDist))
+        {
+            if (!isCrosshairValid)
+            {
                 isCrosshairValid = true;
                 crosshair.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
             }
         }
-        else{
-            if(isCrosshairValid){
+        else
+        {
+            if (isCrosshairValid)
+            {
                 isCrosshairValid = false;
                 crosshair.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
             }
+        }
+
+        // update tether
+
+        if (thrownHand != null && thrownHand.IsAttached)
+        {
+            tetherGroup.SetActive(true);
+            var tetherRange = tetherGroup.transform.childCount + 1;
+            var currentTether = 0;
+            foreach (Transform tether in tetherGroup.transform)
+            {
+                ++currentTether;
+                tether.SetPositionAndRotation(
+                    Vector3.Lerp(transform.position, thrownHand.transform.position, (float)currentTether / (float)tetherRange),
+                    Quaternion.LookRotation(Camera.main.transform.forward, Camera.main.transform.up)
+                );
+            }
+        }
+        else
+        {
+            tetherGroup.SetActive(false);
         }
     }
 

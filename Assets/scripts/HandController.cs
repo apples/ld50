@@ -5,6 +5,7 @@ using UnityEngine;
 public class HandController : MonoBehaviour
 {
     public float returnSpeed;
+    public float returnTime;
 
     public PlayerController playerController;
 
@@ -58,7 +59,8 @@ public class HandController : MonoBehaviour
     {
         if (returning)
         {
-            var dir = (playerController.transform.position - transform.position).normalized;
+            var toPlayer = playerController.transform.position - transform.position;
+            var dir = toPlayer.normalized;
 
             if (IsPulling)
             {
@@ -69,7 +71,9 @@ public class HandController : MonoBehaviour
                 transform.rotation = Quaternion.LookRotation(dir, Vector3.up);
             }
 
-            rigidbody.velocity = dir * returnSpeed;
+            var speed = Mathf.Max(toPlayer.magnitude / returnTime, returnSpeed);
+
+            rigidbody.velocity = dir * speed;
         }
     }
 
