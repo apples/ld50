@@ -14,6 +14,8 @@ public class RaftController : MonoBehaviour
 
     public GameObject bigBalloon;
 
+    public AudioSource sfxFuel;
+
     public GameObject balloonPrefab;
     public GameObject poofPrefab;
 
@@ -111,6 +113,8 @@ public class RaftController : MonoBehaviour
         }
         scoreManager.DestroyAllCrates();
         ++scoreManager.crateGoal;
+
+        sfxFuel.Play();
     }
 
     private void ProcessAnchorPoints(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2)

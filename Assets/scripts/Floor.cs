@@ -7,6 +7,8 @@ using TMPro;
 public class Floor : MonoBehaviour
 {
     public TextMeshProUGUI tmpText;
+    public AudioSource sfxBoom;
+
     private IEnumerator coroutine;
 
     private void OnCollisionEnter(Collision other) {
@@ -16,10 +18,12 @@ public class Floor : MonoBehaviour
         }else if(other.gameObject.CompareTag("Player")){
             tmpText.text = "Game Over!\nSadie Hit the Ground...";
             tmpText.gameObject.SetActive(true);
+            sfxBoom.Play();
             StartCoroutine(coroutine);
         }else if(other.gameObject.CompareTag("Raft")){
             tmpText.text = "Game Over!\nThe Raft Hit the Ground...";
             tmpText.gameObject.SetActive(true);
+            sfxBoom.Play();
             StartCoroutine(coroutine);
         }
     }

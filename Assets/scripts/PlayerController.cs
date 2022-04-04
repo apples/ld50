@@ -16,6 +16,11 @@ public class PlayerController : MonoBehaviour
 
     public GameObject tetherGroup;
 
+    public AudioSource sfxBalloon;
+    public AudioSource sfxZoop;
+    public AudioSource sfxJump;
+    public AudioSource sfxGrab;
+
     public float sensitivity = 1;
     public float speed = 1;
     public float acceleration;
@@ -201,7 +206,12 @@ public class PlayerController : MonoBehaviour
 
         if (thrownHand != null && thrownHand.IsAttached)
         {
-            tetherGroup.SetActive(true);
+            if (!tetherGroup.activeSelf)
+            {
+                tetherGroup.SetActive(true);
+                sfxZoop.Play();
+            }
+
             var tetherRange = tetherGroup.transform.childCount + 1;
             var currentTether = 0;
             foreach (Transform tether in tetherGroup.transform)
@@ -304,6 +314,8 @@ public class PlayerController : MonoBehaviour
         thrownHand = hand.GetComponent<HandController>();
         Debug.Assert(thrownHand != null);
         thrownHand.playerController = this;
+
+        sfxGrab.Play();
     }
 
     private bool CursorRaycast(out RaycastHit hitInfo)
@@ -318,6 +330,11 @@ public class PlayerController : MonoBehaviour
         if (thrownHand.IsAttached && !thrownHand.IsPulling)
         {
             isDiving = false;
+        }
+
+        if (thrownHand.IsAttached && thrownHand.IsAttachedTo.transform.parent == thrownHand.transform)
+        {
+            thrownHand.IsAttachedTo.transform.SetParent(null);
         }
 
         Destroy(thrownHand.gameObject);
@@ -368,6 +385,7 @@ public class PlayerController : MonoBehaviour
                 balloon.AnchorTo(null);
                 anchorPoint.GiveBalloon(balloon.gameObject);
                 balloons.RemoveAt(balloons.Count - 1);
+                sfxBalloon.Play();
                 return true;
             }
         }
@@ -383,6 +401,8 @@ public class PlayerController : MonoBehaviour
         heldItem.transform.localPosition = new Vector3(0, 1.5f, 0);
         heldItem.detectCollisions = false;
         heldItem.isKinematic = true;
+
+        sfxGrab.Play();
     }
 
     private void ProcessLegs()
@@ -512,6 +532,8 @@ public class PlayerController : MonoBehaviour
                 }
 
                 rigidbody.velocity = vel;
+
+                sfxJump.Play();
             }
             else if (!isOnGround && !IsDivingOrGrappling)
             {
@@ -524,6 +546,8 @@ public class PlayerController : MonoBehaviour
                 rigidbody.velocity = vel;
                 isDiving = true;
                 isSpinning = false;
+
+                sfxJump.Play();
             }
         }
     }
@@ -568,6 +592,7 @@ public class PlayerController : MonoBehaviour
         {
             balloons.Add(balloon);
             balloon.AnchorTo(rigidbody);
+            sfxBalloon.Play();
         }
     }
 }

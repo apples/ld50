@@ -8,6 +8,8 @@ public class AnchorPoint : MonoBehaviour
 {
     public GameObject poofPrefab;
 
+    public AudioSource sfxPop;
+
     public float minPopTime;
     public float maxPopTime;
 
@@ -62,5 +64,7 @@ public class AnchorPoint : MonoBehaviour
 
         Instantiate(poofPrefab, balloon.transform.position, Quaternion.identity);
         Destroy(balloon.gameObject);
+
+        sfxPop.Play();
     }
 }

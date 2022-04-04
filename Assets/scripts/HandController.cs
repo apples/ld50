@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class HandController : MonoBehaviour
 {
+    public AudioSource sfxGrab;
+
     public float returnSpeed;
     public float returnTime;
 
@@ -114,5 +116,7 @@ public class HandController : MonoBehaviour
         IsAttachedTo = grapplePoint;
         rigidbody.velocity = Vector3.zero;
         rigidbody.detectCollisions = false;
+
+        sfxGrab.Play();
     }
 }
