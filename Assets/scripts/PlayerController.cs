@@ -81,7 +81,6 @@ public class PlayerController : MonoBehaviour
     private float comboJumpTimer;
     private int cloudPhysicsLayer = 7;
     private int playerPhysicsLayer = 9;
-    private float debug_yvel;
 
     private bool IsDivingOrGrappling => isDiving || thrownHand != null && thrownHand.IsAttached && !thrownHand.IsPulling;
     private bool isCrosshairValid = false;
@@ -184,7 +183,7 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat(paramFacingX, -animatorFacing.x);
         animator.SetFloat(paramFacingY, animatorFacing.z);
         animator.SetBool(paramIsWalking, isWalking);
-        animator.SetBool(paramIsSpinning, isSpinning && !IsDivingOrGrappling);
+        animator.SetBool(paramIsSpinning, isSpinning);
         animator.SetBool(paramIsHolding, heldItem != null);
         animator.SetBool(paramIsDiving, IsDivingOrGrappling);
 
@@ -258,6 +257,8 @@ public class PlayerController : MonoBehaviour
             {
                 rigidbody.AddForce(toHand.normalized * handGrappleForce);
             }
+
+            isSpinning = false;
         }
 
         if (rigidbody.velocity.magnitude > softSpeedLimit)
@@ -274,8 +275,6 @@ public class PlayerController : MonoBehaviour
         }
 
         Physics.IgnoreLayerCollision(playerPhysicsLayer, cloudPhysicsLayer, rigidbody.velocity.y > 0);
-
-        debug_yvel = rigidbody.velocity.y;
     }
 
     private void ThrowHand()
@@ -423,6 +422,7 @@ public class PlayerController : MonoBehaviour
         else
         {
             isOnGround = false;
+            isJumping = true;
             coyoteTime += Time.fixedDeltaTime;
             groundRigidbody = null;
         }
@@ -487,7 +487,7 @@ public class PlayerController : MonoBehaviour
 
         if (jumpInput)
         {
-            var canJump = CanJump();
+            var canJump = coyoteTime < .5 && coyoteCharges > 0;
 
             if (thrownHand != null && thrownHand.IsAttached && (thrownHand.transform.position - transform.position).magnitude < attachedHandMaxJumpDist)
             {
@@ -495,7 +495,7 @@ public class PlayerController : MonoBehaviour
                 DestroyHand();
             }
 
-            if (canJump && !isJumping)
+            if (canJump)
             {
                 coyoteCharges--;
                 var vel = rigidbody.velocity;
@@ -513,7 +513,7 @@ public class PlayerController : MonoBehaviour
 
                 rigidbody.velocity = vel;
             }
-            else if (isJumping && !IsDivingOrGrappling)
+            else if (!isOnGround && !IsDivingOrGrappling)
             {
                 var vel = rigidbody.velocity;
                 vel += transform.forward * diveSpeed;
@@ -523,11 +523,10 @@ public class PlayerController : MonoBehaviour
                 }
                 rigidbody.velocity = vel;
                 isDiving = true;
+                isSpinning = false;
             }
         }
     }
-
-    private bool CanJump() => coyoteTime < .5 && coyoteCharges > 0;//&& isOnGround && !isJumping
 
     private void ProcessMouseInput()
     {

@@ -151,10 +151,10 @@ MonoBehaviour:
   balloonPrefab: {fileID: 4793763489754372762, guid: 62882d6585703c848bba2cc99012303b, type: 3}
   poofPrefab: {fileID: 614180569998570486, guid: 4a0b12f54c45cb341b93e943990d07f4, type: 3}
   tiltSpringConstant: 500
-  tiltDamping: 200
+  tiltDamping: 400
   upwardSpeed: 1
   scoreManager: {fileID: 0}
-  refuelTime: 30
+  refuelTime: 60
   infiniteFuel: 0
 --- !u!114 &7375288036117800224
 MonoBehaviour:
@@ -243,6 +243,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: AnchorPointA2
       objectReference: {fileID: 0}
+    - target: {fileID: 1732547498428304723, guid: 8668a24b56fd60a44801a9277f9f468d, type: 3}
+      propertyPath: m_Center.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732547498428304723, guid: 8668a24b56fd60a44801a9277f9f468d, type: 3}
+      propertyPath: m_Center.z
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3714247736721857164, guid: 8668a24b56fd60a44801a9277f9f468d, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -315,6 +323,10 @@ PrefabInstance:
     - target: {fileID: 1538442473470007895, guid: 8668a24b56fd60a44801a9277f9f468d, type: 3}
       propertyPath: m_Name
       value: AnchorPointB2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732547498428304723, guid: 8668a24b56fd60a44801a9277f9f468d, type: 3}
+      propertyPath: m_Center.x
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3714247736721857164, guid: 8668a24b56fd60a44801a9277f9f468d, type: 3}
       propertyPath: m_RootOrder
@@ -498,6 +510,10 @@ PrefabInstance:
     - target: {fileID: 1538442473470007895, guid: 8668a24b56fd60a44801a9277f9f468d, type: 3}
       propertyPath: m_Name
       value: AnchorPointB1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1732547498428304723, guid: 8668a24b56fd60a44801a9277f9f468d, type: 3}
+      propertyPath: m_Center.z
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3714247736721857164, guid: 8668a24b56fd60a44801a9277f9f468d, type: 3}
       propertyPath: m_RootOrder

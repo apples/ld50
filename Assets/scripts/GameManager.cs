@@ -86,50 +86,48 @@ public class GameManager : MonoBehaviour
     //every "level" is a 100 units high chunk, input refers to midpoint
     void createClouds(int level, float density)
     {
-        for(int i=0; i < 1000 * density; i++){
-            Vector3 coord = new Vector3(Random.Range(-300.0f, 300.0f), Random.Range((100 * level) - 50, (100 * level) + 50), Random.Range(-300.0f, 300.0f));
-            Instantiate(cloudPrefab, coord, Quaternion.identity);
+        var numClouds = 0;
+        for(int i=0; i < 500 * density; i++)
+        {
+            var radius = (Random.value + Random.value) / 2f * 295f + 5f;
+            var angleRad = Random.Range(0f, Mathf.PI * 2f);
 
-            float spawning = Random.value;
-            if(spawning > .9f){
-                Instantiate(cratePrefab, coord + new Vector3(0, 1, 0), Quaternion.identity);
-            }
-            else if(spawning < .1f){
-                Instantiate(balloonPrefab, coord + new Vector3(0, 3, 0), Quaternion.identity);
-            }
+            var x = Mathf.Sin(angleRad) * radius;
+            var z = Mathf.Cos(angleRad) * radius;
 
-            while(Random.value > .3f){
-                float dir = Random.Range(-1.0f, 1.0f);
-                if(dir > 0){
-                    if(dir > .5f){
-                        coord += new Vector3(5, 0, 0);
-                    }
-                    else{
-                        coord += new Vector3(-5, 0, 0);
-                    }
-                }else{
-                    if(dir < -.5f){
-                        coord += new Vector3(0, 0, 5);
-                    }
-                    else{
-                        coord += new Vector3(0, 0, -5);
-                    }
-                }
+            Vector3 coord = new Vector3(x, Random.Range((100 * level) - 50, (100 * level) + 50), z);
+            SpawnCloud(coord);
 
-                dir = Random.Range(-1.0f, 1.0f);
-                if(dir > 0){
-                    if(dir > .5f){
-                        coord += new Vector3(0, 1, 0);
-                    }
-                    else{
-                        coord += new Vector3(0, -1, 0);
-                    }
-                }
+            while (Random.value < .75f)
+            {
+                var dir = Vector3.Scale(Random.onUnitSphere, new Vector3(2.5f, 1f, 2.5f));
 
-                if(!Physics.CheckSphere(coord, 1f)){
-                    Instantiate(cloudPrefab, coord, Quaternion.identity);
-                }
+                if (dir == Vector3.zero) continue;
+
+                dir += dir.normalized * 2.5f;
+
+                coord += dir;
+
+                SpawnCloud(coord);
             }
         }
+
+        void SpawnCloud(Vector3 coord)
+        {
+            ++numClouds;
+            Instantiate(cloudPrefab, coord, Quaternion.identity);
+
+            if (Random.value < .1f)
+            {
+                Instantiate(cratePrefab, coord + new Vector3(0, 1, 0), Quaternion.identity);
+            }
+
+            if (Random.value < .2f)
+            {
+                Instantiate(balloonPrefab, coord + new Vector3(0, 3, 0), Quaternion.identity);
+            }
+        }
+
+        Debug.Log(numClouds);
     }
 }

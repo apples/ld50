@@ -47,8 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdac26c2d17af714ca5ff43e254cc26e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poofPrefab: {fileID: 614180569998570486, guid: 4a0b12f54c45cb341b93e943990d07f4, type: 3}
+  minPopTime: 30
+  maxPopTime: 60
   offset: {x: 0, y: -0.5, z: 0}
   balloons: []
+  balloonTimeUntilPop: []
 --- !u!54 &2788417486717176542
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -76,8 +80,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.5, z: 0}
+  m_Size: {x: 5, y: 1, z: 5}
+  m_Center: {x: -2, y: 0.5, z: -2}
 --- !u!1001 &4704513168464243951
 PrefabInstance:
   m_ObjectHideFlags: 0

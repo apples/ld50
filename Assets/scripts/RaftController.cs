@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class RaftController : MonoBehaviour
 {
@@ -28,16 +29,15 @@ public class RaftController : MonoBehaviour
 
     private new Rigidbody rigidbody;
 
-    private float debug_desiredAngle;
-    private float debug_curAngle;
-    private Vector3 debug_torque;
-    private Vector3 debug_inertiaAxis;
-    private float debug_inertia;
-    private Vector3 debug_axis;
-
-    private float fuelTime = 30;
+    private float fuelTime;
 
     public float FuelTime => fuelTime;
+
+    public float NumBalloons =>
+        anchorPointA1.BalloonCount +
+        anchorPointA2.BalloonCount +
+        anchorPointB1.BalloonCount +
+        anchorPointB2.BalloonCount;
 
     void Awake()
     {
@@ -69,6 +69,8 @@ public class RaftController : MonoBehaviour
         {
             anchorPoint.GiveBalloon(Instantiate(balloonPrefab, anchorPoint.transform.position + Vector3.up, Quaternion.identity));
         }
+
+        fuelTime = refuelTime;
     }
 
     void Update()
@@ -89,10 +91,10 @@ public class RaftController : MonoBehaviour
 
         rigidbody.AddForce(accel, ForceMode.VelocityChange);
 
-        anchorPointA1.AdjustBalloonPosition(vel + accel);
-        anchorPointA2.AdjustBalloonPosition(vel + accel);
-        anchorPointB1.AdjustBalloonPosition(vel + accel);
-        anchorPointB2.AdjustBalloonPosition(vel + accel);
+        anchorPointA1.AdjustBalloonPositions(vel + accel);
+        anchorPointA2.AdjustBalloonPositions(vel + accel);
+        anchorPointB1.AdjustBalloonPositions(vel + accel);
+        anchorPointB2.AdjustBalloonPositions(vel + accel);
     }
 
     void LateUpdate()
@@ -129,7 +131,6 @@ public class RaftController : MonoBehaviour
             mn >= 10 ? Mathf.Min(a, 40f) :
             a <= 40f ? a :
             Mathf.Lerp(40f, a, Mathf.Pow((10f - mn) / 10f, 2));
-        debug_desiredAngle = desiredAngle;
 
         Debug.Assert(desiredAngle >= 0f && desiredAngle <= 90f);
 
@@ -138,25 +139,14 @@ public class RaftController : MonoBehaviour
         var toMn = (mnAnchorPoint.transform.position + mnAnchorPoint.offset - transform.position).normalized;
 
         var curAngle = Vector3.Angle(Vector3.up, toMn) - 90f;
-        debug_curAngle = curAngle;
 
         var axis = Vector3.Cross(toMn, Vector3.up).normalized;
-
-        debug_axis = axis;
 
         var angularVelocity = Vector3.Dot(rigidbody.angularVelocity, axis);
 
         var angleDeflection = Mathf.Deg2Rad * (curAngle - desiredAngle);
 
         var torque = axis * (angleDeflection * tiltSpringConstant - angularVelocity * tiltDamping);
-
-        debug_torque = torque;
-
-        var inertiaAxis = Quaternion.Inverse(rigidbody.inertiaTensorRotation) * axis;
-
-        debug_inertiaAxis = inertiaAxis;
-
-        debug_inertia = Vector3.Dot(Vector3.Scale(inertiaAxis, rigidbody.inertiaTensor), inertiaAxis);
 
         rigidbody.AddTorque(torque);
     }
