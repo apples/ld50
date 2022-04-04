@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public float sensitivity = 1;
     public float speed = 1;
     public float jumpSpeed;
+    public float spinJumpExtraSpeed;
+    public float comboJumpTimerMax;
     public float attachedHandMaxJumpDist;
 
     public float legRideHeight;
@@ -32,6 +34,11 @@ public class PlayerController : MonoBehaviour
     public float handLaunchSpeed;
     public float maxHandDist;
     public float handGrappleForce;
+    public float minHandGrappleDistance;
+
+    public float hardSpeedLimit;
+    public float softSpeedLimit;
+    public float softSpeedLimitDamping;
 
     public float inputAcceleration;
 
@@ -59,11 +66,13 @@ public class PlayerController : MonoBehaviour
     private int paramFacingX = Animator.StringToHash("FacingX");
     private int paramFacingY = Animator.StringToHash("FacingY");
     private int paramIsWalking = Animator.StringToHash("IsWalking");
+    private int paramIsSpinning = Animator.StringToHash("IsSpinning");
     private int paramIsHolding = Animator.StringToHash("IsHolding");
 
     private Vector3 facingDir = Vector3.forward;
     private bool isWalking;
-
+    private bool isSpinning;
+    private float comboJumpTimer;
     private int cloudPhysicsLayer = 7;
     private int playerPhysicsLayer = 9;
 
@@ -158,9 +167,14 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat(paramFacingX, -animatorFacing.x);
         animator.SetFloat(paramFacingY, animatorFacing.z);
         animator.SetBool(paramIsWalking, isWalking);
+        animator.SetBool(paramIsSpinning, isSpinning);
         animator.SetBool(paramIsHolding, heldItem != null);
 
-        spriteRenderer.flipX = -animatorFacing.x > 0 && -animatorFacing.x > animatorFacing.z;
+        spriteRenderer.flipX = -animatorFacing.x > 0 && -animatorFacing.x > animatorFacing.z && !isSpinning;
+
+        // combo jump timer
+        comboJumpTimer -= Time.deltaTime;
+        if (comboJumpTimer < 0) comboJumpTimer = 0;
     }
 
     void FixedUpdate()
@@ -175,8 +189,25 @@ public class PlayerController : MonoBehaviour
         // grapple to hand
         if (thrownHand != null && thrownHand.IsAttached && !thrownHand.IsAttachedTo.isPulled)
         {
-            var forceDir = thrownHand.transform.position - transform.position;
-            rigidbody.AddForce(forceDir * handGrappleForce);
+            var toHand = thrownHand.transform.position - transform.position;
+
+            if (toHand.magnitude >= minHandGrappleDistance)
+            {
+                rigidbody.AddForce(toHand.normalized * handGrappleForce);
+            }
+        }
+
+        if (rigidbody.velocity.magnitude > softSpeedLimit)
+        {
+            var m = rigidbody.velocity.magnitude;
+            var d = m - softSpeedLimit;
+            m = softSpeedLimit + d * softSpeedLimitDamping;
+            rigidbody.velocity = rigidbody.velocity.normalized * m;
+        }
+
+        if (rigidbody.velocity.magnitude > hardSpeedLimit)
+        {
+            rigidbody.velocity = rigidbody.velocity.normalized * hardSpeedLimit;
         }
 
         Physics.IgnoreLayerCollision(playerPhysicsLayer, cloudPhysicsLayer, rigidbody.velocity.y > 0);
@@ -300,9 +331,11 @@ public class PlayerController : MonoBehaviour
             }
 
             // reset isJumping if we're travelling downwards towards ground
-            if (springForce < 0)
+            if (springForce < 0 && isJumping)
             {
                 isJumping = false;
+                isSpinning = false;
+                comboJumpTimer = comboJumpTimerMax;
             }
 
             isOnGround = true;
@@ -371,7 +404,6 @@ public class PlayerController : MonoBehaviour
 
         // jump
 
-        //float j = Input.GetAxisRaw("Jump");
         if (jumpInput)
         {
             var canJump = CanJump();
@@ -389,8 +421,16 @@ public class PlayerController : MonoBehaviour
                 vel.y =
                     jumpSpeed +
                     (groundRigidbody != null ? groundRigidbody.velocity.y : 0);
-                rigidbody.velocity = vel;
                 isJumping = true;
+
+                if (comboJumpTimer > 0)
+                {
+                    comboJumpTimer = 0;
+                    isSpinning = true;
+                    vel.y += spinJumpExtraSpeed;
+                }
+
+                rigidbody.velocity = vel;
             }
         }
     }

@@ -330,6 +330,8 @@ MonoBehaviour:
   sensitivity: 500
   speed: 10
   jumpSpeed: 10
+  spinJumpExtraSpeed: 10
+  comboJumpTimerMax: 0.5
   attachedHandMaxJumpDist: 1.5
   legRideHeight: 1
   legRayDistance: 1.3
@@ -340,7 +342,11 @@ MonoBehaviour:
   handPrefab: {fileID: 298058154162252240, guid: 480b36405d85ca34681eb5445099035e, type: 3}
   handLaunchSpeed: 20
   maxHandDist: 20
-  handGrappleForce: 12
+  handGrappleForce: 75
+  minHandGrappleDistance: 1
+  hardSpeedLimit: 200
+  softSpeedLimit: 20
+  softSpeedLimitDamping: 0.9
   inputAcceleration: 100
   noInputAcceleration: 60
   airAccelerationFactor: 3
