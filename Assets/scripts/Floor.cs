@@ -9,6 +9,8 @@ public class Floor : MonoBehaviour
     public TextMeshProUGUI tmpText;
     private IEnumerator coroutine;
 
+    private List<string> destroyOnFloorCollisionTags = new List<string>{"Crate"};
+
     private void OnCollisionEnter(Collision other) {
         coroutine = EndAfterSeconds(3);
         if(tmpText == null && (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Raft"))){
@@ -21,6 +23,10 @@ public class Floor : MonoBehaviour
             tmpText.text = "Game Over!\nThe Raft Hit the Ground...";
             tmpText.gameObject.SetActive(true);
             StartCoroutine(coroutine);
+        }
+
+        if(destroyOnFloorCollisionTags.Contains((other.gameObject.tag))){
+            Destroy(other.gameObject);
         }
     }
 
