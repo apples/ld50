@@ -563,6 +563,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 754978078270022887, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 754978078270022887, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -212
+      objectReference: {fileID: 0}
     - target: {fileID: 2965597633952369872, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.000015259
@@ -571,6 +579,28 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -8
       objectReference: {fileID: 0}
+    - target: {fileID: 6191655778824521751, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: m_text
+      value: 'Fuel time: 0
+
+        Crates Needed: 0
+
+        Max Altitude: 0
+
+'
+      objectReference: {fileID: 0}
+    - target: {fileID: 6191655779226375340, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 414.5609
+      objectReference: {fileID: 0}
+    - target: {fileID: 6191655779226375340, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 148
+      objectReference: {fileID: 0}
+    - target: {fileID: 6191655779226375341, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: scoreManager
+      value: 
+      objectReference: {fileID: 1665376228}
     - target: {fileID: 6191655779226375341, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: raftController
       value: 
