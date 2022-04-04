@@ -81,6 +81,8 @@ public class PlayerController : MonoBehaviour
     private int playerPhysicsLayer = 9;
 
     private bool IsDivingOrGrappling => isDiving || thrownHand != null && thrownHand.IsAttached && !thrownHand.IsPulling;
+    private bool isCrosshairValid;
+    public GameObject crosshair;
 
     void Awake()
     {
@@ -135,7 +137,7 @@ public class PlayerController : MonoBehaviour
             if (jumpPressed) jumpInput = true;
         }
 
-        // pick up / throw
+        //grapple
         if (Input.GetMouseButtonDown(0))
         {
             ThrowHand();
@@ -147,6 +149,7 @@ public class PlayerController : MonoBehaviour
             TryTieBalloon();
         }
 
+        //grab/throw
         if (interactPressed)
         {
             if (heldItem == null)
@@ -182,6 +185,24 @@ public class PlayerController : MonoBehaviour
         // combo jump timer
         comboJumpTimer -= Time.deltaTime;
         if (comboJumpTimer < 0) comboJumpTimer = 0;
+
+        //crosshair color
+        var cameraRaycastDist = maxHandDist - cameraBoom.transform.localPosition.z;
+
+        //var target = camera.transform.position + camera.transform.forward * cameraRaycastDist;
+        
+        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, cameraRaycastDist)){
+            if(!isCrosshairValid){
+                isCrosshairValid = true;
+                crosshair.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+            }
+        }
+        else{
+            if(isCrosshairValid){
+                isCrosshairValid = false;
+                crosshair.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+            }
+        }
     }
 
     void FixedUpdate()
