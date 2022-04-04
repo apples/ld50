@@ -106,6 +106,8 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         tetherGroup.SetActive(false);
+
+        UpdateCrosshair(true);
     }
 
     void Update()
@@ -193,23 +195,8 @@ public class PlayerController : MonoBehaviour
         if (comboJumpTimer < 0) comboJumpTimer = 0;
 
         //crosshair color
-        
-        if (Physics.Raycast(cameraBoom.transform.position, camera.transform.forward, out RaycastHit hitInfo, maxHandDist))
-        {
-            if (!isCrosshairValid)
-            {
-                isCrosshairValid = true;
-                crosshair.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
-            }
-        }
-        else
-        {
-            if (isCrosshairValid)
-            {
-                isCrosshairValid = false;
-                crosshair.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
-            }
-        }
+
+        UpdateCrosshair();
 
         // update tether
 
@@ -230,6 +217,26 @@ public class PlayerController : MonoBehaviour
         else
         {
             tetherGroup.SetActive(false);
+        }
+    }
+
+    private void UpdateCrosshair(bool force = false)
+    {
+        if (CursorRaycast(out RaycastHit hitInfo))
+        {
+            if (!isCrosshairValid || force)
+            {
+                isCrosshairValid = true;
+                crosshair.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+            }
+        }
+        else
+        {
+            if (isCrosshairValid || force)
+            {
+                isCrosshairValid = false;
+                crosshair.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+            }
         }
     }
 
@@ -283,13 +290,13 @@ public class PlayerController : MonoBehaviour
 
         var target = camera.transform.position + camera.transform.forward * cameraRaycastDist;
         
-        if (Physics.Raycast(camera.transform.position + camera.transform.forward * -camera.transform.localPosition.z, camera.transform.forward, out RaycastHit hitInfo, maxHandDist))
+        if (CursorRaycast(out var hitInfo))
         {
             target = hitInfo.point;
         }
 
         var hand = Instantiate(handPrefab);
-        hand.transform.position = transform.position + transform.forward * 1f;
+        hand.transform.position = cameraBoom.transform.position;
         hand.transform.rotation = Quaternion.LookRotation((target - hand.transform.position).normalized, Vector3.up);
 
         var handBody = hand.GetComponent<Rigidbody>();
@@ -298,6 +305,11 @@ public class PlayerController : MonoBehaviour
         thrownHand = hand.GetComponent<HandController>();
         Debug.Assert(thrownHand != null);
         thrownHand.playerController = this;
+    }
+
+    private bool CursorRaycast(out RaycastHit hitInfo)
+    {
+        return Physics.Raycast(cameraBoom.transform.position, camera.transform.forward, out hitInfo, maxHandDist, ~Physics.IgnoreRaycastLayer);
     }
 
     public void DestroyHand()
