@@ -16,11 +16,16 @@ public class ScoreManager : MonoBehaviour
     }
 
     public int crateGoal = 1;
+    public IntScriptableObject raftMaxHeight;
 
     private List<GameObject> crates = new List<GameObject>();
 
     public int NumCrates => crates.Count;
     public IReadOnlyList<GameObject> Crates => crates;
+
+    private void Update() {
+        UpdateMaxRaftHeight();
+    }
 
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.CompareTag("Crate")){
@@ -53,5 +58,16 @@ public class ScoreManager : MonoBehaviour
             Destroy(crate);
         }
         crates.Clear();
+    }
+
+    private void UpdateMaxRaftHeight(){
+        if(raftMaxHeight == null){
+            return;
+        }
+        
+        int raftHeight = (int) Math.Round(gameObject.transform.position.y);
+        if(raftHeight > raftMaxHeight.value){
+            raftMaxHeight.value = raftHeight;
+        }
     }
 }

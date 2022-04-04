@@ -241,8 +241,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Bring crates back to your raft for points! \nBring balloons back to stay
-    afloat!"
+  m_text: 'Max the raft''s height for score!
+
+    Bring crates back to your raft
+    for fuel!
+
+    Bring balloons back for balance!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -767,7 +771,7 @@ RectTransform:
   m_Children:
   - {fileID: 1259359992558668386}
   m_Father: {fileID: 6350757079062385333}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1462,8 +1466,8 @@ RectTransform:
   m_Children:
   - {fileID: 6408668898508848866}
   - {fileID: 3185950050020953175}
-  - {fileID: 2479292505710191320}
   - {fileID: 731492349010923786}
+  - {fileID: 2479292505710191320}
   - {fileID: 2729790535065763900}
   m_Father: {fileID: 6350757077584253637}
   m_RootOrder: 0
@@ -1488,7 +1492,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6350757079062385334}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
@@ -1681,7 +1685,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -7}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6350757079268250045
@@ -1813,7 +1817,7 @@ RectTransform:
   m_Children:
   - {fileID: 5048636046174589323}
   m_Father: {fileID: 6350757079062385333}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
