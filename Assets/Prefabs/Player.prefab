@@ -329,6 +329,7 @@ MonoBehaviour:
   collider: {fileID: 8656908677814280122}
   sensitivity: 500
   speed: 10
+  acceleration: 100
   jumpSpeed: 10
   spinJumpExtraSpeed: 10
   comboJumpTimerMax: 0.5
