@@ -81,7 +81,7 @@ public class PlayerController : MonoBehaviour
     private int playerPhysicsLayer = 9;
 
     private bool IsDivingOrGrappling => isDiving || thrownHand != null && thrownHand.IsAttached && !thrownHand.IsPulling;
-    private bool isCrosshairValid;
+    private bool isCrosshairValid = false;
     public GameObject crosshair;
 
     void Awake()
