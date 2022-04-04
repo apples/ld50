@@ -490,7 +490,10 @@ public class PlayerController : MonoBehaviour
     {
         if (isAttachedTo.gameObject.CompareTag("Crate"))
         {
-            GrabCrate(isAttachedTo.GetComponent<Rigidbody>());
+            if (heldItem == null)
+            {
+                GrabCrate(isAttachedTo.GetComponent<Rigidbody>());
+            }
         }
         else if (isAttachedTo.GetComponent<Balloon>() is Balloon balloon)
         {
