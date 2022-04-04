@@ -232,7 +232,7 @@ public class PlayerController : MonoBehaviour
 
         var target = camera.transform.position + camera.transform.forward * cameraRaycastDist;
         
-        if (Physics.Raycast(camera.transform.position, camera.transform.forward, out RaycastHit hitInfo, cameraRaycastDist))
+        if (Physics.Raycast(camera.transform.position + camera.transform.forward * -camera.transform.localPosition.z, camera.transform.forward, out RaycastHit hitInfo, maxHandDist))
         {
             target = hitInfo.point;
         }
@@ -382,7 +382,14 @@ public class PlayerController : MonoBehaviour
 
         if (!isOnGround)
         {
-            accelVector /= airAccelerationFactor;
+            if (movementInput == Vector2.zero && IsDivingOrGrappling)
+            {
+                accelVector = Vector2.zero;
+            }
+            else
+            {
+                accelVector /= airAccelerationFactor;
+            }
         }
 
         velocity = velocity + accelVector;
@@ -425,7 +432,7 @@ public class PlayerController : MonoBehaviour
                 DestroyHand();
             }
 
-            if (canJump)
+            if (canJump && !isJumping)
             {
                 coyoteCharges--;
                 var vel = rigidbody.velocity;
