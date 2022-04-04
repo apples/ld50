@@ -15,7 +15,7 @@ MonoBehaviour:
   _animationNamesThatDoNotLoop:
   - death
   - poof
-  _automaticImporting: 0
+  _automaticImporting: 1
   _spritePixelsPerUnit: 32
   _pivotAlignmentType: 0
   _targetObjectType: 0
