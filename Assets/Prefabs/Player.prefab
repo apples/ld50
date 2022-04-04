@@ -333,6 +333,8 @@ MonoBehaviour:
   spinJumpExtraSpeed: 10
   comboJumpTimerMax: 0.5
   attachedHandMaxJumpDist: 1.5
+  diveSpeed: 10
+  diveMinVerticalVelocity: 1
   legRideHeight: 1
   legRayDistance: 1.3
   legSpringConstant: 100

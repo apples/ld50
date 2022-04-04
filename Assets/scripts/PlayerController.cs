@@ -16,10 +16,14 @@ public class PlayerController : MonoBehaviour
 
     public float sensitivity = 1;
     public float speed = 1;
+    public float acceleration;
     public float jumpSpeed;
     public float spinJumpExtraSpeed;
     public float comboJumpTimerMax;
     public float attachedHandMaxJumpDist;
+
+    public float diveSpeed;
+    public float diveMinVerticalVelocity;
 
     public float legRideHeight;
     public float legRayDistance;
@@ -41,9 +45,7 @@ public class PlayerController : MonoBehaviour
     public float softSpeedLimitDamping;
 
     public float inputAcceleration;
-
     public float noInputAcceleration;
-
     public float airAccelerationFactor;
 
     private new Rigidbody rigidbody;
@@ -56,6 +58,7 @@ public class PlayerController : MonoBehaviour
     private int coyoteCharges = 1;
     private Rigidbody groundRigidbody;
     private bool isJumping;
+    private bool isDiving;
 
     private Rigidbody heldItem;
 
@@ -67,6 +70,7 @@ public class PlayerController : MonoBehaviour
     private int paramFacingY = Animator.StringToHash("FacingY");
     private int paramIsWalking = Animator.StringToHash("IsWalking");
     private int paramIsSpinning = Animator.StringToHash("IsSpinning");
+    private int paramIsDiving = Animator.StringToHash("IsDiving");
     private int paramIsHolding = Animator.StringToHash("IsHolding");
 
     private Vector3 facingDir = Vector3.forward;
@@ -75,6 +79,8 @@ public class PlayerController : MonoBehaviour
     private float comboJumpTimer;
     private int cloudPhysicsLayer = 7;
     private int playerPhysicsLayer = 9;
+
+    private bool IsDivingOrGrappling => isDiving || thrownHand != null && thrownHand.IsAttached && !thrownHand.IsPulling;
 
     void Awake()
     {
@@ -167,8 +173,9 @@ public class PlayerController : MonoBehaviour
         animator.SetFloat(paramFacingX, -animatorFacing.x);
         animator.SetFloat(paramFacingY, animatorFacing.z);
         animator.SetBool(paramIsWalking, isWalking);
-        animator.SetBool(paramIsSpinning, isSpinning);
+        animator.SetBool(paramIsSpinning, isSpinning && !IsDivingOrGrappling);
         animator.SetBool(paramIsHolding, heldItem != null);
+        animator.SetBool(paramIsDiving, IsDivingOrGrappling);
 
         spriteRenderer.flipX = -animatorFacing.x > 0 && -animatorFacing.x > animatorFacing.z && !isSpinning;
 
@@ -245,6 +252,12 @@ public class PlayerController : MonoBehaviour
     public void DestroyHand()
     {
         Debug.Assert(thrownHand != null);
+
+        if (thrownHand.IsAttached && !thrownHand.IsPulling)
+        {
+            isDiving = false;
+        }
+
         Destroy(thrownHand.gameObject);
         thrownHand = null;
     }
@@ -335,6 +348,7 @@ public class PlayerController : MonoBehaviour
             {
                 isJumping = false;
                 isSpinning = false;
+                isDiving = false;
                 comboJumpTimer = comboJumpTimerMax;
             }
 
@@ -358,30 +372,20 @@ public class PlayerController : MonoBehaviour
         var localVelocity = transform.InverseTransformDirection(rigidbody.velocity);
         var velocity = new Vector2(localVelocity.x, localVelocity.z);
 
-        Vector2 direction;
-        float acceleration = 0;
-        if (movementInput != Vector2.zero)
+        var speedClampedVelocity = velocity.normalized * Mathf.Min(velocity.magnitude, speed);
+
+        var desiredVelocity = movementInput.normalized * speed;
+
+        var toDesired = desiredVelocity - speedClampedVelocity;
+
+        var accelVector = Mathf.Min(toDesired.magnitude, acceleration * Time.fixedDeltaTime) * toDesired.normalized;
+
+        if (!isOnGround)
         {
-            direction = movementInput.normalized;
-            acceleration = inputAcceleration;
-        }
-        else
-        {
-            direction = velocity.normalized * -1;
-            acceleration = velocity.magnitude / speed * noInputAcceleration;
+            accelVector /= airAccelerationFactor;
         }
 
-        if (isOnGround == false)
-        {
-            acceleration /= airAccelerationFactor;
-        }
-
-        velocity = velocity + direction * acceleration * Time.fixedDeltaTime;
-
-        if (velocity.magnitude > speed)
-        {
-            velocity = velocity.normalized * speed;
-        }
+        velocity = velocity + accelVector;
 
         rigidbody.velocity = transform.TransformDirection(
             new Vector3(
@@ -390,11 +394,13 @@ public class PlayerController : MonoBehaviour
                 velocity.y
             )
         );
-        var inputDir = new Vector3(movementInput.x, 0, movementInput.y).normalized;
 
-        if (inputDir != Vector3.zero)
+        // set animation parameters
+
+        if (movementInput != Vector2.zero)
         {
-            facingDir = transform.rotation * inputDir;
+            var worldMovementInput = transform.rotation * new Vector3(movementInput.x, 0, movementInput.y).normalized;
+            facingDir = worldMovementInput;
             isWalking = true;
         }
         else
@@ -402,7 +408,12 @@ public class PlayerController : MonoBehaviour
             isWalking = false;
         }
 
-        // jump
+        if (IsDivingOrGrappling)
+        {
+            facingDir = Vector3.Scale(rigidbody.velocity, new Vector3(1, 0, 1)).normalized;
+        }
+
+        // jump and dive
 
         if (jumpInput)
         {
@@ -431,6 +442,17 @@ public class PlayerController : MonoBehaviour
                 }
 
                 rigidbody.velocity = vel;
+            }
+            else if (isJumping && !IsDivingOrGrappling)
+            {
+                var vel = rigidbody.velocity;
+                vel += transform.forward * diveSpeed;
+                if (vel.y < diveMinVerticalVelocity)
+                {
+                    vel.y = diveMinVerticalVelocity;
+                }
+                rigidbody.velocity = vel;
+                isDiving = true;
             }
         }
     }

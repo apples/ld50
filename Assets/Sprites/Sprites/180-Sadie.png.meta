@@ -111,7 +111,7 @@ TextureImporter:
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
-    maxTextureSize: 320
+    maxTextureSize: 384
     resizeAlgorithm: 0
     textureFormat: -1
     textureCompression: 0
@@ -165,7 +165,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -186,7 +186,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 256
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -207,7 +207,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 256
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -228,7 +228,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 256
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -249,7 +249,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 256
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -269,8 +269,8 @@ TextureImporter:
       name: 180-Sadie 5
       rect:
         serializedVersion: 2
-        x: 0
-        y: 192
+        x: 320
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -290,8 +290,8 @@ TextureImporter:
       name: 180-Sadie 6
       rect:
         serializedVersion: 2
-        x: 64
-        y: 192
+        x: 0
+        y: 256
         width: 64
         height: 64
       alignment: 7
@@ -312,7 +312,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 256
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -332,8 +332,8 @@ TextureImporter:
       name: 180-Sadie 8
       rect:
         serializedVersion: 2
-        x: 128
-        y: 192
+        x: 64
+        y: 256
         width: 64
         height: 64
       alignment: 7
@@ -354,7 +354,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 128
-        y: 256
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -374,8 +374,8 @@ TextureImporter:
       name: 180-Sadie 10
       rect:
         serializedVersion: 2
-        x: 192
-        y: 192
+        x: 128
+        y: 256
         width: 64
         height: 64
       alignment: 7
@@ -395,8 +395,8 @@ TextureImporter:
       name: 180-Sadie 11
       rect:
         serializedVersion: 2
-        x: 256
-        y: 192
+        x: 192
+        y: 256
         width: 64
         height: 64
       alignment: 7
@@ -416,8 +416,8 @@ TextureImporter:
       name: 180-Sadie 12
       rect:
         serializedVersion: 2
-        x: 0
-        y: 128
+        x: 256
+        y: 256
         width: 64
         height: 64
       alignment: 7
@@ -437,8 +437,8 @@ TextureImporter:
       name: 180-Sadie 13
       rect:
         serializedVersion: 2
-        x: 256
-        y: 192
+        x: 192
+        y: 256
         width: 64
         height: 64
       alignment: 7
@@ -459,7 +459,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 256
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -479,7 +479,7 @@ TextureImporter:
       name: 180-Sadie 15
       rect:
         serializedVersion: 2
-        x: 128
+        x: 320
         y: 256
         width: 64
         height: 64
@@ -500,8 +500,8 @@ TextureImporter:
       name: 180-Sadie 16
       rect:
         serializedVersion: 2
-        x: 64
-        y: 128
+        x: 0
+        y: 192
         width: 64
         height: 64
       alignment: 7
@@ -522,7 +522,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 256
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -542,8 +542,8 @@ TextureImporter:
       name: 180-Sadie 18
       rect:
         serializedVersion: 2
-        x: 128
-        y: 128
+        x: 320
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -564,7 +564,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 128
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -584,8 +584,8 @@ TextureImporter:
       name: 180-Sadie 20
       rect:
         serializedVersion: 2
-        x: 256
-        y: 128
+        x: 64
+        y: 192
         width: 64
         height: 64
       alignment: 7
@@ -605,8 +605,8 @@ TextureImporter:
       name: 180-Sadie 21
       rect:
         serializedVersion: 2
-        x: 192
-        y: 128
+        x: 64
+        y: 320
         width: 64
         height: 64
       alignment: 7
@@ -626,8 +626,8 @@ TextureImporter:
       name: 180-Sadie 22
       rect:
         serializedVersion: 2
-        x: 0
-        y: 64
+        x: 128
+        y: 192
         width: 64
         height: 64
       alignment: 7
@@ -647,8 +647,8 @@ TextureImporter:
       name: 180-Sadie 23
       rect:
         serializedVersion: 2
-        x: 64
-        y: 64
+        x: 192
+        y: 192
         width: 64
         height: 64
       alignment: 7
@@ -668,8 +668,8 @@ TextureImporter:
       name: 180-Sadie 24
       rect:
         serializedVersion: 2
-        x: 128
-        y: 64
+        x: 256
+        y: 192
         width: 64
         height: 64
       alignment: 7
@@ -690,7 +690,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 192
-        y: 64
+        y: 192
         width: 64
         height: 64
       alignment: 7
@@ -710,8 +710,8 @@ TextureImporter:
       name: 180-Sadie 26
       rect:
         serializedVersion: 2
-        x: 256
-        y: 64
+        x: 320
+        y: 192
         width: 64
         height: 64
       alignment: 7
@@ -732,7 +732,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 128
         width: 64
         height: 64
       alignment: 7
@@ -753,7 +753,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 0
+        y: 128
         width: 64
         height: 64
       alignment: 7
@@ -773,8 +773,8 @@ TextureImporter:
       name: 180-Sadie 29
       rect:
         serializedVersion: 2
-        x: 64
-        y: 256
+        x: 128
+        y: 128
         width: 64
         height: 64
       alignment: 7
@@ -792,6 +792,300 @@ TextureImporter:
       weights: []
     - serializedVersion: 2
       name: 180-Sadie 30
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 128
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 31
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 128
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 32
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 128
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 33
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 320
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 34
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 35
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 36
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 37
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 38
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 39
+      rect:
+        serializedVersion: 2
+        x: 320
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 41
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 42
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 43
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 64
+        height: 64
+      alignment: 7
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00000000000000000800000000000000
+      internalID: 0
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: 180-Sadie 44
       rect:
         serializedVersion: 2
         x: 128
@@ -812,31 +1106,10 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: 180-Sadie 31
+      name: 180-Sadie 45
       rect:
         serializedVersion: 2
-        x: 192
-        y: 0
-        width: 64
-        height: 64
-      alignment: 7
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 00000000000000000800000000000000
-      internalID: 0
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: 180-Sadie 32
-      rect:
-        serializedVersion: 2
-        x: 256
+        x: 0
         y: 0
         width: 64
         height: 64
@@ -865,38 +1138,51 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       180-Sadie 31: 0
-      180-Sadie 24: 0
+      180-Sadie 38: 0
       180-Sadie 26: 0
-      180-Sadie 30: 0
-      180-Sadie 28: 0
       180-Sadie 11: -1215377867834591870
       180-Sadie 22: 0
+      180-Sadie 37: 0
+      180-Sadie 9: -7698630013294808873
+      180-Sadie 44: 0
+      180-Sadie 21: 0
+      180-Sadie 6: -1249227110178158111
+      180-Sadie 3: 6646325983397657147
+      180-Sadie 18: 0
+      180-Sadie 35: 0
+      180-Sadie 19: 0
+      180-Sadie 25: 0
+      180-Sadie 43: 0
+      180-Sadie 40: 0
+      180-Sadie 33: 0
+      180-Sadie 16: 0
+      180-Sadie 0: -2964446779905723932
+      180-Sadie 7: 2745623472303187393
+      180-Sadie 42: 0
+      180-Sadie 24: 0
+      180-Sadie 30: 0
+      180-Sadie 28: 0
+      180-Sadie 39: 0
       180-Sadie 12: -3532088166434452874
       180-Sadie 17: 0
       180-Sadie 4: -410728343285325958
       180-Sadie 8: -5976579890798702500
       180-Sadie 14: -5204341732548801374
-      180-Sadie 9: -7698630013294808873
-      180-Sadie 21: 0
-      180-Sadie 6: -1249227110178158111
+      180-Sadie 36: 0
       180-Sadie 29: 0
-      180-Sadie 3: 6646325983397657147
-      180-Sadie 18: 0
       180-Sadie 2: 5595749044243336064
       180-Sadie 15: 0
-      180-Sadie 19: 0
+      180-Sadie 34: 0
       180-Sadie 10: 3470712930417842110
-      180-Sadie 25: 0
       180-Sadie 13: -8010161303916548813
       180-Sadie 23: 0
+      180-Sadie 45: 0
       180-Sadie 5: -689360098982298646
-      180-Sadie 16: 0
       180-Sadie 32: 0
+      180-Sadie 41: 0
       180-Sadie 20: 0
-      180-Sadie 0: -2964446779905723932
       180-Sadie 27: 0
       180-Sadie 1: -5136146584610030419
-      180-Sadie 7: 2745623472303187393
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
