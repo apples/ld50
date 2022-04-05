@@ -126,7 +126,7 @@ public class GameManager : MonoBehaviour
                 Instantiate(cratePrefab, coord + new Vector3(0, 1, 0), Quaternion.identity);
             }
 
-            if (Random.value < .2f)
+            if (Random.value < .4f)
             {
                 Instantiate(balloonPrefab, coord + new Vector3(0, 3, 0), Quaternion.identity);
             }
