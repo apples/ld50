@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
         createClouds(0, 3.0f);
         createClouds(1, 2.5f);
         createClouds(2, 2.0f);
-        createClouds(3, 1.5f);
+        //createClouds(3, 1.5f);
         //createClouds(4, 1.0f);
     }
 
@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
             previousIndex = 0;
 
             for(int i = 0; i < 10; i++){
-                Vector3 coord = new Vector3(Random.Range(-300.0f, 300.0f), Random.Range((highestY + 300) - 50, (highestY + 300) + 50), Random.Range(-300.0f, 300.0f));
+                Vector3 coord = new Vector3(Random.Range(-300.0f, 300.0f), Random.Range((highestY + 200) - 50, (highestY + 200) + 50), Random.Range(-300.0f, 300.0f));
                 availableObjects[getRandomInList(availableObjects.Length)].transform.parent.parent.SetPositionAndRotation(coord, Quaternion.identity);
 
 
