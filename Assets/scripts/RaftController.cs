@@ -15,6 +15,7 @@ public class RaftController : MonoBehaviour
     public GameObject bigBalloon;
 
     public AudioSource sfxFuel;
+    public AudioSource sfxBoom;
 
     public GameObject balloonPrefab;
     public GameObject poofPrefab;
@@ -29,9 +30,12 @@ public class RaftController : MonoBehaviour
     public float refuelTime;
     public bool infiniteFuel = false;
 
+    public float failureTorque;
+
     private new Rigidbody rigidbody;
 
     private float fuelTime;
+    private bool isDead;
 
     public float FuelTime => fuelTime;
 
@@ -77,16 +81,39 @@ public class RaftController : MonoBehaviour
 
     void Update()
     {
-        if(!infiniteFuel){
-            fuelTime -= Time.deltaTime;
-            if (fuelTime < 0) fuelTime = 0;
+        if (!isDead)
+        {
+            if (!infiniteFuel)
+            {
+                fuelTime -= Time.deltaTime;
+                if (fuelTime < 0) fuelTime = 0;
+            }
+
+            if (Vector3.Angle(Vector3.up, transform.up) > 50f)
+            {
+                while (anchorPointA1.BalloonCount > 0) anchorPointA1.PopBalloonAt(0);
+                while (anchorPointA2.BalloonCount > 0) anchorPointA2.PopBalloonAt(0);
+                while (anchorPointB1.BalloonCount > 0) anchorPointB1.PopBalloonAt(0);
+                while (anchorPointB2.BalloonCount > 0) anchorPointB2.PopBalloonAt(0);
+
+                fuelTime = -999;
+
+                rigidbody.AddTorque(Random.insideUnitSphere * failureTorque, ForceMode.Impulse);
+
+                sfxBoom.Play();
+
+                isDead = true;
+            }
         }
     }
 
     void FixedUpdate()
     {
-        ProcessAnchorPoints(anchorPointA1, anchorPointA2);
-        ProcessAnchorPoints(anchorPointB1, anchorPointB2);
+        if (!isDead)
+        {
+            ProcessAnchorPoints(anchorPointA1, anchorPointA2);
+            ProcessAnchorPoints(anchorPointB1, anchorPointB2);
+        }
 
         var vel = rigidbody.velocity;
         var accel = new Vector3(0, fuelTime > 0 ? upwardSpeed - vel.y : -upwardSpeed * Time.fixedDeltaTime, 0);
@@ -106,15 +133,18 @@ public class RaftController : MonoBehaviour
 
     private void scoreManager_onCrateGoalReached(object sender, ScoreManager.OnCrateGoalReachedEventArgs e)
     {
-        fuelTime += refuelTime;
-        foreach (var crate in scoreManager.Crates)
+        if (!isDead)
         {
-            Instantiate(poofPrefab, crate.transform.position, Quaternion.identity);
-        }
-        scoreManager.DestroyAllCrates();
-        ++scoreManager.crateGoal;
+            fuelTime += refuelTime;
+            foreach (var crate in scoreManager.Crates)
+            {
+                Instantiate(poofPrefab, crate.transform.position, Quaternion.identity);
+            }
+            scoreManager.DestroyAllCrates();
+            ++scoreManager.crateGoal;
 
-        sfxFuel.Play();
+            sfxFuel.Play();
+        }
     }
 
     private void ProcessAnchorPoints(AnchorPoint anchorPoint1, AnchorPoint anchorPoint2)
