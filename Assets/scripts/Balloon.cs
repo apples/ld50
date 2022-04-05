@@ -23,6 +23,7 @@ public class Balloon : MonoBehaviour
     private new ConstantForce constantForce;
 
     public Rigidbody Rigidbody => rigidbody;
+    public bool IsAnchored => isAnchored;
 
     void Awake()
     {
