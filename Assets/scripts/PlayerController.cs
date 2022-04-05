@@ -411,8 +411,9 @@ public class PlayerController : MonoBehaviour
     {
         var rayDir = Vector3.down;
 
-        if (Physics.Raycast(transform.position + new Vector3(0, 0.1f, 0), rayDir, out RaycastHit hitInfo, legRayDistance + 0.1f, ~Physics.IgnoreRaycastLayer))
+        if (Physics.Raycast(transform.position + new Vector3(0, 0.1f, 0), rayDir, out RaycastHit hitInfo, legRayDistance + 0.1f, ~Physics.IgnoreRaycastLayer & ~(1 << 10)))
         {
+            Debug.Log(hitInfo.collider.gameObject);
             var compressionDistance = (hitInfo.distance - 0.1f) - legRideHeight;
 
             var selfVel = Vector3.Dot(rayDir, rigidbody.velocity);
