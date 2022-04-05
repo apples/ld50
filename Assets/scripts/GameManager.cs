@@ -9,6 +9,9 @@ public class GameManager : MonoBehaviour
     public GameObject balloonPrefab;
     public GameObject player;
     private int highestY = 100;
+    private List<int> takenSlots = new List<int>();
+    //private int iterateDistance;
+    private int previousIndex = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -27,15 +30,17 @@ public class GameManager : MonoBehaviour
             highestY++;
             
             var availableObjects = Physics.OverlapBox(
-                new Vector3(0, (-50 + player.transform.position.y) / 2, 0),
-                new Vector3(300, (50 + player.transform.position.y)/2, 300),
+                new Vector3(0, (-50 + (player.transform.position.y - 25)) / 2, 0),
+                new Vector3(200, (50 + (player.transform.position.y - 25))/2, 200),
                 Quaternion.identity,
                 1<<7);
-            int nextCloudSlot = 0;
+            takenSlots = new List<int>();
+            //iterateDistance = (availableObjects.Length / 5);
+            previousIndex = 0;
+
             for(int i = 0; i < 10; i++){
                 Vector3 coord = new Vector3(Random.Range(-300.0f, 300.0f), Random.Range((highestY + 300) - 50, (highestY + 300) + 50), Random.Range(-300.0f, 300.0f));
-                availableObjects[nextCloudSlot].transform.parent.parent.SetPositionAndRotation(coord, Quaternion.identity);
-                nextCloudSlot++;
+                availableObjects[getRandomInList(availableObjects.Length)].transform.parent.parent.SetPositionAndRotation(coord, Quaternion.identity);
 
 
                 float spawning = Random.value;
@@ -75,8 +80,7 @@ public class GameManager : MonoBehaviour
                     }
 
                     if(!Physics.CheckSphere(coord, 1f)){
-                        availableObjects[nextCloudSlot].transform.parent.parent.SetPositionAndRotation(coord, Quaternion.identity);
-                        nextCloudSlot++;
+                        availableObjects[getRandomInList(availableObjects.Length)].transform.parent.parent.SetPositionAndRotation(coord, Quaternion.identity);
                     }
                 }
             }
@@ -129,5 +133,22 @@ public class GameManager : MonoBehaviour
         }
 
         Debug.Log(numClouds);
+    }
+
+    private int getRandomInList(int length){
+        // int num = previousIndex + iterateDistance;
+        // if(takenSlots.Exists(x => x == num)){
+        //     if(iterateDistance < 1){
+        //         return Random.Range(0, 10);
+        //     }
+        //     iterateDistance--;
+        //     num = getRandomInList();
+        // }
+        int num = Random.Range(0, length);
+        while(takenSlots.Exists(x => x == num)){
+            num = Random.Range(0, length);
+        }
+        takenSlots.Add(num);
+        return num;
     }
 }
