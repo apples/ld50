@@ -851,6 +851,22 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 118464596}
+    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: layerHeight
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: cloudsPerLayer
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: layersAbovePlayer
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: layersBelowPlayer
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 1664121640427167255, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
       propertyPath: m_Name
       value: GameManager

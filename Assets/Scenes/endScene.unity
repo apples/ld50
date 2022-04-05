@@ -812,6 +812,14 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1450197173}
+    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: layersAbovePlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: layersBelowPlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1664121640427167255, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
       propertyPath: m_Name
       value: GameManager
