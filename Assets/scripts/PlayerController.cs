@@ -402,6 +402,8 @@ public class PlayerController : MonoBehaviour
         heldItem.detectCollisions = false;
         heldItem.isKinematic = true;
 
+        crateRigidbody.GetComponent<LayerObject>().PreventDespawn = true;
+
         sfxGrab.Play();
     }
 
@@ -593,6 +595,7 @@ public class PlayerController : MonoBehaviour
             balloons.Add(balloon);
             balloon.AnchorTo(rigidbody);
             sfxBalloon.Play();
+            balloon.GetComponent<LayerObject>().PreventDespawn = true;
         }
     }
 }

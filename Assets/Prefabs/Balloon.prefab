@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1073379349586898168}
   - component: {fileID: 4793763489754372765}
   - component: {fileID: 8176483440702450914}
+  - component: {fileID: 4963275287581726927}
   m_Layer: 10
   m_Name: Balloon
   m_TagString: Untagged
@@ -109,6 +110,18 @@ ConstantForce:
   m_RelativeForce: {x: 0, y: 0, z: 0}
   m_Torque: {x: 0, y: 0, z: 0}
   m_RelativeTorque: {x: 0, y: 0, z: 0}
+--- !u!114 &4963275287581726927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793763489754372762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788d5fdedb70574449ea531ab764b09f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1897729776393668045
 PrefabInstance:
   m_ObjectHideFlags: 0
