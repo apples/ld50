@@ -91,6 +91,8 @@ public class PlayerController : MonoBehaviour
     private bool isCrosshairValid = false;
     public GameObject crosshair;
 
+    [SerializeField] private PauseMenu pauseMenu;
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -116,6 +118,10 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if(pauseMenu != null && pauseMenu.IsGamePaused){
+            return;
+        }
+
         // If we don't have focus and you click in the game, capture the mouse
         if (Cursor.lockState == CursorLockMode.None && Input.GetMouseButtonDown(0))
         {
