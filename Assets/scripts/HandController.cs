@@ -20,6 +20,9 @@ public class HandController : MonoBehaviour
     private Vector3 startingPosition;
     private bool returning;
 
+    private List<string> itemTags = new List<string>{"Crate", "Balloon"};
+    public GameObject itemsContainer;
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -59,7 +62,13 @@ public class HandController : MonoBehaviour
         {
             if (IsPulling)
             {
-                IsAttachedTo.transform.SetParent(null);
+
+                if(itemsContainer != null && itemTags.Contains(IsAttachedTo.tag)){
+                    IsAttachedTo.transform.SetParent(itemsContainer.transform);
+                }else{
+                    IsAttachedTo.transform.SetParent(null);
+                }
+
                 if (IsAttachedTo.GetComponent<Rigidbody>() is Rigidbody grappleRigidbody)
                 {
                     grappleRigidbody.detectCollisions = true;

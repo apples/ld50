@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
     public float handGrappleForce;
     public float minHandGrappleDistance;
     public float itemThrowForce;
+    public GameObject itemsContainer;
 
     [Header("Pause")]
 
@@ -345,6 +346,7 @@ public class PlayerController : MonoBehaviour
         thrownHand = hand.GetComponent<HandController>();
         Debug.Assert(thrownHand != null);
         thrownHand.playerController = this;
+        thrownHand.itemsContainer = itemsContainer;
 
         sfxGrab.Play();
     }
