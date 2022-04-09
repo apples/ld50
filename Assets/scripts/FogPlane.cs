@@ -35,5 +35,9 @@ public class FogPlane : MonoBehaviour
                 }
             }
         }
+        else if (rigidbody.gameObject.GetComponent<CrateBehavior>() is CrateBehavior crate)
+        {
+            Destroy(rigidbody.gameObject);
+        }
     }
 }
