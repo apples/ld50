@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.6325065, g: 0.75785464, b: 0.784561, a: 1}
+  m_IndirectSpecularColor: {r: 0.44166884, g: 0.73978025, b: 0.9057119, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 112000000, guid: d7a910bed3c686849a3f42c3426df655, type: 2}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 1f593a3d06f8a58429a2dae3b3444bed, type: 2}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: f8338d6d10d3d7d4b96842e88da5722b, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -1038,6 +1038,7 @@ GameObject:
   m_Component:
   - component: {fileID: 903594038}
   - component: {fileID: 903594037}
+  - component: {fileID: 903594039}
   m_Layer: 0
   m_Name: SunLight
   m_TagString: Untagged
@@ -1122,6 +1123,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 90, y: 30, z: 0}
+--- !u!114 &903594039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 903594036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &1140547425
 GameObject:
   m_ObjectHideFlags: 0

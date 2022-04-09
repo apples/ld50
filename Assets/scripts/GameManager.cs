@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
         currentMaxLayer = 0;
         GenerateLayer(0);
 
-        raftHeightReached = raft.transform.position.y;
+        raftHeightReached = raft != null ? raft.transform.position.y : 0;
     }
 
     void Update()
@@ -83,11 +83,17 @@ public class GameManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        raftHeightReached = Mathf.Max(raftHeightReached, raft.transform.position.y);
+        if (raft != null)
+        {
+            raftHeightReached = Mathf.Max(raftHeightReached, raft.transform.position.y);
+        }
 
-        var fogPos = fogPlane.transform.position;
-        fogPos.y = Mathf.Max(yOrigin, raftHeightReached - layersBelowPlayer * layerHeight);
-        fogPlane.transform.position = fogPos;
+        if (fogPlane != null)
+        {
+            var fogPos = fogPlane.transform.position;
+            fogPos.y = Mathf.Max(yOrigin, raftHeightReached - layersBelowPlayer * layerHeight);
+            fogPlane.transform.position = fogPos;
+        }
     }
 
     private int GetLayer(Transform transform)
@@ -179,7 +185,7 @@ public class GameManager : MonoBehaviour
             var coord = new Vector3(x, Random.Range(0f, layerHeight) + level * layerHeight + yOrigin, z);
 
             // skip clouds below the fog
-            if (coord.y < fogPlane.transform.position.y)
+            if (fogPlane != null && coord.y < fogPlane.transform.position.y)
             {
                 continue;
             }
