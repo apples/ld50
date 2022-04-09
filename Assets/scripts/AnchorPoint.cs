@@ -15,7 +15,7 @@ public class AnchorPoint : MonoBehaviour
 
     public Vector3 offset;
     public List<Balloon> balloons = new List<Balloon>(8);
-    public List<float> balloonTimeUntilPop = new List<float>(8);
+    public float balloonTimeUntilPop;
 
     public int BalloonCount => balloons.Count;
 
@@ -27,14 +27,20 @@ public class AnchorPoint : MonoBehaviour
         Debug.Assert(rigidbody != null);
     }
 
+    void Start()
+    {
+        ResetTimer();
+    }
+
     void Update()
     {
-        for (var i = balloons.Count - 1; i >= 0; --i)
+        if (balloons.Count > 0)
         {
-            balloonTimeUntilPop[i] -= Time.deltaTime;
-            if (balloonTimeUntilPop[i] <= 0)
+            balloonTimeUntilPop -= Time.deltaTime;
+            if (balloonTimeUntilPop <= 0)
             {
-                PopBalloonAt(i);
+                PopBalloonAt(0);
+                ResetTimer();
             }
         }
     }
@@ -43,8 +49,17 @@ public class AnchorPoint : MonoBehaviour
     {
         var balloon = obj.GetComponent<Balloon>();
         balloons.Add(balloon);
-        balloonTimeUntilPop.Add(Random.Range(minPopTime, maxPopTime));
         balloon.AnchorTo(rigidbody);
+
+        if (balloons.Count == 1)
+        {
+            ResetTimer();
+        }
+    }
+
+    private void ResetTimer()
+    {
+        balloonTimeUntilPop = Random.Range(minPopTime, maxPopTime);
     }
 
     public void AdjustBalloonPositions(Vector3 vel)
@@ -60,7 +75,6 @@ public class AnchorPoint : MonoBehaviour
         Debug.Assert(i >= 0 && i < BalloonCount);
         var balloon = balloons[i];
         balloons.RemoveAt(i);
-        balloonTimeUntilPop.RemoveAt(i);
 
         Instantiate(poofPrefab, balloon.transform.position, Quaternion.identity);
         Destroy(balloon.gameObject);

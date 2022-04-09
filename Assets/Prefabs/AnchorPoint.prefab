@@ -50,11 +50,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poofPrefab: {fileID: 614180569998570486, guid: 4a0b12f54c45cb341b93e943990d07f4, type: 3}
   sfxPop: {fileID: 1212803297094183975}
-  minPopTime: 30
-  maxPopTime: 80
+  minPopTime: 15
+  maxPopTime: 45
   offset: {x: 0, y: -0.5, z: 0}
   balloons: []
-  balloonTimeUntilPop: []
+  balloonTimeUntilPop: 0
 --- !u!54 &2788417486717176542
 Rigidbody:
   m_ObjectHideFlags: 0
