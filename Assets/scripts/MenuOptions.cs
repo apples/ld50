@@ -12,6 +12,9 @@ public class MenuOptions : MonoBehaviour
     public void QuitGame(){
         Debug.Log("Quitting Game...");
         Application.Quit();
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 
     public void GoToIntroMenu(){
