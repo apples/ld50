@@ -700,6 +700,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3347587731005371537, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4195299652747866179, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -710,7 +714,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4195299652747866179, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -500
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4195299652747866179, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
       propertyPath: m_LocalPosition.z
@@ -754,7 +758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4195299652747866181, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7325253574086228801, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
       propertyPath: m_IsActive
@@ -2105,9 +2109,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3068795064037106251, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
+      propertyPath: IsBalloonPoppingAllowed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4635474346786311414, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
+      propertyPath: IsBalloonPoppingAllowed
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7563183740146044203, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
       propertyPath: infiniteFuel
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7811432523295892991, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
+      propertyPath: IsBalloonPoppingAllowed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7867611946618271437, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
+      propertyPath: IsBalloonPoppingAllowed
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8900917675488513147, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
       propertyPath: m_Name

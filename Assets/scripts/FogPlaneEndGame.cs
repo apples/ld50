@@ -16,7 +16,7 @@ public class FogPlaneEndGame : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if(other.tag.Equals("Raft")){
-        tmpText.text = "Game Over!";
+            tmpText.text = "Game Over!";
             tmpText.gameObject.SetActive(true);
             StartCoroutine(coroutine);
             // sfxBoom.Play();
