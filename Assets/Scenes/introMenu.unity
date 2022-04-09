@@ -229,6 +229,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4195299652747866181, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
   m_PrefabInstance: {fileID: 23508865}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &33160970 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 317040209427465406, guid: 7426b9def0ec4d64db187da31ec6136c, type: 3}
+  m_PrefabInstance: {fileID: 1645702368}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &74396478
 GameObject:
   m_ObjectHideFlags: 0
@@ -417,39 +422,19 @@ PrefabInstance:
     - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
       propertyPath: raft
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1916620854}
     - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 23508866}
     - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: yOrigin
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
       propertyPath: fogPlane
       value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: layerHeight
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: cloudsPerLayer
-      value: 60
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 33160970}
     - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
       propertyPath: itemsContainer
       value: 
       objectReference: {fileID: 728523778}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: layersAbovePlayer
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: layersBelowPlayer
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
       propertyPath: cloudPoolContainer
       value: 
@@ -1125,6 +1110,11 @@ PrefabInstance:
 --- !u!1 &1916620851 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8900917675488513147, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
+  m_PrefabInstance: {fileID: 316222658}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1916620854 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 525925143, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
   m_PrefabInstance: {fileID: 316222658}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1981819464
