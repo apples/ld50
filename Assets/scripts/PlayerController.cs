@@ -55,6 +55,8 @@ public class PlayerController : MonoBehaviour
 
     public float groundMovementDamping;
 
+    public LayerMask legsRaycastLayers;
+
     [Header("Jump")]
 
     public float jumpSpeed;
@@ -64,6 +66,8 @@ public class PlayerController : MonoBehaviour
 
     public float diveSpeed;
     public float diveMinVerticalVelocity;
+
+    public int upwardMovementIgnoresLayer;
 
     [Header("Hand")]
 
@@ -109,8 +113,6 @@ public class PlayerController : MonoBehaviour
     private bool isWalking;
     private bool isSpinning;
     private float comboJumpTimer;
-    private int cloudPhysicsLayer = 7;
-    private int playerPhysicsLayer = 9;
 
     private bool IsDivingOrGrappling => isDiving || thrownHand != null && thrownHand.IsAttached && !thrownHand.IsPulling;
     private bool isCrosshairValid = false;
@@ -134,6 +136,7 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
 
         tetherGroup.SetActive(false);
+
 
         UpdateCrosshair(true);
     }
@@ -312,7 +315,7 @@ public class PlayerController : MonoBehaviour
             rigidbody.velocity = rigidbody.velocity.normalized * hardSpeedLimit;
         }
 
-        Physics.IgnoreLayerCollision(playerPhysicsLayer, cloudPhysicsLayer, rigidbody.velocity.y > 0);
+        Physics.IgnoreLayerCollision(gameObject.layer, upwardMovementIgnoresLayer, rigidbody.velocity.y > 0);
     }
 
     private void ThrowHand()
@@ -439,9 +442,8 @@ public class PlayerController : MonoBehaviour
     {
         var rayDir = Vector3.down;
 
-        if (Physics.Raycast(transform.position + new Vector3(0, 0.1f, 0), rayDir, out RaycastHit hitInfo, legRayDistance + 0.1f, ~Physics.IgnoreRaycastLayer & ~(1 << 10)))
+        if (Physics.Raycast(transform.position + new Vector3(0, 0.1f, 0), rayDir, out RaycastHit hitInfo, legRayDistance + 0.1f, legsRaycastLayers))
         {
-            Debug.Log(hitInfo.collider.gameObject);
             var compressionDistance = (hitInfo.distance - 0.1f) - legRideHeight;
 
             var selfVel = Vector3.Dot(rayDir, rigidbody.velocity);

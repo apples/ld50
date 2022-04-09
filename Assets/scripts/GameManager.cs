@@ -7,7 +7,10 @@ public class GameManager : MonoBehaviour
     public GameObject cloudPrefab;
     public GameObject cratePrefab;
     public GameObject balloonPrefab;
+
     public GameObject player;
+    public Rigidbody raft;
+    public Rigidbody fogPlane;
 
     public float yOrigin;
     public float layerHeight;
@@ -30,6 +33,8 @@ public class GameManager : MonoBehaviour
 
     private LayerComparer comparer = new LayerComparer();
 
+    private float raftHeightReached;
+
     void Start()
     {
         cloudPool.Capacity = Mathf.CeilToInt(cloudsPerLayer * startingMultiplier * 2);
@@ -39,6 +44,8 @@ public class GameManager : MonoBehaviour
         currentMinLayer = 0;
         currentMaxLayer = 0;
         GenerateLayer(0);
+
+        raftHeightReached = raft.transform.position.y;
     }
 
     void Update()
@@ -74,6 +81,15 @@ public class GameManager : MonoBehaviour
         currentMaxLayer = newMaxLayer;
     }
 
+    void FixedUpdate()
+    {
+        raftHeightReached = Mathf.Max(raftHeightReached, raft.transform.position.y);
+
+        var fogPos = fogPlane.transform.position;
+        fogPos.y = Mathf.Max(yOrigin, raftHeightReached - layersBelowPlayer * layerHeight);
+        fogPlane.transform.position = fogPos;
+    }
+
     private int GetLayer(Transform transform)
     {
         return Mathf.FloorToInt((transform.position.y - yOrigin) / layerHeight);
@@ -81,8 +97,6 @@ public class GameManager : MonoBehaviour
 
     private void DestroyLayer(int i)
     {
-        Debug.Log($"Destroying layer {i}");
-
         var idx = LayerBinarySearch(i);
         
         if (idx < 0) return;
@@ -101,7 +115,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var obj in layer.objects)
         {
-            if (!obj.PreventDespawn)
+            if (obj != null && !obj.PreventDespawn && obj.gameObject != null)
             {
                 Destroy(obj.gameObject);
             }
@@ -117,8 +131,6 @@ public class GameManager : MonoBehaviour
 
     private void GenerateLayer(int level)
     {
-        Debug.Log($"Generating layer {level}");
-
         var multiplier = Mathf.Lerp(startingMultiplier, 1f, (float)level / (float)lastMultiplierLayer);
 
         var numClouds = (int)(multiplier * cloudsPerLayer);
@@ -166,6 +178,12 @@ public class GameManager : MonoBehaviour
 
             var coord = new Vector3(x, Random.Range(0f, layerHeight) + level * layerHeight + yOrigin, z);
 
+            // skip clouds below the fog
+            if (coord.y < fogPlane.transform.position.y)
+            {
+                continue;
+            }
+
             SpawnCloud(coord);
 
             while (Random.value < .75f)
@@ -187,8 +205,6 @@ public class GameManager : MonoBehaviour
         var idx = LayerBinarySearch(layer.level);
         Debug.Assert(idx < 0);
         layers.Insert(~idx, layer);
-
-        Debug.Log($"Layer {level} stats: numClouds = {numClouds}, clouds.Count = {layer.clouds.Count}, objects.Count = {layer.objects.Count}");
 
         void SpawnCloud(Vector3 coord)
         {

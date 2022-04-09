@@ -6,8 +6,6 @@ public class BalloonVacuum : MonoBehaviour
 {
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log($"Collided with {collider.gameObject}");
-
         var balloon = collider.gameObject.GetComponent<Balloon>();
 
         if (balloon != null && !balloon.IsAnchored)
