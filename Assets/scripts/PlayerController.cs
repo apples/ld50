@@ -6,31 +6,47 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [Header("Camera")]
+
     public GameObject cameraBoom;
     public new Camera camera;
+
+    [Header("Sprite")]
     
     public Animator animator;
     public SpriteRenderer spriteRenderer;
 
-    public new Collider collider;
+    [Header("Effects")]
 
     public GameObject tetherGroup;
+    public GameObject crosshair;
+
+    [Header("Audio")]
 
     public AudioSource sfxBalloon;
     public AudioSource sfxZoop;
     public AudioSource sfxJump;
     public AudioSource sfxGrab;
 
-    public float sensitivity = 1;
-    public float speed = 1;
-    public float acceleration;
-    public float jumpSpeed;
-    public float spinJumpExtraSpeed;
-    public float comboJumpTimerMax;
-    public float attachedHandMaxJumpDist;
+    [Header("Input")]
 
-    public float diveSpeed;
-    public float diveMinVerticalVelocity;
+    public float sensitivity = 1;
+
+    [Header("Physics")]
+
+    public new Collider collider;
+
+    [Header("Movement")]
+
+    public float moveSpeed = 1;
+    public float moveAcceleration;
+    public float airAccelerationFactor;
+
+    public float hardSpeedLimit;
+    public float softSpeedLimit;
+    public float softSpeedLimitDamping;
+
+    [Header("Legs")]
 
     public float legRideHeight;
     public float legRayDistance;
@@ -39,21 +55,30 @@ public class PlayerController : MonoBehaviour
 
     public float groundMovementDamping;
 
-    public float throwForce;
+    [Header("Jump")]
+
+    public float jumpSpeed;
+    public float spinJumpExtraSpeed;
+    public float comboJumpTimerMax;
+    public float attachedHandMaxJumpDist;
+
+    public float diveSpeed;
+    public float diveMinVerticalVelocity;
+
+    [Header("Hand")]
 
     public GameObject handPrefab;
     public float handLaunchSpeed;
     public float maxHandDist;
     public float handGrappleForce;
     public float minHandGrappleDistance;
+    public float itemThrowForce;
 
-    public float hardSpeedLimit;
-    public float softSpeedLimit;
-    public float softSpeedLimitDamping;
+    [Header("Pause")]
 
-    public float inputAcceleration;
-    public float noInputAcceleration;
-    public float airAccelerationFactor;
+    public PauseMenu pauseMenu;
+
+    // private fields
 
     private new Rigidbody rigidbody;
 
@@ -89,9 +114,6 @@ public class PlayerController : MonoBehaviour
 
     private bool IsDivingOrGrappling => isDiving || thrownHand != null && thrownHand.IsAttached && !thrownHand.IsPulling;
     private bool isCrosshairValid = false;
-    public GameObject crosshair;
-
-    [SerializeField] private PauseMenu pauseMenu;
 
     void Awake()
     {
@@ -242,7 +264,7 @@ public class PlayerController : MonoBehaviour
             if (!isCrosshairValid || force)
             {
                 isCrosshairValid = true;
-                crosshair.GetComponent<Renderer>().material.SetColor("_Color", Color.green);
+                crosshair.GetComponent<Renderer>().material.color = Color.green;
             }
         }
         else
@@ -250,7 +272,7 @@ public class PlayerController : MonoBehaviour
             if (isCrosshairValid || force)
             {
                 isCrosshairValid = false;
-                crosshair.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+                crosshair.GetComponent<Renderer>().material.color = Color.red;
             }
         }
     }
@@ -356,7 +378,7 @@ public class PlayerController : MonoBehaviour
         heldItem.transform.SetParent(null);
         heldItem.isKinematic = false;
         heldItem.detectCollisions = true;
-        heldItem.AddForce(throwDir * throwForce * heldItem.mass, ForceMode.Impulse);
+        heldItem.AddForce(throwDir * itemThrowForce * heldItem.mass, ForceMode.Impulse);
 
         heldItem = null;
     }
@@ -464,13 +486,13 @@ public class PlayerController : MonoBehaviour
         var localVelocity = transform.InverseTransformDirection(rigidbody.velocity);
         var velocity = new Vector2(localVelocity.x, localVelocity.z);
 
-        var speedClampedVelocity = velocity.normalized * Mathf.Min(velocity.magnitude, speed);
+        var speedClampedVelocity = velocity.normalized * Mathf.Min(velocity.magnitude, moveSpeed);
 
-        var desiredVelocity = movementInput.normalized * speed;
+        var desiredVelocity = movementInput.normalized * moveSpeed;
 
         var toDesired = desiredVelocity - speedClampedVelocity;
 
-        var accelVector = Mathf.Min(toDesired.magnitude, acceleration * Time.fixedDeltaTime) * toDesired.normalized;
+        var accelVector = Mathf.Min(toDesired.magnitude, moveAcceleration * Time.fixedDeltaTime) * toDesired.normalized;
 
         if (!isOnGround)
         {

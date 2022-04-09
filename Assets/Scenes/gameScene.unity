@@ -37,8 +37,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44794512, g: 0.6549968, b: 0.6185646, a: 1}
+  m_Sun: {fileID: 1771605334}
+  m_IndirectSpecularColor: {r: 0.43337017, g: 0.70337206, b: 0.710341, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -185,6 +185,44 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f9fc4fb0acf014547b5d78e8705fce46, type: 3}
+--- !u!1 &206534298 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4195299652306973755, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
+  m_PrefabInstance: {fileID: 4195299652716358759}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &206534302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206534298}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1001 &210159597
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -444,11 +482,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 881b3585a21ccd9459964b1122754a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1539500093 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3862842786775333355, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
-  m_PrefabInstance: {fileID: 4195299652716358759}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1589903248 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7563183740146044203, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
@@ -603,6 +636,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1771605335}
   - component: {fileID: 1771605334}
+  - component: {fileID: 1771605336}
   m_Layer: 0
   m_Name: SunLight
   m_TagString: Untagged
@@ -687,6 +721,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 6.925, y: 30, z: 0}
+--- !u!114 &1771605336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1771605333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1001 &1989995285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1070,17 +1124,9 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4195299652747866180, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
-      propertyPath: crosshair
-      value: 
-      objectReference: {fileID: 1539500093}
-    - target: {fileID: 4195299652747866180, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
       propertyPath: pauseMenu
       value: 
       objectReference: {fileID: 1348439135}
-    - target: {fileID: 4195299652747866180, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
-      propertyPath: sensitivity
-      value: 250
-      objectReference: {fileID: 0}
     - target: {fileID: 4195299652747866180, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
       propertyPath: pauseMenuGameObject
       value: 
