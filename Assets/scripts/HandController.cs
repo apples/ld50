@@ -44,16 +44,31 @@ public class HandController : MonoBehaviour
         {
             if (IsPulling)
             {
+                var item = IsAttachedTo;
+                ReleaseHeldItem();
+                playerController.GiveItem(item);
+            }
+
+            playerController.DestroyHand();
+        }
+    }
+
+    public void ReleaseHeldItem()
+    {
+        if (IsAttached)
+        {
+            if (IsPulling)
+            {
                 IsAttachedTo.transform.SetParent(null);
                 if (IsAttachedTo.GetComponent<Rigidbody>() is Rigidbody grappleRigidbody)
                 {
                     grappleRigidbody.detectCollisions = true;
                     grappleRigidbody.isKinematic = false;
                 }
-                playerController.GiveItem(IsAttachedTo);
             }
 
-            playerController.DestroyHand();
+            IsAttachedTo = null;
+            IsAttached = false;
         }
     }
 

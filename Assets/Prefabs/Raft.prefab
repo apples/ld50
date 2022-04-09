@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 883960999}
   - component: {fileID: 883961000}
   - component: {fileID: 1665376228}
+  - component: {fileID: 9082819502741664801}
   m_Layer: 2
   m_Name: ScoreZone
   m_TagString: Untagged
@@ -60,6 +61,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crateGoal: 1
   raftMaxHeight: {fileID: 0}
+--- !u!114 &9082819502741664801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 883960998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7228f3d1f4f8014bb9a8640db2446cd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dampingFactor: 1
 --- !u!1 &797266549862001287
 GameObject:
   m_ObjectHideFlags: 0

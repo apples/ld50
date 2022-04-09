@@ -363,10 +363,7 @@ public class PlayerController : MonoBehaviour
             isDiving = false;
         }
 
-        if (thrownHand.IsAttached && thrownHand.IsAttachedTo.transform.parent == thrownHand.transform)
-        {
-            thrownHand.IsAttachedTo.transform.SetParent(null);
-        }
+        thrownHand.ReleaseHeldItem();
 
         Destroy(thrownHand.gameObject);
         thrownHand = null;
