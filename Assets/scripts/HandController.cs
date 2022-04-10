@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class HandController : MonoBehaviour
 {
     public AudioSource sfxGrab;
+    public AudioMixer audioMixer;
 
     public float returnSpeed;
     public float returnTime;
@@ -33,6 +35,8 @@ public class HandController : MonoBehaviour
     {
         Debug.Assert(playerController != null);
         startingPosition = transform.position;
+
+        sfxGrab.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0];
     }
 
     void Update()
