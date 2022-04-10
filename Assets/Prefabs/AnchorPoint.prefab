@@ -55,6 +55,7 @@ MonoBehaviour:
   offset: {x: 0, y: -0.5, z: 0}
   balloons: []
   balloonTimeUntilPop: 0
+  IsBalloonPoppingAllowed: 1
 --- !u!54 &2788417486717176542
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -125,7 +126,7 @@ AudioSource:
   m_GameObject: {fileID: 8013517365383304612}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -2210876742861787797, guid: d0ce9ce71eb1b2e4681bbef3cfcb3940, type: 2}
   m_audioClip: {fileID: 8300000, guid: a8b3782eb51c59245b51d1ad4e52c572, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
