@@ -21,6 +21,8 @@ public class AnchorPoint : MonoBehaviour
 
     private new Rigidbody rigidbody;
 
+    public bool IsBalloonPoppingAllowed = true;
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -72,6 +74,10 @@ public class AnchorPoint : MonoBehaviour
 
     public void PopBalloonAt(int i)
     {
+        if(!IsBalloonPoppingAllowed){
+            return;
+        }
+
         Debug.Assert(i >= 0 && i < BalloonCount);
         var balloon = balloons[i];
         balloons.RemoveAt(i);

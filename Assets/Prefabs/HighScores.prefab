@@ -128,6 +128,7 @@ MonoBehaviour:
   scoreEntriesContainer: {fileID: 6193946108238225211}
   scoreEntryTemplate: {fileID: 6193946109199983031}
   newScore: {fileID: 11400000, guid: 4262452a8e5d5854b9a560ae9960f410, type: 2}
+  scoreMetricText: M
 --- !u!1 &6193946107894211992
 GameObject:
   m_ObjectHideFlags: 0
@@ -410,7 +411,7 @@ GameObject:
   - component: {fileID: 6193946108088717673}
   - component: {fileID: 6193946108088717674}
   m_Layer: 0
-  m_Name: Panel
+  m_Name: MainPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -581,7 +582,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 185.6, y: 0}
+  m_AnchoredPosition: {x: 209.84, y: 0}
   m_SizeDelta: {x: 110, y: 36}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6193946108282379968
@@ -1257,7 +1258,7 @@ GameObject:
   - component: {fileID: 6193946109276501493}
   - component: {fileID: 6193946109276501494}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: HighScoresCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1411,7 +1412,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 1000 M
+  m_text: 100 M
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

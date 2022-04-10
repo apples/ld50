@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     private LayerComparer comparer = new LayerComparer();
 
     private float raftHeightReached;
+    [SerializeField] private GameObject itemsContainer;
+    [SerializeField] private GameObject cloudPoolContainer;
 
     void Start()
     {
@@ -114,7 +116,7 @@ public class GameManager : MonoBehaviour
 
         foreach (var cloud in layer.clouds)
         {
-            cloud.transform.SetParent(null);
+            cloud.transform.SetParent(cloudPoolContainer.transform);
             cloud.SetActive(false);
             cloudPool.Add(cloud);
         }
@@ -234,7 +236,7 @@ public class GameManager : MonoBehaviour
 
             if (Random.value < .1f)
             {
-                var crate = Instantiate(cratePrefab, coord + new Vector3(0, 1, 0), Quaternion.identity);
+                var crate = Instantiate(cratePrefab, coord + new Vector3(0, 1, 0), Quaternion.identity, itemsContainer.transform);
                 var obj = crate.GetComponent<LayerObject>();
                 Debug.Assert(obj != null);
                 layer.objects.Add(obj);
@@ -242,7 +244,7 @@ public class GameManager : MonoBehaviour
 
             if (Random.value < .4f)
             {
-                var balloon = Instantiate(balloonPrefab, coord + new Vector3(0, 3, 0), Quaternion.identity);
+                var balloon = Instantiate(balloonPrefab, coord + new Vector3(0, 3, 0), Quaternion.identity, itemsContainer.transform);
                 var obj = balloon.GetComponent<LayerObject>();
                 Debug.Assert(obj != null);
                 layer.objects.Add(obj);
