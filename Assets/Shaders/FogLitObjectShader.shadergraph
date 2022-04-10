@@ -194,8 +194,8 @@
     ],
     "m_VertexContext": {
         "m_Position": {
-            "x": -98.0,
-            "y": 182.0
+            "x": -98.00001525878906,
+            "y": 184.00001525878907
         },
         "m_Blocks": [
             {
@@ -211,8 +211,8 @@
     },
     "m_FragmentContext": {
         "m_Position": {
-            "x": -98.0,
-            "y": 382.0
+            "x": -98.00001525878906,
+            "y": 383.0000305175781
         },
         "m_Blocks": [
             {
@@ -317,7 +317,7 @@
     "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
+    "hlslDeclarationOverride": 2,
     "m_Hidden": false,
     "m_Value": 0.0,
     "m_FloatType": 0,
@@ -906,9 +906,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -769.0,
+            "x": -792.0,
             "y": 600.0,
-            "width": 112.0,
+            "width": 135.0,
             "height": 34.0
         }
     },
@@ -1254,9 +1254,9 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -580.0,
-            "y": 458.0,
-            "width": 102.99996948242188,
+            "x": -570.0,
+            "y": 459.0,
+            "width": 93.0,
             "height": 34.0
         }
     },
@@ -1629,12 +1629,12 @@
     "m_RefNameGeneratedByDisplayName": "FogY",
     "m_DefaultReferenceName": "_FogY",
     "m_OverrideReferenceName": "",
-    "m_GeneratePropertyBlock": true,
+    "m_GeneratePropertyBlock": false,
     "m_UseCustomSlotLabel": false,
     "m_CustomSlotLabel": "",
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,
-    "hlslDeclarationOverride": 0,
+    "hlslDeclarationOverride": 1,
     "m_Hidden": false,
     "m_Value": 0.0,
     "m_FloatType": 0,

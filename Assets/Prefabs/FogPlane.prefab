@@ -76,7 +76,6 @@ MonoBehaviour:
     dstTextureObject: {fileID: 0}
     overrideGraphicsFormat: 0
     graphicsFormat: 0
-  balloonMaterialInstancer: {fileID: 11400000, guid: 031c81317fb99ac48b67222a2abb8347, type: 2}
 --- !u!54 &317040209427465406
 Rigidbody:
   m_ObjectHideFlags: 0

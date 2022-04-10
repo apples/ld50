@@ -1613,7 +1613,7 @@
     "m_Group": {
         "m_Id": "64c0d13a298342efadaf7cd6e302f3d0"
     },
-    "m_Name": "FragmentWorldPosition",
+    "m_Name": "SceneFragmentWorldPosition",
     "m_DrawState": {
         "m_Expanded": true,
         "m_Position": {

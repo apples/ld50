@@ -10,8 +10,6 @@ public class FogPlaneEffect : MonoBehaviour
 {
     public BlitFeatureRenderer.BlitSettings blitSettings;
 
-    public MaterialInstancer balloonMaterialInstancer;
-
     private BlitFeatureRenderer.BlitPass blitPass;
 
     private Material material;
@@ -51,11 +49,7 @@ public class FogPlaneEffect : MonoBehaviour
         if (material != null)
         {
             material.SetFloat("_FogY", transform.position.y);
-
-            if (balloonMaterialInstancer != null && balloonMaterialInstancer.Material != null)
-            {
-                balloonMaterialInstancer.Material.SetFloat("_FogY", transform.position.y);
-            }
+            Shader.SetGlobalFloat("_FogY", transform.position.y);
         }
     }
 
@@ -69,11 +63,7 @@ public class FogPlaneEffect : MonoBehaviour
             }
 
             material.SetFloat("_FogY", transform.position.y);
-
-            if (balloonMaterialInstancer != null && balloonMaterialInstancer.Material != null)
-            {
-                balloonMaterialInstancer.Material.SetFloat("_FogY", transform.position.y);
-            }
+            Shader.SetGlobalFloat("_FogY", transform.position.y);
         }
     }
 }
