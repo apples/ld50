@@ -11,6 +11,8 @@ public class HighScores : MonoBehaviour
     [SerializeField] private Transform scoreEntryTemplate;
     [SerializeField] private IntScriptableObject newScore;
 
+    public string scoreMetricText = "";
+
     private List<ScoreEntry> scoreEntriesList;
     private List<Transform> scoreEntriesTransformList;
 
@@ -70,7 +72,7 @@ public class HighScores : MonoBehaviour
         scoreEntryTransform.gameObject.SetActive(true);
 
         scoreEntryTransform.Find("Position").GetComponent<TextMeshProUGUI>().text = GetDisplayRankString(scoreEntriesTransformList.Count);
-        scoreEntryTransform.Find("Score").GetComponent<TextMeshProUGUI>().text = scoreEntry.score.ToString();
+        scoreEntryTransform.Find("Score").GetComponent<TextMeshProUGUI>().text = scoreEntry.score.ToString() + " " + scoreMetricText;
         scoreEntryTransform.Find("Date").GetComponent<TextMeshProUGUI>().text = scoreEntry.date;
 
         scoreEntriesTransformList.Add(scoreEntryTransform);
