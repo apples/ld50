@@ -19,7 +19,7 @@ public class FogPlaneEndGame : MonoBehaviour
             tmpText.text = "Game Over!";
             tmpText.gameObject.SetActive(true);
             StartCoroutine(coroutine);
-            // sfxBoom.Play();
+            sfxBoom.Play();
         }
     }
 

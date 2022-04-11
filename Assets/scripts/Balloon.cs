@@ -25,6 +25,8 @@ public class Balloon : MonoBehaviour
     public Rigidbody Rigidbody => rigidbody;
     public bool IsAnchored => isAnchored;
 
+    private LineRenderer tether;
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -35,6 +37,9 @@ public class Balloon : MonoBehaviour
 
         constantForce = GetComponent<ConstantForce>();
         Debug.Assert(constantForce != null);
+
+        tether = GetComponentInChildren<LineRenderer>();
+        Debug.Assert(tether != null);
     }
 
     void Start()
@@ -49,7 +54,7 @@ public class Balloon : MonoBehaviour
     {
         if (isAnchored)
         {
-
+            tether.SetPosition(1, transform.InverseTransformPoint(spring.connectedBody.transform.position));
         }
         else
         {

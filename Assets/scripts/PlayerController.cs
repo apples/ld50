@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-
+using UnityEngine.Audio;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,6 +22,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Audio")]
 
+    public AudioMixer audioMixer;
     public AudioSource sfxBalloon;
     public AudioSource sfxZoop;
     public AudioSource sfxJump;
@@ -344,6 +344,7 @@ public class PlayerController : MonoBehaviour
         handBody.velocity = hand.transform.forward * handLaunchSpeed;
 
         thrownHand = hand.GetComponent<HandController>();
+        thrownHand.audioMixer = audioMixer;
         Debug.Assert(thrownHand != null);
         thrownHand.playerController = this;
         thrownHand.itemsContainer = itemsContainer;
