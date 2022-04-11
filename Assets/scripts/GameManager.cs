@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public float startingMultiplier;
     public int lastMultiplierLayer;
 
+    public bool freezeFog;
+
     private List<GameObject> cloudPool = new List<GameObject>();
 
     private int currentMinLayer;
@@ -52,7 +54,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        var playerLayer = GetLayer(player.transform);
+        var playerLayer = player != null ? GetLayer(player.transform) : 0;
 
         if (playerLayer < 0) playerLayer = 0;
 
@@ -90,7 +92,7 @@ public class GameManager : MonoBehaviour
             raftHeightReached = Mathf.Max(raftHeightReached, raft.transform.position.y);
         }
 
-        if (fogPlane != null)
+        if (fogPlane != null && !freezeFog)
         {
             var fogPos = fogPlane.transform.position;
             fogPos.y = Mathf.Max(yOrigin, raftHeightReached - layersBelowPlayer * layerHeight);

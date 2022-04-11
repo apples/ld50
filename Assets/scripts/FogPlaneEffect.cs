@@ -36,7 +36,7 @@ public class FogPlaneEffect : MonoBehaviour
 
     void Render(ScriptableRenderContext context, Camera camera)
     {
-        if (camera != Camera.main && camera != UnityEditor.SceneView.lastActiveSceneView.camera) return;
+        if (camera != Camera.main && camera != UnityEditor.SceneView.lastActiveSceneView?.camera) return;
 
         var renderer = camera.GetUniversalAdditionalCameraData().scriptableRenderer;
 

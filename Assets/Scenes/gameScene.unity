@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1
+  m_AmbientIntensity: 1.69
   m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 13ffa75f97d211145bb9993cb34105d7, type: 2}
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1771605334}
-  m_IndirectSpecularColor: {r: 0.43337044, g: 0.7033721, b: 0.7103412, a: 1}
+  m_IndirectSpecularColor: {r: 0.43337017, g: 0.4521364, b: 0.710341, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1202,6 +1202,10 @@ PrefabInstance:
       propertyPath: tmpText
       value: 
       objectReference: {fileID: 1018544214}
+    - target: {fileID: 2732138892001883453, guid: 7426b9def0ec4d64db187da31ec6136c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5048262924237214082, guid: 7426b9def0ec4d64db187da31ec6136c, type: 3}
       propertyPath: m_Name
       value: FogPlane
