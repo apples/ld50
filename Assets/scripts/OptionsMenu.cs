@@ -19,6 +19,7 @@ public class OptionsMenu : MonoBehaviour
     }
 
     public void SetMasterVolume(float value){
+        Debug.Log(value);
         if(value == -40f){
             value = -80f;
         }
