@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
@@ -30,7 +31,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Input")]
 
-    public float sensitivity = 1;
+    private PlayerInput playerInput;
+    public float sensitivity = 20f;
 
     [Header("Physics")]
 
@@ -77,16 +79,18 @@ public class PlayerController : MonoBehaviour
     public float handGrappleForce;
     public float minHandGrappleDistance;
     public float itemThrowForce;
-    public GameObject itemsContainer;
 
     [Header("Pause")]
 
     public PauseMenu pauseMenu;
 
+    [Header("Scene Management")]
+    public GameObject itemsContainer;
+
     // private fields
 
     private new Rigidbody rigidbody;
-
+    private PlayerInputActions playerInputActions;
     private Vector2 movementInput;
     private Vector2 aimInput;
     private bool jumpInput;
@@ -122,6 +126,9 @@ public class PlayerController : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         Debug.Assert(rigidbody != null);
+
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
     }
 
     void Start()
@@ -144,12 +151,13 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(pauseMenu != null && pauseMenu.IsGamePaused){
+        if(pauseMenu != null && pauseMenu.IsGamePaused)
+        {
             return;
         }
 
         // If we don't have focus and you click in the game, capture the mouse
-        if (Cursor.lockState == CursorLockMode.None && Input.GetMouseButtonDown(0))
+        if (Cursor.lockState == CursorLockMode.None && playerInputActions.Player.Grapple.WasPerformedThisFrame())
         {
             Cursor.lockState = CursorLockMode.Locked;
             return;
@@ -162,33 +170,33 @@ public class PlayerController : MonoBehaviour
         }
 
         // Press Escapse to release mouse control
-        if (Input.GetKey(KeyCode.Escape))
+        if (playerInputActions.Player.Escape.WasPerformedThisFrame())
         {
             Cursor.lockState = CursorLockMode.None;
         }
 
-        float h = Input.GetAxisRaw("Horizontal");
-        float v = Input.GetAxisRaw("Vertical");
-        float mouseX = Input.GetAxisRaw("Mouse X");
-        float mouseY = Input.GetAxisRaw("Mouse Y");
-        var jumpPressed = Input.GetKeyDown(KeyCode.Space);
-        var interactPressed = Input.GetKeyDown(KeyCode.E);
+        Vector2 inputVector = playerInputActions.Player.Movement.ReadValue<Vector2>();
+        float h = inputVector.x;
+        float v = inputVector.y;
+        Vector2 aimVector = playerInputActions.Player.Aim.ReadValue<Vector2>();
+        var jumpPressed = playerInputActions.Player.Jump.WasPerformedThisFrame();
+        var interactPressed = playerInputActions.Player.Interact.WasPerformedThisFrame();
 
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             movementInput = new Vector2(h, v);
-            aimInput += new Vector2(mouseX, mouseY) * sensitivity * Time.deltaTime;
+            aimInput += aimVector * sensitivity * Time.deltaTime;
             if (jumpPressed) jumpInput = true;
         }
 
         //grapple
-        if (Input.GetMouseButtonDown(0))
+        if (playerInputActions.Player.Grapple.WasPerformedThisFrame())
         {
             ThrowHand();
         }
 
         // tie balloon
-        if (Input.GetMouseButtonDown(1))
+        if (playerInputActions.Player.TieDown.WasPerformedThisFrame())
         {
             TryTieBalloon();
         }
