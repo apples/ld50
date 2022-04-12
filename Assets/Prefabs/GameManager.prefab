@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1664121640427167253}
   - component: {fileID: 1664121640427167254}
+  - component: {fileID: 7451181814865999327}
+  - component: {fileID: 5010133920685921018}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,16 +46,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 173b8f08f15c65e4c8718af965c6264c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7451181814865999327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664121640427167255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c8a2437c2d22834ab23e356dc4b5291, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   cloudPrefab: {fileID: 5220239709615968332, guid: f9fc4fb0acf014547b5d78e8705fce46, type: 3}
   cratePrefab: {fileID: 21420973097778823, guid: ff3cfe93b61f36449bfa2a97c761a833, type: 3}
   balloonPrefab: {fileID: 4793763489754372762, guid: 62882d6585703c848bba2cc99012303b, type: 3}
   player: {fileID: 0}
+  fogPlane: {fileID: 0}
   yOrigin: -50
-  layerHeight: 100
+  layerHeight: 10
   layerRadius: 200
   deadzoneRadius: 5
-  cloudsPerLayer: 300
-  layersAbovePlayer: 3
-  layersBelowPlayer: 3
+  cloudsPerLayer: 30
+  layersAbovePlayer: 20
+  layersBelowPlayer: 15
   startingMultiplier: 3
   lastMultiplierLayer: 5
+  itemsContainer: {fileID: 0}
+  cloudPoolContainer: {fileID: 0}
+--- !u!114 &5010133920685921018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1664121640427167255}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a01c91d793eea20459b7b2c32a6d3609, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToFollow: {fileID: 0}
+  fogPlane: {fileID: 0}
+  minimumY: -50
+  followDist: 150
+  freezeFog: 0

@@ -929,50 +929,34 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: raft
-      value: 
-      objectReference: {fileID: 1589903250}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: items
-      value: 
-      objectReference: {fileID: 1330154357}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 118464596}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: fogPlane
-      value: 
-      objectReference: {fileID: 863453063}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: layerHeight
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: cloudsPerLayer
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: itemsContainer
-      value: 
-      objectReference: {fileID: 1330154357}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: layersAbovePlayer
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: layersBelowPlayer
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 1664121640427167254, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: cloudPoolContainer
-      value: 
-      objectReference: {fileID: 1523160245}
     - target: {fileID: 1664121640427167255, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5010133920685921018, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: fogPlane
+      value: 
+      objectReference: {fileID: 863453063}
+    - target: {fileID: 5010133920685921018, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: objectToFollow
+      value: 
+      objectReference: {fileID: 1589903250}
+    - target: {fileID: 7451181814865999327, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 118464596}
+    - target: {fileID: 7451181814865999327, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: fogPlane
+      value: 
+      objectReference: {fileID: 863453063}
+    - target: {fileID: 7451181814865999327, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: itemsContainer
+      value: 
+      objectReference: {fileID: 1330154357}
+    - target: {fileID: 7451181814865999327, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: cloudPoolContainer
+      value: 
+      objectReference: {fileID: 1523160245}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
 --- !u!1001 &3813160226996321743

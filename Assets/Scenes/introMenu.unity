@@ -346,6 +346,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5010133920685921018, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7451181814865999327, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: fogPlane
+      value: 
+      objectReference: {fileID: 33160970}
+    - target: {fileID: 7451181814865999327, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: itemsContainer
+      value: 
+      objectReference: {fileID: 728523778}
+    - target: {fileID: 7451181814865999327, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
+      propertyPath: cloudPoolContainer
+      value: 
+      objectReference: {fileID: 1250194946}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
 --- !u!1 &250559986 stripped
