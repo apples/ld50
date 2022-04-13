@@ -22,6 +22,8 @@ public class CloudLayerGenerator : MonoBehaviour
     public float startingMultiplier;
     public int lastMultiplierLayer;
 
+    public List<LayerFeature> layerFeatures;
+
     private List<GameObject> cloudPool = new List<GameObject>();
 
     private int currentMinLayer;
@@ -34,6 +36,8 @@ public class CloudLayerGenerator : MonoBehaviour
 
     [SerializeField] private GameObject itemsContainer;
     [SerializeField] private GameObject cloudPoolContainer;
+
+    public (float, float) GetLayerBoundsY(int layer) => (layer * layerHeight + yOrigin, layer * layerHeight + yOrigin + layerHeight);
 
     void Start()
     {
@@ -48,7 +52,7 @@ public class CloudLayerGenerator : MonoBehaviour
 
     void Update()
     {
-        var playerLayer = player != null ? GetLayer(player.transform) : 0;
+        var playerLayer = player != null ? GetLayerOf(player.transform) : 0;
 
         if (playerLayer < 0) playerLayer = 0;
 
@@ -79,7 +83,7 @@ public class CloudLayerGenerator : MonoBehaviour
         currentMaxLayer = newMaxLayer;
     }
 
-    private int GetLayer(Transform transform)
+    private int GetLayerOf(Transform transform)
     {
         return Mathf.FloorToInt((transform.position.y - yOrigin) / layerHeight);
     }
@@ -128,6 +132,8 @@ public class CloudLayerGenerator : MonoBehaviour
 
         var expectedObjects = numClouds * 4; // actually expected to be 2 x, but doubled to minimize allocations
 
+        var (minY, maxY) = GetLayerBoundsY(level);
+
         Layer layer;
 
         if (layerPool.Count > 0)
@@ -152,10 +158,15 @@ public class CloudLayerGenerator : MonoBehaviour
                 level = level,
                 clouds = new List<GameObject>(expectedClouds),
                 objects = new List<LayerObject>(expectedObjects),
+                structures = new List<GameObject>(8),
                 container = new GameObject(),
             };
             layer.container.transform.SetParent(transform);
         }
+
+        var idx = LayerBinarySearch(layer.level);
+        Debug.Assert(idx < 0);
+        layers.Insert(~idx, layer);
 
         for (int i = 0; i < numClouds; ++i)
         {
@@ -165,7 +176,7 @@ public class CloudLayerGenerator : MonoBehaviour
             var x = Mathf.Sin(angleRad) * radius;
             var z = Mathf.Cos(angleRad) * radius;
 
-            var coord = new Vector3(x, Random.Range(0f, layerHeight) + level * layerHeight + yOrigin, z);
+            var coord = new Vector3(x, Random.Range(minY, maxY), z);
 
             // skip clouds below the fog
             if (fogPlane != null && coord.y < fogPlane.transform.position.y)
@@ -191,48 +202,126 @@ public class CloudLayerGenerator : MonoBehaviour
             }
         }
 
-        var idx = LayerBinarySearch(layer.level);
-        Debug.Assert(idx < 0);
-        layers.Insert(~idx, layer);
+        foreach (var layerFeature in layerFeatures)
+        {
+            if (Random.value * 100f < layerFeature.chancePerLayer)
+            {
+                layerFeature.Spawn(this, level);
+            }
+        }
 
         void SpawnCloud(Vector3 coord)
         {
             var rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
 
-            GameObject cloud;
-
-            if (cloudPool.Count > 0)
-            {
-                cloud = cloudPool[cloudPool.Count - 1];
-                cloudPool.RemoveAt(cloudPool.Count - 1);
-                cloud.transform.SetParent(layer.container.transform);
-                cloud.transform.position = coord;
-                cloud.transform.rotation = rotation;
-                cloud.SetActive(true);
-            }
-            else
-            {
-                cloud = Instantiate(cloudPrefab, coord, rotation, layer.container.transform);
-            }
+            GameObject cloud = CreateLayerCloud(coord, rotation, ref layer);
 
             if (Random.value < .1f)
             {
-                var crate = Instantiate(cratePrefab, coord + new Vector3(0, 1, 0), Quaternion.identity, itemsContainer.transform);
-                var obj = crate.GetComponent<LayerObject>();
-                Debug.Assert(obj != null);
-                layer.objects.Add(obj);
+                CreateLayerItem(cratePrefab, coord + new Vector3(0, 1, 0), Quaternion.identity, ref layer);
             }
 
             if (Random.value < .4f)
             {
-                var balloon = Instantiate(balloonPrefab, coord + new Vector3(0, 3, 0), Quaternion.identity, itemsContainer.transform);
-                var obj = balloon.GetComponent<LayerObject>();
-                Debug.Assert(obj != null);
-                layer.objects.Add(obj);
+                CreateLayerItem(balloonPrefab, coord + new Vector3(0, 3, 0), Quaternion.identity, ref layer);
             }
-
-            layer.clouds.Add(cloud);
         }
+    }
+
+    private bool TryGetLayer(int level, out Layer layer)
+    {
+        var idx = LayerBinarySearch(level);
+
+        if (idx < 0)
+        {
+            layer = default;
+            return false;
+        }
+
+        layer = layers[idx];
+        Debug.Assert(layer.level == level);
+
+        return true;
+    }
+
+    public GameObject CreateLayerCloud(Vector3 coord, Quaternion rotation, int level)
+    {
+        if (TryGetLayer(level, out var layer))
+        {
+            return CreateLayerCloud(coord, rotation, ref layer);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private GameObject CreateLayerCloud(Vector3 coord, Quaternion rotation, ref Layer layer)
+    {
+        GameObject cloud;
+
+        if (cloudPool.Count > 0)
+        {
+            cloud = cloudPool[cloudPool.Count - 1];
+            cloudPool.RemoveAt(cloudPool.Count - 1);
+            cloud.transform.SetParent(layer.container.transform);
+            cloud.transform.position = coord;
+            cloud.transform.rotation = rotation;
+            cloud.SetActive(true);
+        }
+        else
+        {
+            cloud = Instantiate(cloudPrefab, coord, rotation, layer.container.transform);
+        }
+
+        layer.clouds.Add(cloud);
+
+        return cloud;
+    }
+
+    public GameObject CreateLayerItem(GameObject prefab, Vector3 position, Quaternion rotation, int level)
+    {
+        if (TryGetLayer(level, out var layer))
+        {
+            return CreateLayerItem(prefab, position, rotation, ref layer);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private GameObject CreateLayerItem(GameObject prefab, Vector3 position, Quaternion rotation, ref Layer layer)
+    {
+        var item = Instantiate(prefab, position, rotation, itemsContainer.transform);
+
+        var obj = item.GetComponent<LayerObject>();
+        Debug.Assert(obj != null);
+
+        layer.objects.Add(obj);
+
+        return item;
+    }
+
+    public GameObject CreateLayerStructure(GameObject prefab, Vector3 position, Quaternion rotation, int level)
+    {
+        if (TryGetLayer(level, out var layer))
+        {
+            return CreateLayerStructure(prefab, position, rotation, ref layer);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    private GameObject CreateLayerStructure(GameObject prefab, Vector3 position, Quaternion rotation, ref Layer layer)
+    {
+        var obj = Instantiate(prefab, position, rotation, layer.container.transform);
+
+        layer.structures.Add(obj);
+
+        return obj;
     }
 
     private int LayerBinarySearch(int layer)
@@ -245,6 +334,7 @@ public class CloudLayerGenerator : MonoBehaviour
         public int level;
         public List<GameObject> clouds;
         public List<LayerObject> objects;
+        public List<GameObject> structures;
         public GameObject container;
     }
 

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Crate
   - Raft
+  - Door
   layers:
   - Default
   - TransparentFX
@@ -20,7 +21,7 @@ TagManager:
   - Balloons
   - CrateMovingUp
   - Fog
-  - 
+  - Door
   - 
   - 
   - 

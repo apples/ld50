@@ -111,6 +111,8 @@ public class HandController : MonoBehaviour
     {
         if (returning) return;
 
+        if (collider.isTrigger) return;
+
         var grapplePoint = collider.GetComponent<GrapplePoint>();
 
         if (grapplePoint == null) return;

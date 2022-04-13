@@ -613,11 +613,12 @@ MonoBehaviour:
   spriteRenderer: {fileID: 8523581262739387891}
   tetherGroup: {fileID: 219827506707555338}
   crosshair: {fileID: 3862842786775333355}
+  audioMixer: {fileID: 0}
   sfxBalloon: {fileID: 6019356578008348210}
   sfxZoop: {fileID: 4590927257219526811}
   sfxJump: {fileID: 8257301502219201791}
   sfxGrab: {fileID: 7974586752043529521}
-  sensitivity: 250
+  sensitivity: 500
   collider: {fileID: 8656908677814280122}
   moveSpeed: 10
   moveAcceleration: 100
@@ -646,6 +647,7 @@ MonoBehaviour:
   handGrappleForce: 75
   minHandGrappleDistance: 3
   itemThrowForce: 15
+  itemsContainer: {fileID: 0}
   pauseMenu: {fileID: 0}
 --- !u!54 &4195299652747866178
 Rigidbody:

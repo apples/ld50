@@ -13,11 +13,9 @@ public class ScoreDisplay : MonoBehaviour
 
     void Update()
     {
-        textMeshPro.text = String.Format(
-            "Fuel time: {0}\n" + 
-            "Crates Needed: {1}\n" +
-            "Max Altitude: {2}", 
-            Mathf.CeilToInt(raftController.FuelTime), scoreManager.crateGoal, maxRaftHeight.value
-        );
+        textMeshPro.text =
+            $"Fuel time: {(raftController != null ? Mathf.CeilToInt(raftController.FuelTime) : "?")}\n" + 
+            $"Crates Needed: {(scoreManager != null ? scoreManager.crateGoal : "?")}\n" +
+            $"Max Altitude: {(maxRaftHeight != null ? maxRaftHeight.value : "?")}";
     }
 }

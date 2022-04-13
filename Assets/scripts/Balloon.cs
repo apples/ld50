@@ -15,15 +15,15 @@ public class Balloon : MonoBehaviour
     private Vector3 floatDirection;
     private float floatSpeed;
 
-    private bool isAnchored = false;
-
     private new Rigidbody rigidbody;
     private SpringJoint spring;
     private GrapplePoint grapplePoint;
     private new ConstantForce constantForce;
 
     public Rigidbody Rigidbody => rigidbody;
-    public bool IsAnchored => isAnchored;
+
+    public Rigidbody AnchoredTo { get; private set; }
+    public bool IsAnchored => AnchoredTo != null;
 
     private LineRenderer tether;
 
@@ -42,9 +42,17 @@ public class Balloon : MonoBehaviour
         Debug.Assert(tether != null);
     }
 
+    void OnEnable()
+    {
+        if (spring != null)
+        {
+            spring.connectedBody = AnchoredTo;
+        }
+    }
+
     void Start()
     {
-        if (isAnchored == false)
+        if (IsAnchored == false)
         {
             DetermineFloatPath();
         }
@@ -52,7 +60,7 @@ public class Balloon : MonoBehaviour
 
     void Update()
     {
-        if (isAnchored)
+        if (IsAnchored)
         {
             tether.SetPosition(1, transform.InverseTransformPoint(spring.connectedBody.transform.position));
         }
@@ -80,9 +88,9 @@ public class Balloon : MonoBehaviour
     {
         if (connectedRigidbody != null)
         {
-            Debug.Assert(isAnchored == false);
+            Debug.Assert(IsAnchored == false);
             Debug.Assert(spring == null);
-            isAnchored = true;
+            AnchoredTo = connectedRigidbody;
             spring = gameObject.AddComponent<SpringJoint>();
             spring.autoConfigureConnectedAnchor = false;
             spring.connectedBody = connectedRigidbody;
@@ -96,9 +104,9 @@ public class Balloon : MonoBehaviour
         }
         else
         {
-            Debug.Assert(isAnchored == true);
+            Debug.Assert(IsAnchored == true);
             Debug.Assert(spring != null);
-            isAnchored = false;
+            AnchoredTo = null;
             Destroy(spring);
             spring = null;
 
