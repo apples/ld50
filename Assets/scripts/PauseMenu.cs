@@ -11,6 +11,13 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject pauseMenuGameObject;
     [SerializeField] private GameObject UIGameObject;
 
+    private PlayerInputActions playerInputActions;
+
+    private void Awake() 
+    {
+        playerInputActions = new PlayerInputActions();
+        playerInputActions.Player.Enable();
+    }
 
     void Start()
     {
@@ -19,7 +26,7 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape)){
+        if(playerInputActions.Player.Escape.WasPerformedThisFrame()){
             if(IsGamePaused){
                 Resume();
             }else{
