@@ -608,7 +608,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraBoom: {fileID: 7325253574086228801}
-  camera: {fileID: 0}
+  camera: {fileID: 6857374859543846151}
   animator: {fileID: 2495143339515635799}
   spriteRenderer: {fileID: 8523581262739387891}
   tetherGroup: {fileID: 219827506707555338}
