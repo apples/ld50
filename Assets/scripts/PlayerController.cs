@@ -122,6 +122,8 @@ public class PlayerController : MonoBehaviour
     private bool IsDivingOrGrappling => isDiving || thrownHand != null && thrownHand.IsAttached && !thrownHand.IsPulling;
     private bool isCrosshairValid = false;
 
+    private bool disableMovement;
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -222,16 +224,26 @@ public class PlayerController : MonoBehaviour
 
         // update animator
 
-        var animatorFacing = Quaternion.Inverse(transform.rotation) * facingDir;
+        if (!disableMovement)
+        {
+            var animatorFacing = Quaternion.Inverse(transform.rotation) * facingDir;
 
-        animator.SetFloat(paramFacingX, -animatorFacing.x);
-        animator.SetFloat(paramFacingY, animatorFacing.z);
-        animator.SetBool(paramIsWalking, isWalking);
-        animator.SetBool(paramIsSpinning, isSpinning);
-        animator.SetBool(paramIsHolding, heldItem != null);
-        animator.SetBool(paramIsDiving, IsDivingOrGrappling);
+            animator.SetFloat(paramFacingX, -animatorFacing.x);
+            animator.SetFloat(paramFacingY, animatorFacing.z);
+            animator.SetBool(paramIsWalking, isWalking);
+            animator.SetBool(paramIsSpinning, isSpinning);
+            animator.SetBool(paramIsHolding, heldItem != null);
+            animator.SetBool(paramIsDiving, IsDivingOrGrappling);
 
-        spriteRenderer.flipX = -animatorFacing.x > 0 && -animatorFacing.x > animatorFacing.z && !isSpinning;
+            spriteRenderer.flipX = -animatorFacing.x > 0 && -animatorFacing.x > animatorFacing.z && !isSpinning;
+        }
+        else
+        {
+            animator.SetBool(paramIsWalking, false);
+            animator.SetBool(paramIsSpinning, true);
+            animator.SetBool(paramIsDiving, false);
+            spriteRenderer.flipX = false;
+        }
 
         // combo jump timer
         comboJumpTimer -= Time.deltaTime;
@@ -490,6 +502,8 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessMovementInput()
     {
+        if (disableMovement) return;
+
         // move
 
         var localVelocity = transform.InverseTransformDirection(rigidbody.velocity);
@@ -635,5 +649,17 @@ public class PlayerController : MonoBehaviour
             sfxBalloon.Play();
             balloon.GetComponent<LayerObject>().PreventDespawn = true;
         }
+    }
+
+    public void Fail()
+    {
+        disableMovement = true;
+        rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
+    }
+
+    public void Succeed()
+    {
+        disableMovement = true;
+        rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
     }
 }

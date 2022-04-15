@@ -239,7 +239,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b767838a55fd7ab42906b3192cf750f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inactiveSceneStack: {fileID: 11400000, guid: 49dc926d293954945a0ed27b317fae11, type: 2}
+  onTouched: {fileID: 11400000, guid: 8b89faab7cf34e246ad3be20fbe08226, type: 2}
 --- !u!1 &4841661898773270227
 GameObject:
   m_ObjectHideFlags: 0
