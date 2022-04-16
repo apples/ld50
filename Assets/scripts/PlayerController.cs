@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour
     public GameObject cameraBoom;
     public new Camera camera;
 
+    public float cameraSmoothing = 42f;
+
     [Header("Sprite")]
     
     public Animator animator;
@@ -28,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public AudioSource sfxZoop;
     public AudioSource sfxJump;
     public AudioSource sfxGrab;
+    public AudioSource sfxScream;
 
     [Header("Input")]
 
@@ -123,6 +126,8 @@ public class PlayerController : MonoBehaviour
     private bool isCrosshairValid = false;
 
     private bool disableMovement;
+
+    private Vector3? fixedCameraPosition;
 
     void Awake()
     {
@@ -336,6 +341,16 @@ public class PlayerController : MonoBehaviour
         }
 
         Physics.IgnoreLayerCollision(gameObject.layer, upwardMovementIgnoresLayer, rigidbody.velocity.y > 0);
+
+        if (fixedCameraPosition is Vector3 pos)
+        {
+            var rot = Quaternion.LookRotation((transform.position - pos).normalized, Vector3.up);
+
+            rot = Quaternion.Slerp(camera.transform.rotation, rot, 1f - Mathf.Exp(-cameraSmoothing * Time.fixedDeltaTime));
+
+            camera.transform.position = pos;
+            camera.transform.rotation = rot;
+        }
     }
 
     private void ThrowHand()
@@ -608,6 +623,8 @@ public class PlayerController : MonoBehaviour
 
     private void ProcessMouseInput()
     {
+        if (fixedCameraPosition != null) return;
+
         // rotate player left-right
 
         var rotation = transform.localEulerAngles;
@@ -661,5 +678,12 @@ public class PlayerController : MonoBehaviour
     {
         disableMovement = true;
         rigidbody.velocity = new Vector3(0, rigidbody.velocity.y, 0);
+    }
+
+    public void Fall()
+    {
+        sfxScream.Play();
+        fixedCameraPosition = camera.transform.position;
+        disableMovement = true;
     }
 }

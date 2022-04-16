@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DoorScenes/EasyDoorChallenge.unity
     guid: 13304f39fcc348346be4a69b5ca4d7d7
+  - enabled: 1
+    path: Assets/Scenes/DoorScenes/MediumDoorChallenge.unity
+    guid: 7339543605de4fd468164bd78092a21d
   m_configObjects: {}

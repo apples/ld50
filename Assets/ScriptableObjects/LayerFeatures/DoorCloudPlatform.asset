@@ -17,3 +17,4 @@ MonoBehaviour:
   radiusRatio: 0.5
   doorChallengeScenes:
   - EasyDoorChallenge
+  - MediumDoorChallenge

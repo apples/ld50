@@ -9,6 +9,11 @@ public class FogPlane : MonoBehaviour
     public int balloonLayer;
     public float playerBounceSpeed;
 
+    public bool allowPlayerFall;
+    public VoidEvent onPlayerFall;
+
+    private bool hasPlayerFallen;
+
     void OnTriggerEnter(Collider collider)
     {
         Process(collider.attachedRigidbody);
@@ -21,9 +26,22 @@ public class FogPlane : MonoBehaviour
 
     private void Process(Rigidbody rigidbody)
     {
+        if (rigidbody == null) return;
+
         if (rigidbody.gameObject.layer == playerLayer && rigidbody.velocity.y < playerBounceSpeed)
         {
-            rigidbody.velocity = new Vector3(rigidbody.velocity.x, playerBounceSpeed, rigidbody.velocity.z);
+            if (allowPlayerFall)
+            {
+                if (!hasPlayerFallen)
+                {
+                    onPlayerFall.Raise();
+                    hasPlayerFallen = true;
+                }
+            }
+            else
+            {
+                rigidbody.velocity = new Vector3(rigidbody.velocity.x, playerBounceSpeed, rigidbody.velocity.z);
+            }
         }
         else if (rigidbody.gameObject.layer == balloonLayer)
         {

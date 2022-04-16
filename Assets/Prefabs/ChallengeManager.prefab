@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6306181336991282934}
   - component: {fileID: 8389215366758748687}
   - component: {fileID: 2320348135515360256}
+  - component: {fileID: 3752956746290692688}
   m_Layer: 0
   m_Name: ChallengeManager
   m_TagString: Untagged
@@ -69,6 +70,34 @@ MonoBehaviour:
       - m_Target: {fileID: 8389215366758748687}
         m_TargetAssemblyTypeName: ChallengeGameManager, Assembly-CSharp
         m_MethodName: Succeed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3752956746290692688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4138732103361451697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a565fd6df82ef644a09682ab2c51da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  voidEvent: {fileID: 11400000, guid: 83b50673417a56e42bd0df951c2431ef, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8389215366758748687}
+        m_TargetAssemblyTypeName: ChallengeGameManager, Assembly-CSharp
+        m_MethodName: Fail
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

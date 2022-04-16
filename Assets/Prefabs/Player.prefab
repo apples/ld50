@@ -73,7 +73,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4195299652747866179}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5618032202018876451
 Rigidbody:
@@ -561,6 +561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4195299652747866179}
   - component: {fileID: 4195299652747866180}
+  - component: {fileID: 5271438184990526633}
   - component: {fileID: 4195299652747866178}
   - component: {fileID: 2198019468380560767}
   - component: {fileID: 8656908677814280122}
@@ -590,6 +591,7 @@ Transform:
   - {fileID: 1499478117406993928}
   - {fileID: 2886012878716314696}
   - {fileID: 220101982122443125}
+  - {fileID: 6888585493724106184}
   - {fileID: 1839207990138661974}
   - {fileID: 6365951532339437149}
   m_Father: {fileID: 0}
@@ -609,6 +611,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraBoom: {fileID: 7325253574086228801}
   camera: {fileID: 6857374859543846151}
+  cameraSmoothing: 42
   animator: {fileID: 2495143339515635799}
   spriteRenderer: {fileID: 8523581262739387891}
   tetherGroup: {fileID: 219827506707555338}
@@ -618,6 +621,7 @@ MonoBehaviour:
   sfxZoop: {fileID: 4590927257219526811}
   sfxJump: {fileID: 8257301502219201791}
   sfxGrab: {fileID: 7974586752043529521}
+  sfxScream: {fileID: 8805274312205315229}
   sensitivity: 20
   collider: {fileID: 8656908677814280122}
   moveSpeed: 10
@@ -649,6 +653,34 @@ MonoBehaviour:
   itemThrowForce: 15
   pauseMenu: {fileID: 0}
   itemsContainer: {fileID: 0}
+--- !u!114 &5271438184990526633
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195299652747866181}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a565fd6df82ef644a09682ab2c51da6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  voidEvent: {fileID: 11400000, guid: 83b50673417a56e42bd0df951c2431ef, type: 2}
+  response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4195299652747866180}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: Fall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!54 &4195299652747866178
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -848,7 +880,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4195299652747866179}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4647293860716510130
 MonoBehaviour:
@@ -1076,6 +1108,134 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -2210876742861787797, guid: d0ce9ce71eb1b2e4681bbef3cfcb3940, type: 2}
   m_audioClip: {fileID: 8300000, guid: 2736cd07663e9c044a1ffac53d36e4d0, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!1 &9050892802101242765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6888585493724106184}
+  - component: {fileID: 8805274312205315229}
+  m_Layer: 0
+  m_Name: sfxScream
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6888585493724106184
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9050892802101242765}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4195299652747866179}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &8805274312205315229
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9050892802101242765}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: -2210876742861787797, guid: d0ce9ce71eb1b2e4681bbef3cfcb3940, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 33cf173fac3993940803b386abaac2f6, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

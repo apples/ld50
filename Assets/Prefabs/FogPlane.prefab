@@ -52,6 +52,8 @@ MonoBehaviour:
   playerLayer: 9
   balloonLayer: 10
   playerBounceSpeed: 75
+  allowPlayerFall: 0
+  onPlayerFall: {fileID: 11400000, guid: 83b50673417a56e42bd0df951c2431ef, type: 2}
 --- !u!114 &2732138892001883453
 MonoBehaviour:
   m_ObjectHideFlags: 0
