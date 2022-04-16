@@ -953,7 +953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4671543654702366598, guid: 7426b9def0ec4d64db187da31ec6136c, type: 3}
       propertyPath: allowPlayerFall
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4671543654702366598, guid: 7426b9def0ec4d64db187da31ec6136c, type: 3}
       propertyPath: onChallengeFailed
