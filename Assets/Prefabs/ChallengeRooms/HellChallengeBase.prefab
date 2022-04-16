@@ -51,6 +51,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 001b3d64fcd642442b5e51ea99e8acaa, type: 2}
+    - target: {fileID: 5325225772218217393, guid: 1fda5c2e12b6c9d408ef792e74c7ed94, type: 3}
+      propertyPath: blitSettings.blitMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 78e71a303173db4489370f1fca1fe3e0, type: 2}
     - target: {fileID: 5924711770618170232, guid: 1fda5c2e12b6c9d408ef792e74c7ed94, type: 3}
       propertyPath: m_RootOrder
       value: 0
