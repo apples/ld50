@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1771605334}
-  m_IndirectSpecularColor: {r: 0.43337017, g: 0.4521364, b: 0.710341, a: 1}
+  m_IndirectSpecularColor: {r: 0.43337044, g: 0.45213658, b: 0.7103412, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -465,6 +465,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -8
       objectReference: {fileID: 0}
+    - target: {fileID: 4584420259645838028, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: scoreManager
+      value: 
+      objectReference: {fileID: 1665376228}
+    - target: {fileID: 4584420259645838028, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: raftController
+      value: 
+      objectReference: {fileID: 1589903248}
     - target: {fileID: 5989112485854007917, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: m_text
       value: Game Over!
