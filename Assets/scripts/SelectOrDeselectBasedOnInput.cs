@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,29 +19,29 @@ public class SelectOrDeselectBasedOnInput : MonoBehaviour
         playerInputActions.Player.Enable();    
     }
 
+    private void OnDisable()
+    {
+        currentDeviceName = null;
+    }
+
     void Update()
     {
-        // if(playerInputActions.Player.UINavigation.activeControl == null){
-        //     return;
-        // }
-        //
-        // string deviceName = playerInputActions.Player.UINavigation.activeControl.device.name;
+        if(playerInputActions.Player.UINavigation.activeControl == null){
+            return;
+        }
+        
+        string deviceName = playerInputActions.Player.UINavigation.activeControl.device.name;
 
-        // if(deviceName == currentDeviceName){
-        //     return;
-        // }
-        //
-        // currentDeviceName = deviceName;
+        if(deviceName == currentDeviceName){
+            return;
+        }
+        
+        currentDeviceName = deviceName;
 
         if(currentDeviceName == "Mouse"){
             eventSystem.SetSelectedGameObject(null);
         }else{
             eventSystem.SetSelectedGameObject(focusedSelectable.gameObject);
         }
-
-        // if(playerInputActions.Player.UINavigation.activeControl != null){
-        //     Debug.Log(playerInputActions.Player.UINavigation.activeControl.device.name);
-        //     // Debug.Log(playerInputActions.Player.Aim.activeControl.device.displayName);
-        // }
     }
 }
