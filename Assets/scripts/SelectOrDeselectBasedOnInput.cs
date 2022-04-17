@@ -20,17 +20,17 @@ public class SelectOrDeselectBasedOnInput : MonoBehaviour
 
     void Update()
     {
-        if(playerInputActions.Player.UINavigation.activeControl == null){
-            return;
-        }
+        // if(playerInputActions.Player.UINavigation.activeControl == null){
+        //     return;
+        // }
+        //
+        // string deviceName = playerInputActions.Player.UINavigation.activeControl.device.name;
 
-        string deviceName = playerInputActions.Player.UINavigation.activeControl.device.name;
-
-        if(deviceName == currentDeviceName){
-            return;
-        }
-
-        currentDeviceName = deviceName;
+        // if(deviceName == currentDeviceName){
+        //     return;
+        // }
+        //
+        // currentDeviceName = deviceName;
 
         if(currentDeviceName == "Mouse"){
             eventSystem.SetSelectedGameObject(null);
