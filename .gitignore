@@ -52,3 +52,8 @@ crashlytics-build.properties
 
 # UserSettings
 /UserSettings/
+
+# Jetbrains
+.idea/*
+Assets/scripts/.idea/*
+ProjectSettings/RiderScriptEditorPersistedState.asset
