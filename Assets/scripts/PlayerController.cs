@@ -34,8 +34,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("Input")]
 
-    private PlayerInput playerInput;
     public float sensitivity = 20f;
+    public string inputDevice = "";
 
     [Header("Physics")]
 
@@ -96,6 +96,7 @@ public class PlayerController : MonoBehaviour
     private PlayerInputActions playerInputActions;
     private Vector2 movementInput;
     private Vector2 aimInput;
+    private PlayerInput playerInput;
     private bool jumpInput;
     private bool isOnGround;
     private float coyoteTime;
@@ -157,7 +158,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(pauseMenu != null && pauseMenu.IsGamePaused)
+        if(pauseMenu.IsGamePaused)
         {
             return;
         }
@@ -188,10 +189,13 @@ public class PlayerController : MonoBehaviour
         var jumpPressed = playerInputActions.Player.Jump.WasPerformedThisFrame();
         var interactPressed = playerInputActions.Player.Interact.WasPerformedThisFrame();
 
+        GetInputDevice();
+        
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             movementInput = new Vector2(h, v);
-            aimInput += aimVector * sensitivity * Time.deltaTime;
+            var inputSensitivity = inputDevice == "Mouse" ? sensitivity : sensitivity * 10;
+            aimInput += aimVector * (inputSensitivity * Time.deltaTime);
             if (jumpPressed) jumpInput = true;
         }
 
@@ -470,6 +474,14 @@ public class PlayerController : MonoBehaviour
         crateRigidbody.GetComponent<LayerObject>().PreventDespawn = true;
 
         sfxGrab.Play();
+    }
+    
+    private void GetInputDevice()
+    {
+        if (playerInputActions.Player.Aim.activeControl != null)
+        {
+            inputDevice = playerInputActions.Player.Aim.activeControl.device.name;
+        }
     }
 
     private void ProcessLegs()
