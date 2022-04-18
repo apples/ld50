@@ -1908,7 +1908,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &109970640582545057
 Transform:
   m_ObjectHideFlags: 0
@@ -3526,6 +3526,10 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5821116689610873611, guid: 72b6e12116363e04f945adf23f7dc2a8, type: 3}
+      propertyPath: eventSystem
+      value: 
+      objectReference: {fileID: 4306113004398144261}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72b6e12116363e04f945adf23f7dc2a8, type: 3}
 --- !u!1 &5143110967003034474 stripped
@@ -3538,33 +3542,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3170770979124881919, guid: 72b6e12116363e04f945adf23f7dc2a8, type: 3}
   m_PrefabInstance: {fileID: 7737420877590600340}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5143110967094270555 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3170770979285319887, guid: 72b6e12116363e04f945adf23f7dc2a8, type: 3}
-  m_PrefabInstance: {fileID: 7737420877590600340}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!1 &5143110967581207805 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3170770978564044393, guid: 72b6e12116363e04f945adf23f7dc2a8, type: 3}
-  m_PrefabInstance: {fileID: 7737420877590600340}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2547763258186050857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5143110967581207805}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e1ec298f9d99184da789672cd7b04e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventSystem: {fileID: 4306113004398144261}
-  focusedSelectable: {fileID: 5143110967094270555}
