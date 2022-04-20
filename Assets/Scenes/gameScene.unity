@@ -439,6 +439,10 @@ PrefabInstance:
       propertyPath: raftController
       value: 
       objectReference: {fileID: 1589903248}
+    - target: {fileID: 5908406289210828231, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5989112485854007917, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: m_text
       value: Game Over!

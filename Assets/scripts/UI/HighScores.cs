@@ -49,6 +49,11 @@ public class HighScores : MonoBehaviour
     }
 
     private void AddScoreEntryToSavedScoreEntries(int score){
+        if (score == 0)
+        {
+            return;
+        }
+        
         ScoreEntry scoreEntry = new ScoreEntry{ score = score, date = GetCurrentDisplayDate() };
 
         List<ScoreEntry> scoreEntries = LoadSavedScoreEntries();
