@@ -10,6 +10,7 @@ public class PauseMenu : MonoBehaviour
 
     [SerializeField] private GameObject pauseMenuGameObject;
     [SerializeField] private GameObject UIGameObject;
+    [SerializeField] private IntScriptableObject maxRaftHeight;
 
     private PlayerInputActions playerInputActions;
 
@@ -51,6 +52,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void Restart(){
+        maxRaftHeight.value = 0;
         Resume();
         SceneManager.LoadScene("gameScene");
     }

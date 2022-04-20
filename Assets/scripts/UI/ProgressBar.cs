@@ -46,7 +46,14 @@ namespace UI
 
 			if (displayText)
 			{
-				tmpText.text = current.ToString();
+				if (current < minimum)
+				{
+					tmpText.text = minimum.ToString();
+				}
+				else
+				{
+					tmpText.text = current.ToString();
+				}
 			}
 
 			fill.color = color;

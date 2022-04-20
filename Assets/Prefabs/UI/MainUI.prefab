@@ -170,11 +170,11 @@ RectTransform:
   m_Father: {fileID: 6191655778638604360}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 45, y: -275}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 45, y: -100}
   m_SizeDelta: {x: 50, y: 775}
-  m_Pivot: {x: 0, y: 1}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &7933753401854820284
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -338,7 +338,7 @@ GameObject:
   - component: {fileID: 1722454453821182949}
   - component: {fileID: 7488680050345083567}
   m_Layer: 5
-  m_Name: FuelText
+  m_Name: AltitudeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -361,7 +361,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000091552734}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1722454453821182949
@@ -392,11 +392,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Fuel time: 0
-
-    Crates Needed: 0
-
-    Max Altitude: 0
+  m_text: 'Max Altitude: 0
 
 '
   m_isRightToLeft: 0
@@ -425,8 +421,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -710,12 +706,12 @@ GameObject:
   - component: {fileID: 1579544669304297365}
   - component: {fileID: 4584420259645838028}
   m_Layer: 5
-  m_Name: FuelPanel
+  m_Name: AltitudeTextPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7892774168704227036
 RectTransform:
   m_ObjectHideFlags: 0
@@ -732,11 +728,11 @@ RectTransform:
   m_Father: {fileID: 6191655778638604360}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -25}
-  m_SizeDelta: {x: 414.5609, y: 148}
-  m_Pivot: {x: 0, y: 1}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 45, y: 325}
+  m_SizeDelta: {x: 150, y: 50}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &8149476610847447706
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -787,8 +783,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf9a0bea1a548442a319630dec3bc7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raftController: {fileID: 0}
-  scoreManager: {fileID: 0}
   maxRaftHeight: {fileID: 11400000, guid: 4262452a8e5d5854b9a560ae9960f410, type: 2}
   textMeshPro: {fileID: 7488680050345083567}
 --- !u!1 &6618378007940632300
