@@ -15,7 +15,7 @@ public class SelectOrDeselectBasedOnInput : MonoBehaviour
 
     private void Awake() 
     {
-        playerInputActions = new PlayerInputActions();
+        playerInputActions = InputManager.inputActions;
         playerInputActions.Player.Enable();    
     }
 

@@ -16,7 +16,7 @@ public class PauseMenu : MonoBehaviour
 
     private void Awake() 
     {
-        playerInputActions = new PlayerInputActions();
+        playerInputActions = InputManager.inputActions;
         playerInputActions.Player.Enable();
     }
 

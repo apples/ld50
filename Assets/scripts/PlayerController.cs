@@ -134,13 +134,13 @@ public class PlayerController : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         Debug.Assert(rigidbody != null);
-
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Player.Enable();
     }
 
     void Start()
     {
+        playerInputActions = InputManager.inputActions;
+        playerInputActions.Player.Enable();
+        
         Debug.Assert(cameraBoom != null);
         Debug.Assert(camera != null);
         Debug.Assert(animator != null);
