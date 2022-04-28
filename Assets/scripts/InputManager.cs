@@ -41,8 +41,7 @@ public class InputManager : MonoBehaviour
         }
     }
 
-    private static void DoRebind(InputAction actionToRebind, int bindingIndex, TextMeshProUGUI statusText,
-        bool isAllCompositeParts, bool isExcludingMouse)
+    private static void DoRebind(InputAction actionToRebind, int bindingIndex, TextMeshProUGUI statusText, bool isAllCompositeParts, bool isExcludingMouse)
     {
         if (actionToRebind == null || bindingIndex < 0) return;
 
@@ -75,7 +74,6 @@ public class InputManager : MonoBehaviour
 
             rebindCancelled?.Invoke();
         });
-        rebind.WithCancelingThrough("<Keyboard>/escape");
         if (isExcludingMouse)
         {
             rebind.WithControlsExcluding("Mouse");
