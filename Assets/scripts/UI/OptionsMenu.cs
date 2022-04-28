@@ -19,23 +19,25 @@ public class OptionsMenu : MonoBehaviour
     }
 
     public void SetMasterVolume(float value){
-        Debug.Log(value);
         if(value == -40f){
             value = -80f;
         }
         audioMixer.SetFloat("masterVolume", value);
+        SaveCurrentOptions();
     }
     public void SetSFXVolume(float value){
         if(value == -40f){
             value = -80f;
         }
         audioMixer.SetFloat("sfxVolume", value);
+        SaveCurrentOptions();
     }
     public void SetMusicVolume(float value){
         if(value == -40f){
             value = -80f;
         }
         audioMixer.SetFloat("musicVolume", value);
+        SaveCurrentOptions();
     }
 
     public void LoadSavedOptions(){
