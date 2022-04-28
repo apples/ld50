@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1771605334}
-  m_IndirectSpecularColor: {r: 0.43337044, g: 0.45213658, b: 0.7103412, a: 1}
+  m_IndirectSpecularColor: {r: 0.43337017, g: 0.4521364, b: 0.710341, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -275,11 +275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 881b3585a21ccd9459964b1122754a3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1523160245 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7519958288915663769, guid: 84cf50d2c06650c4a89c0b8d0eaf0f69, type: 3}
-  m_PrefabInstance: {fileID: 7519958290153545516}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1589903248 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7563183740146044203, guid: f2ba7afec5103c142a8a59f5affb993a, type: 3}
@@ -727,14 +722,6 @@ PrefabInstance:
       propertyPath: fogPlane
       value: 
       objectReference: {fileID: 863453063}
-    - target: {fileID: 7451181814865999327, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: itemsContainer
-      value: 
-      objectReference: {fileID: 1330154357}
-    - target: {fileID: 7451181814865999327, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: cloudPoolContainer
-      value: 
-      objectReference: {fileID: 1523160245}
     - target: {fileID: 7451181814865999327, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
       propertyPath: layerFeatures.Array.size
       value: 1

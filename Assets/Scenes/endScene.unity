@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37846917, g: 0.42355716, b: 0.52732813, a: 1}
+  m_IndirectSpecularColor: {r: 0.3784687, g: 0.42355704, b: 0.5273281, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -772,14 +772,6 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7451181814865999327, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: itemsContainer
-      value: 
-      objectReference: {fileID: 1152700496}
-    - target: {fileID: 7451181814865999327, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
-      propertyPath: cloudPoolContainer
-      value: 
-      objectReference: {fileID: 722991042}
     m_RemovedComponents:
     - {fileID: 5010133920685921018, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 73095a52925bfbd4486e071d48fb980c, type: 3}

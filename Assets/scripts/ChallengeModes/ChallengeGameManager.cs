@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class ChallengeGameManager : MonoBehaviour
 {
     public InactiveSceneStack inactiveSceneStack;
+    public ExitFlagsVariable exitFlags;
 
     public VoidEvent onFail;
     public VoidEvent onSuccess;
@@ -45,11 +46,15 @@ public class ChallengeGameManager : MonoBehaviour
             if (endTimer <= 0)
             {
                 hasEnded = true;
+                exitFlags.Value = hasSucceeded ? ExitFlags.Success : ExitFlags.None;
+
+                Debug.Log($"Exiting challenge scene with ExitFlags = {exitFlags.Value}");
 
                 var pendingUnload = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
                 pendingUnload.completed += (_) =>
                 {
                     var scene = inactiveSceneStack.Pop();
+                    Debug.Log($"Making scene \"{scene.name}\" active");
                     SceneManager.SetActiveScene(scene);
                 };
             }
@@ -58,6 +63,7 @@ public class ChallengeGameManager : MonoBehaviour
 
     public void Fail()
     {
+        Debug.Log($"Challenge failed");
         isEnding = true;
         endTimer = endingDuration;
         onFail.Raise();
@@ -66,6 +72,7 @@ public class ChallengeGameManager : MonoBehaviour
 
     public void Succeed()
     {
+        Debug.Log($"Challenge succeeded");
         isEnding = true;
         endTimer = endingDuration;
         hasSucceeded = true;

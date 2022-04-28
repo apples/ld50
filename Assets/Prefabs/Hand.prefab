@@ -49,9 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sfxGrab: {fileID: 8704467744237173196}
+  audioMixer: {fileID: 0}
   returnSpeed: 50
   returnTime: 2
   playerController: {fileID: 0}
+  itemsContainer: {fileID: 11400000, guid: eec2087e95fb96f46a196f4c54b39c8f, type: 2}
 --- !u!54 &2649668209129015433
 Rigidbody:
   m_ObjectHideFlags: 0

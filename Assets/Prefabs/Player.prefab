@@ -652,7 +652,6 @@ MonoBehaviour:
   minHandGrappleDistance: 3
   itemThrowForce: 15
   pauseMenu: {fileID: 0}
-  itemsContainer: {fileID: 0}
 --- !u!114 &5271438184990526633
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -97,6 +97,8 @@ Transform:
   - {fileID: 6510318915501171357}
   - {fileID: 3755602513256972484}
   - {fileID: 4091502805414712880}
+  - {fileID: 6249442730572986190}
+  - {fileID: 7410094010242746388}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -115,6 +117,10 @@ MonoBehaviour:
   warpToScene: 
   isOpen: 0
   inactiveSceneStack: {fileID: 11400000, guid: 49dc926d293954945a0ed27b317fae11, type: 2}
+  exitFlags: {fileID: 11400000, guid: 95961dbc06bcedb43a2486c59ab12794, type: 2}
+  playerRespawnLocation: {fileID: 6249442730572986190}
+  fairySpawnLocation: {fileID: 7410094010242746388}
+  fairyPrefab: {fileID: 5159708258925142534, guid: 88695e08a7aa59f4fb1a3dec47c43589, type: 3}
 --- !u!114 &9117925433606097730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -273,6 +279,68 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!1 &5562601466408048144
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6249442730572986190}
+  m_Layer: 0
+  m_Name: PlayerRespawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6249442730572986190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5562601466408048144}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3980173554619199768}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7268440258515412329
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7410094010242746388}
+  m_Layer: 0
+  m_Name: FairySpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7410094010242746388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7268440258515412329}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3980173554619199768}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7308984985550947148
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,7 +422,7 @@ MonoBehaviour:
       - m_Target: {fileID: 2772372809531819008}
         m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
         m_MethodName: WarpPlayer
-        m_Mode: 1
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

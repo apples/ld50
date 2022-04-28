@@ -87,9 +87,6 @@ public class PlayerController : MonoBehaviour
 
     public PauseMenu pauseMenu;
 
-    [Header("Scene Management")]
-    public GameObject itemsContainer;
-
     // private fields
 
     private new Rigidbody rigidbody;
@@ -385,7 +382,6 @@ public class PlayerController : MonoBehaviour
         thrownHand.audioMixer = audioMixer;
         Debug.Assert(thrownHand != null);
         thrownHand.playerController = this;
-        thrownHand.itemsContainer = itemsContainer;
 
         sfxGrab.Play();
     }
