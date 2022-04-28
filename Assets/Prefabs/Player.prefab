@@ -640,7 +640,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2547
   jumpSpeed: 10
-  spinJumpExtraSpeed: 10
+  spinJumpExtraSpeed: 5
   comboJumpTimerMax: 0.5
   attachedHandMaxJumpDist: 4
   diveSpeed: 10
