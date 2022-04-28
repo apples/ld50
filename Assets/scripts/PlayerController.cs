@@ -74,6 +74,9 @@ public class PlayerController : MonoBehaviour
 
     public int upwardMovementIgnoresLayer;
 
+    [Header("Ground Pound")] 
+    public float groundPoundSpeed;
+
     [Header("Hand")]
 
     public GameObject handPrefab;
@@ -98,12 +101,14 @@ public class PlayerController : MonoBehaviour
     private Vector2 aimInput;
     private PlayerInput playerInput;
     private bool jumpInput;
+    private bool groundPoundInput;
     private bool isOnGround;
     private float coyoteTime;
     private int coyoteCharges = 1;
     private Rigidbody groundRigidbody;
     private bool isJumping;
     private bool isDiving;
+    private bool isGroundPounding;
 
     private Rigidbody heldItem;
 
@@ -188,6 +193,7 @@ public class PlayerController : MonoBehaviour
         Vector2 aimVector = playerInputActions.Player.Aim.ReadValue<Vector2>();
         var jumpPressed = playerInputActions.Player.Jump.WasPerformedThisFrame();
         var interactPressed = playerInputActions.Player.Interact.WasPerformedThisFrame();
+        var groundPoundPressed = playerInputActions.Player.GroundPound.WasPerformedThisFrame();
 
         GetInputDevice();
         
@@ -197,6 +203,11 @@ public class PlayerController : MonoBehaviour
             var inputSensitivity = inputDevice == "Mouse" ? sensitivity : sensitivity * 10;
             aimInput += aimVector * (inputSensitivity * Time.deltaTime);
             if (jumpPressed) jumpInput = true;
+            if (groundPoundPressed)
+            {
+                groundPoundInput = true;
+                Debug.Log("groundPoundPressed");
+            }
         }
 
         //grapple
@@ -317,6 +328,7 @@ public class PlayerController : MonoBehaviour
 
         aimInput = default;
         jumpInput = false;
+        groundPoundInput = false;
 
         // grapple to hand
         if (thrownHand != null && thrownHand.IsAttached && !thrownHand.IsAttachedTo.isPulled)
@@ -510,6 +522,7 @@ public class PlayerController : MonoBehaviour
                 isJumping = false;
                 isSpinning = false;
                 isDiving = false;
+                isGroundPounding = false;
                 comboJumpTimer = comboJumpTimerMax;
             }
 
@@ -598,6 +611,7 @@ public class PlayerController : MonoBehaviour
 
             if (canJump)
             {
+                isDiving = false;
                 coyoteCharges--;
                 var vel = rigidbody.velocity;
                 vel.y =
@@ -630,6 +644,19 @@ public class PlayerController : MonoBehaviour
 
                 sfxJump.Play();
             }
+        }
+
+        if (groundPoundInput && !isOnGround)
+        {
+            var vel = rigidbody.velocity;
+            vel += transform.up * (-1 * groundPoundSpeed);
+            vel.x = 0;
+            rigidbody.velocity = vel;
+            isDiving = false;
+            isSpinning = false;
+            
+            
+            // ground pound todo - sfx here
         }
     }
 

@@ -26,6 +26,11 @@ public class SelectOrDeselectBasedOnInput : MonoBehaviour
 
     void Update()
     {
+        if (focusedSelectable == null)
+        {
+            return;
+        }
+        
         if(playerInputActions.Player.UINavigation.activeControl == null){
             return;
         }
