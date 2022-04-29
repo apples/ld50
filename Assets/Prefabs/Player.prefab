@@ -623,6 +623,8 @@ MonoBehaviour:
   sfxJump: {fileID: 8257301502219201791}
   sfxGrab: {fileID: 7974586752043529521}
   sfxScream: {fileID: 8805274312205315229}
+  mouseSensitivity: {fileID: 11400000, guid: 048b21bdafa4d8846b1b66ce44284231, type: 2}
+  controllerSensitivity: {fileID: 11400000, guid: e5e3b2a41deebec45afdf9b7a5fdb65e, type: 2}
   sensitivity: 20
   inputDevice: 
   collider: {fileID: 8656908677814280122}

@@ -32,9 +32,11 @@ public class PlayerController : MonoBehaviour
     public AudioSource sfxGrab;
     public AudioSource sfxScream;
 
-    [Header("Input")]
-
-    public float sensitivity = 20f;
+    [Header("Input")] 
+    private const string MOUSE_SENSITIVITY_KEYWORD = "mouseAimSensitivity";
+    private const string CONTROLLER_SENSITIVITY_KEYWORD = "controllerAimSensitivity";
+    public float mouseSensitivity;
+    public float controllerSensitivity;
     public string inputDevice = "";
 
     [Header("Physics")]
@@ -105,7 +107,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody groundRigidbody;
     private bool isJumping;
     private bool isDiving;
-    private bool isGroundPounding;
 
     private Rigidbody heldItem;
 
@@ -136,6 +137,9 @@ public class PlayerController : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         Debug.Assert(rigidbody != null);
+
+        mouseSensitivity = PlayerPrefs.GetFloat(MOUSE_SENSITIVITY_KEYWORD, 10);
+        controllerSensitivity = PlayerPrefs.GetFloat(CONTROLLER_SENSITIVITY_KEYWORD, 10);
     }
 
     void Start()
@@ -197,7 +201,11 @@ public class PlayerController : MonoBehaviour
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             movementInput = new Vector2(h, v);
-            var inputSensitivity = inputDevice == "Mouse" ? sensitivity : sensitivity * 10;
+            float inputSensitivity;
+            if (inputDevice == "Mouse") inputSensitivity = mouseSensitivity;
+            else inputSensitivity = controllerSensitivity * 10;
+
+            // var inputSensitivity = inputDevice == "Mouse" ? sensitivity : sensitivity * 10;
             aimInput += aimVector * (inputSensitivity * Time.deltaTime);
             if (jumpPressed) jumpInput = true;
             if (groundPoundPressed)
@@ -518,7 +526,6 @@ public class PlayerController : MonoBehaviour
                 isJumping = false;
                 isSpinning = false;
                 isDiving = false;
-                isGroundPounding = false;
                 comboJumpTimer = comboJumpTimerMax;
             }
 
