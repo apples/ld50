@@ -135,7 +135,7 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _PanelColor: {r: 1, g: 1, b: 1, a: 0}
-    - _PrimaryColor: {r: 3.6392157, g: 0, b: 5.992157, a: 1}
-    - _SecondaryColor: {r: 0.25882354, g: 0.22745098, b: 0.26666668, a: 0}
+    - _PrimaryColor: {r: 1.8196079, g: 0, b: 2.9960785, a: 1}
+    - _SecondaryColor: {r: 0.9098039, g: 0, b: 1.4980392, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

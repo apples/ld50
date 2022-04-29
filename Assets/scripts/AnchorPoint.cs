@@ -13,6 +13,9 @@ public class AnchorPoint : MonoBehaviour
     public float minPopTime;
     public float maxPopTime;
 
+    public float minPopTimeGolden;
+    public float maxPopTimeGolden;
+
     public Vector3 offset;
     public List<Balloon> balloons = new List<Balloon>(8);
     public float balloonTimeUntilPop;
@@ -61,7 +64,14 @@ public class AnchorPoint : MonoBehaviour
 
     private void ResetTimer()
     {
-        balloonTimeUntilPop = Random.Range(minPopTime, maxPopTime);
+        if (balloons.Count > 0 && balloons[0].isGolden)
+        {
+            balloonTimeUntilPop = Random.Range(minPopTimeGolden, maxPopTimeGolden);
+        }
+        else
+        {
+            balloonTimeUntilPop = Random.Range(minPopTime, maxPopTime);
+        }
     }
 
     public void AdjustBalloonPositions(Vector3 vel)

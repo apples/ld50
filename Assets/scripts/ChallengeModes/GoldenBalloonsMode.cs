@@ -1,12 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class TimeTrialMode : ChallengeMode
+public class GoldenBalloonsMode : ChallengeMode
 {
     public float seconds;
 
+    public List<Balloon> balloons;
+
     public float TimeRemaining { get; private set; }
+
+    public int BalloonsFound => balloons.Count(x => x.IsAnchored);
+
+    public int NumBalloons => balloons.Count;
 
     private ChallengeGameManager manager;
 
@@ -19,7 +26,6 @@ public class TimeTrialMode : ChallengeMode
     void Start()
     {
         TimeRemaining = seconds;
-        manager.OpenExit();
     }
 
     protected override void ChallengeUpdate()
@@ -30,11 +36,15 @@ public class TimeTrialMode : ChallengeMode
         var milliseconds = (int)((TimeRemaining - seconds) * 1000);
 
         manager.challengeText.text =
-            $"Find the exit!\n" +
-            $"\n" +
+            $"Find the balloons!\n" +
+            $"{BalloonsFound} / {NumBalloons}\n" +
             $"{seconds:D2}:{milliseconds:D3}\n";
-
-        if (TimeRemaining <= 0)
+        
+        if (BalloonsFound == NumBalloons)
+        {
+            manager.OpenExit();
+        }
+        else if (TimeRemaining <= 0)
         {
             manager.Fail();
         }

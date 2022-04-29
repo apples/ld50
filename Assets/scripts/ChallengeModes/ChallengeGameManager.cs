@@ -17,6 +17,8 @@ public class ChallengeGameManager : MonoBehaviour
 
     public TMP_Text challengeText;
 
+    public ExitPortalController exitPortal;
+
     private ChallengeMode challengeMode;
 
     private bool isEnding;
@@ -59,6 +61,12 @@ public class ChallengeGameManager : MonoBehaviour
                 };
             }
         }
+    }
+
+    public void OpenExit()
+    {
+        Debug.Assert(exitPortal != null);
+        exitPortal.Open();
     }
 
     public void Fail()

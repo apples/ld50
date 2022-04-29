@@ -10,6 +10,8 @@ public class Balloon : MonoBehaviour
     public float maxFloatSpeed;
     public float springMaxDist = 1f;
 
+    public bool isGolden;
+
     private float floatDirectionTime;
     private float floatDirectionTimer;
     private Vector3 floatDirection;

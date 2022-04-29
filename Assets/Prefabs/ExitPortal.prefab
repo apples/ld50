@@ -204,6 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4227817149462129906}
   - component: {fileID: 4881284153312189769}
+  - component: {fileID: 897286935202379506}
   m_Layer: 0
   m_Name: ExitPortal
   m_TagString: Untagged
@@ -241,6 +242,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onTouched: {fileID: 11400000, guid: 8b89faab7cf34e246ad3be20fbe08226, type: 2}
+  playerTrigger: {fileID: 3952974815942648034}
+  animator: {fileID: 897286935202379506}
+--- !u!95 &897286935202379506
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4783801317842658364}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ebce029132925b64abc838e0fa9a2c1a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4841661898773270227
 GameObject:
   m_ObjectHideFlags: 0

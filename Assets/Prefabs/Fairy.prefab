@@ -50,7 +50,7 @@ MonoBehaviour:
   possibleRewards:
   - prefab: {fileID: 21420973097778823, guid: ff3cfe93b61f36449bfa2a97c761a833, type: 3}
     randomRotation: 1
-  - prefab: {fileID: 4793763489754372762, guid: 62882d6585703c848bba2cc99012303b, type: 3}
+  - prefab: {fileID: 5642216667086855902, guid: cdb5abf13b6215c4ba51c4fbf3dcb78b, type: 3}
     randomRotation: 0
   sparklePrefab: {fileID: 2989754748638427382, guid: 0d5a12d69486ad442a62052c8df6238e, type: 3}
   itemContainer: {fileID: 11400000, guid: eec2087e95fb96f46a196f4c54b39c8f, type: 2}

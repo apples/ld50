@@ -18,3 +18,4 @@ MonoBehaviour:
   doorChallengeScenes:
   - EasyDoorChallenge
   - MediumDoorChallenge
+  - EasyBalloonChallenge

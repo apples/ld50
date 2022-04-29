@@ -52,6 +52,8 @@ MonoBehaviour:
   sfxPop: {fileID: 1212803297094183975}
   minPopTime: 15
   maxPopTime: 45
+  minPopTimeGolden: 30
+  maxPopTimeGolden: 60
   offset: {x: 0, y: -0.5, z: 0}
   balloons: []
   balloonTimeUntilPop: 0

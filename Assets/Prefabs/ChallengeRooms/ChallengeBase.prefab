@@ -311,7 +311,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4008844831249967422, guid: 91fdea97a9271504b83625aa1793c137, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4008844831249967422, guid: 91fdea97a9271504b83625aa1793c137, type: 3}
       propertyPath: m_LocalPosition.x
@@ -651,6 +651,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9a6e2a78ab4d7248a3dd02aa1f01e30, type: 3}
+--- !u!114 &7619887203737005244 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4881284153312189769, guid: a9a6e2a78ab4d7248a3dd02aa1f01e30, type: 3}
+  m_PrefabInstance: {fileID: 3027132641936896501}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b767838a55fd7ab42906b3192cf750f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3524067529195430388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -710,6 +721,10 @@ PrefabInstance:
       propertyPath: exitFlags
       value: 
       objectReference: {fileID: 11400000, guid: 95961dbc06bcedb43a2486c59ab12794, type: 2}
+    - target: {fileID: 8389215366758748687, guid: 88ef34f231c82f4438be6ad2a2dcde26, type: 3}
+      propertyPath: exitPortal
+      value: 
+      objectReference: {fileID: 7619887203737005244}
     - target: {fileID: 8389215366758748687, guid: 88ef34f231c82f4438be6ad2a2dcde26, type: 3}
       propertyPath: challengeText
       value: 
