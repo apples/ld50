@@ -622,7 +622,10 @@ MonoBehaviour:
   sfxJump: {fileID: 8257301502219201791}
   sfxGrab: {fileID: 7974586752043529521}
   sfxScream: {fileID: 8805274312205315229}
+  mouseSensitivity: {fileID: 11400000, guid: 048b21bdafa4d8846b1b66ce44284231, type: 2}
+  controllerSensitivity: {fileID: 11400000, guid: e5e3b2a41deebec45afdf9b7a5fdb65e, type: 2}
   sensitivity: 20
+  inputDevice: 
   collider: {fileID: 8656908677814280122}
   moveSpeed: 10
   moveAcceleration: 100
@@ -639,12 +642,13 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 2547
   jumpSpeed: 10
-  spinJumpExtraSpeed: 10
+  spinJumpExtraSpeed: 5
   comboJumpTimerMax: 0.5
   attachedHandMaxJumpDist: 4
   diveSpeed: 10
   diveMinVerticalVelocity: 1
   upwardMovementIgnoresLayer: 7
+  groundPoundSpeed: 25
   handPrefab: {fileID: 298058154162252240, guid: 480b36405d85ca34681eb5445099035e, type: 3}
   handLaunchSpeed: 30
   maxHandDist: 25
@@ -652,7 +656,6 @@ MonoBehaviour:
   minHandGrappleDistance: 3
   itemThrowForce: 15
   pauseMenu: {fileID: 0}
-  itemsContainer: {fileID: 0}
 --- !u!114 &5271438184990526633
 MonoBehaviour:
   m_ObjectHideFlags: 0

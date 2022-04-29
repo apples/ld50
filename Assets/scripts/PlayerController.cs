@@ -32,9 +32,11 @@ public class PlayerController : MonoBehaviour
     public AudioSource sfxGrab;
     public AudioSource sfxScream;
 
-    [Header("Input")]
-
-    public float sensitivity = 20f;
+    [Header("Input")] 
+    private const string MOUSE_SENSITIVITY_KEYWORD = "mouseAimSensitivity";
+    private const string CONTROLLER_SENSITIVITY_KEYWORD = "controllerAimSensitivity";
+    public float mouseSensitivity;
+    public float controllerSensitivity;
     public string inputDevice = "";
 
     [Header("Physics")]
@@ -74,6 +76,9 @@ public class PlayerController : MonoBehaviour
 
     public int upwardMovementIgnoresLayer;
 
+    [Header("Ground Pound")] 
+    public float groundPoundSpeed;
+
     [Header("Hand")]
 
     public GameObject handPrefab;
@@ -87,9 +92,6 @@ public class PlayerController : MonoBehaviour
 
     public PauseMenu pauseMenu;
 
-    [Header("Scene Management")]
-    public GameObject itemsContainer;
-
     // private fields
 
     private new Rigidbody rigidbody;
@@ -98,6 +100,7 @@ public class PlayerController : MonoBehaviour
     private Vector2 aimInput;
     private PlayerInput playerInput;
     private bool jumpInput;
+    private bool groundPoundInput;
     private bool isOnGround;
     private float coyoteTime;
     private int coyoteCharges = 1;
@@ -135,12 +138,15 @@ public class PlayerController : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
         Debug.Assert(rigidbody != null);
 
-        playerInputActions = new PlayerInputActions();
-        playerInputActions.Player.Enable();
+        mouseSensitivity = PlayerPrefs.GetFloat(MOUSE_SENSITIVITY_KEYWORD, 10);
+        controllerSensitivity = PlayerPrefs.GetFloat(CONTROLLER_SENSITIVITY_KEYWORD, 10);
     }
 
     void Start()
     {
+        playerInputActions = InputManager.inputActions;
+        playerInputActions.Player.Enable();
+        
         Debug.Assert(cameraBoom != null);
         Debug.Assert(camera != null);
         Debug.Assert(animator != null);
@@ -188,15 +194,25 @@ public class PlayerController : MonoBehaviour
         Vector2 aimVector = playerInputActions.Player.Aim.ReadValue<Vector2>();
         var jumpPressed = playerInputActions.Player.Jump.WasPerformedThisFrame();
         var interactPressed = playerInputActions.Player.Interact.WasPerformedThisFrame();
+        var groundPoundPressed = playerInputActions.Player.GroundPound.WasPerformedThisFrame();
 
         GetInputDevice();
         
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             movementInput = new Vector2(h, v);
-            var inputSensitivity = inputDevice == "Mouse" ? sensitivity : sensitivity * 10;
+            float inputSensitivity;
+            if (inputDevice == "Mouse") inputSensitivity = mouseSensitivity;
+            else inputSensitivity = controllerSensitivity * 10;
+
+            // var inputSensitivity = inputDevice == "Mouse" ? sensitivity : sensitivity * 10;
             aimInput += aimVector * (inputSensitivity * Time.deltaTime);
             if (jumpPressed) jumpInput = true;
+            if (groundPoundPressed)
+            {
+                groundPoundInput = true;
+                Debug.Log("groundPoundPressed");
+            }
         }
 
         //grapple
@@ -317,6 +333,7 @@ public class PlayerController : MonoBehaviour
 
         aimInput = default;
         jumpInput = false;
+        groundPoundInput = false;
 
         // grapple to hand
         if (thrownHand != null && thrownHand.IsAttached && !thrownHand.IsAttachedTo.isPulled)
@@ -385,7 +402,6 @@ public class PlayerController : MonoBehaviour
         thrownHand.audioMixer = audioMixer;
         Debug.Assert(thrownHand != null);
         thrownHand.playerController = this;
-        thrownHand.itemsContainer = itemsContainer;
 
         sfxGrab.Play();
     }
@@ -598,6 +614,7 @@ public class PlayerController : MonoBehaviour
 
             if (canJump)
             {
+                isDiving = false;
                 coyoteCharges--;
                 var vel = rigidbody.velocity;
                 vel.y =
@@ -630,6 +647,19 @@ public class PlayerController : MonoBehaviour
 
                 sfxJump.Play();
             }
+        }
+
+        if (groundPoundInput && !isOnGround)
+        {
+            var vel = rigidbody.velocity;
+            vel += transform.up * (-1 * groundPoundSpeed);
+            vel.x = 0;
+            rigidbody.velocity = vel;
+            isDiving = false;
+            isSpinning = false;
+            
+            
+            // ground pound todo - sfx here
         }
     }
 

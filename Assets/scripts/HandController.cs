@@ -23,7 +23,7 @@ public class HandController : MonoBehaviour
     private bool returning;
 
     private List<string> itemTags = new List<string>{"Crate", "Balloon"};
-    public GameObject itemsContainer;
+    public GameObjectVariable itemsContainer;
 
     void Awake()
     {
@@ -34,6 +34,8 @@ public class HandController : MonoBehaviour
     void Start()
     {
         Debug.Assert(playerController != null);
+        Debug.Assert(itemsContainer != null);
+
         startingPosition = transform.position;
 
         sfxGrab.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0];
@@ -67,8 +69,8 @@ public class HandController : MonoBehaviour
             if (IsPulling)
             {
 
-                if(itemsContainer != null && itemTags.Contains(IsAttachedTo.tag)){
-                    IsAttachedTo.transform.SetParent(itemsContainer.transform);
+                if(itemsContainer.Value != null && itemTags.Contains(IsAttachedTo.tag)){
+                    IsAttachedTo.transform.SetParent(itemsContainer.Value.transform);
                 }else{
                     IsAttachedTo.transform.SetParent(null);
                 }

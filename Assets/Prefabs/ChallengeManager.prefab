@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inactiveSceneStack: {fileID: 11400000, guid: 49dc926d293954945a0ed27b317fae11, type: 2}
+  exitFlags: {fileID: 11400000, guid: 95961dbc06bcedb43a2486c59ab12794, type: 2}
   onFail: {fileID: 11400000, guid: db5c905ddf7082444a3bcd9c6f10cb65, type: 2}
   onSuccess: {fileID: 11400000, guid: c189d366f37e0df4ab9b876c6f8cb6ec, type: 2}
   endingDuration: 4

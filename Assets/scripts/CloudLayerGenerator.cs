@@ -34,13 +34,16 @@ public class CloudLayerGenerator : MonoBehaviour
 
     private LayerComparer comparer = new LayerComparer();
 
-    [SerializeField] private GameObject itemsContainer;
-    [SerializeField] private GameObject cloudPoolContainer;
+    [SerializeField] private GameObjectVariable itemsContainer;
+    [SerializeField] private GameObjectVariable cloudPoolContainer;
 
     public (float, float) GetLayerBoundsY(int layer) => (layer * layerHeight + yOrigin, layer * layerHeight + yOrigin + layerHeight);
 
     void Start()
     {
+        Debug.Assert(itemsContainer != null);
+        Debug.Assert(cloudPoolContainer != null);
+
         cloudPool.Capacity = Mathf.CeilToInt(cloudsPerLayer * startingMultiplier * 2);
         layers.Capacity = layersAbovePlayer + layersBelowPlayer;
         layerPool.Capacity = 2;
@@ -101,7 +104,7 @@ public class CloudLayerGenerator : MonoBehaviour
 
         foreach (var cloud in layer.clouds)
         {
-            cloud.transform.SetParent(cloudPoolContainer.transform);
+            cloud.transform.SetParent(cloudPoolContainer.Value.transform);
             cloud.SetActive(false);
             cloudPool.Add(cloud);
         }
@@ -293,7 +296,7 @@ public class CloudLayerGenerator : MonoBehaviour
 
     private GameObject CreateLayerItem(GameObject prefab, Vector3 position, Quaternion rotation, ref Layer layer)
     {
-        var item = Instantiate(prefab, position, rotation, itemsContainer.transform);
+        var item = Instantiate(prefab, position, rotation, itemsContainer.Value.transform);
 
         var obj = item.GetComponent<LayerObject>();
         Debug.Assert(obj != null);

@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 [CreateAssetMenu(menuName = "Scriptable Objects/Inactive Scene Stack")]
 public class InactiveSceneStack : ScriptableObject
 {
-    private List<Scene> scenes = new List<Scene>(8);
+    private List<SceneRep> scenes = new List<SceneRep>(8);
 
-    public void Push(Scene scene)
+    public delegate void OnSceneResume();
+
+    public void Push(Scene scene, OnSceneResume onSceneResume = null)
     {
-        scenes.Add(scene);
+        scenes.Add(new SceneRep{ scene = scene, onSceneResume = onSceneResume });
 
         foreach (var obj in scene.GetRootGameObjects())
         {
@@ -20,14 +22,25 @@ public class InactiveSceneStack : ScriptableObject
 
     public Scene Pop()
     {
-        var scene = scenes[scenes.Count - 1];
+        var sceneRep = scenes[scenes.Count - 1];
         scenes.RemoveAt(scenes.Count - 1);
 
-        foreach (var obj in scene.GetRootGameObjects())
+        foreach (var obj in sceneRep.scene.GetRootGameObjects())
         {
             obj.SetActive(true);
         }
 
-        return scene;
+        if (sceneRep.onSceneResume != null)
+        {
+            sceneRep.onSceneResume();
+        }
+
+        return sceneRep.scene;
+    }
+
+    private struct SceneRep
+    {
+        public Scene scene;
+        public OnSceneResume onSceneResume;
     }
 }

@@ -72,8 +72,9 @@ MonoBehaviour:
   layersBelowPlayer: 15
   startingMultiplier: 3
   lastMultiplierLayer: 5
-  itemsContainer: {fileID: 0}
-  cloudPoolContainer: {fileID: 0}
+  layerFeatures: []
+  itemsContainer: {fileID: 11400000, guid: eec2087e95fb96f46a196f4c54b39c8f, type: 2}
+  cloudPoolContainer: {fileID: 11400000, guid: 9e5696bcd1888b141966efe85bae53da, type: 2}
 --- !u!114 &5010133920685921018
 MonoBehaviour:
   m_ObjectHideFlags: 0

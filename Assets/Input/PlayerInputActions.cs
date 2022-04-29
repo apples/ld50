@@ -98,6 +98,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Ground Pound"",
+                    ""type"": ""Button"",
+                    ""id"": ""09c42609-bd52-4cbd-a5c1-54780409e1d0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -419,6 +428,28 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""action"": ""UINavigation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""66c5ede7-4829-496b-a9a6-cfff169eb875"",
+                    ""path"": ""<Gamepad>/rightStickPress"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Ground Pound"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""19a7b0fe-0349-49ef-991a-c84277c456ee"",
+                    ""path"": ""<Keyboard>/shift"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Ground Pound"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -430,6 +461,11 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
             ""devices"": [
                 {
                     ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -458,6 +494,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Player_Aim = m_Player.FindAction("Aim", throwIfNotFound: true);
         m_Player_Escape = m_Player.FindAction("Escape", throwIfNotFound: true);
         m_Player_UINavigation = m_Player.FindAction("UINavigation", throwIfNotFound: true);
+        m_Player_GroundPound = m_Player.FindAction("Ground Pound", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -525,6 +562,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Aim;
     private readonly InputAction m_Player_Escape;
     private readonly InputAction m_Player_UINavigation;
+    private readonly InputAction m_Player_GroundPound;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -537,6 +575,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         public InputAction @Aim => m_Wrapper.m_Player_Aim;
         public InputAction @Escape => m_Wrapper.m_Player_Escape;
         public InputAction @UINavigation => m_Wrapper.m_Player_UINavigation;
+        public InputAction @GroundPound => m_Wrapper.m_Player_GroundPound;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -570,6 +609,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @UINavigation.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUINavigation;
                 @UINavigation.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUINavigation;
                 @UINavigation.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnUINavigation;
+                @GroundPound.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundPound;
+                @GroundPound.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundPound;
+                @GroundPound.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnGroundPound;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -598,6 +640,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @UINavigation.started += instance.OnUINavigation;
                 @UINavigation.performed += instance.OnUINavigation;
                 @UINavigation.canceled += instance.OnUINavigation;
+                @GroundPound.started += instance.OnGroundPound;
+                @GroundPound.performed += instance.OnGroundPound;
+                @GroundPound.canceled += instance.OnGroundPound;
             }
         }
     }
@@ -630,5 +675,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         void OnAim(InputAction.CallbackContext context);
         void OnEscape(InputAction.CallbackContext context);
         void OnUINavigation(InputAction.CallbackContext context);
+        void OnGroundPound(InputAction.CallbackContext context);
     }
 }
