@@ -589,11 +589,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 227097146476098496, guid: 379f24198276c0444a697a08606764d1, type: 3}
   m_PrefabInstance: {fileID: 3027132641883108820}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6398259458589268501 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8271324767262453697, guid: 379f24198276c0444a697a08606764d1, type: 3}
-  m_PrefabInstance: {fileID: 3027132641883108820}
-  m_PrefabAsset: {fileID: 0}
 --- !u!114 &7405244937528722119 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5532177432175867667, guid: 379f24198276c0444a697a08606764d1, type: 3}
@@ -605,6 +600,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8960417866803112831 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6222643770135043755, guid: 379f24198276c0444a697a08606764d1, type: 3}
+  m_PrefabInstance: {fileID: 3027132641883108820}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3027132641936896501
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -848,7 +848,11 @@ PrefabInstance:
     - target: {fileID: 8010624710194200542, guid: 0dbb5c9f2d590ec41892522ca4e22a38, type: 3}
       propertyPath: UIGameObject
       value: 
-      objectReference: {fileID: 6398259458589268501}
+      objectReference: {fileID: 8960417866803112831}
+    - target: {fileID: 8010624710194200542, guid: 0dbb5c9f2d590ec41892522ca4e22a38, type: 3}
+      propertyPath: maxRaftHeight
+      value: 
+      objectReference: {fileID: 11400000, guid: 4262452a8e5d5854b9a560ae9960f410, type: 2}
     - target: {fileID: 8010624710194200543, guid: 0dbb5c9f2d590ec41892522ca4e22a38, type: 3}
       propertyPath: m_Pivot.x
       value: 0
