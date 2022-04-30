@@ -54,6 +54,12 @@ MonoBehaviour:
   maxPopTime: 45
   minPopTimeGolden: 30
   maxPopTimeGolden: 60
+  maxInflationScale: 2
+  pulseTimeScale: 15
+  inflationStartTime: 15
+  inflationPulseTime: 5
+  inflationStartTimeGolden: 15
+  inflationPulseTimeGolden: 5
   offset: {x: 0, y: -0.5, z: 0}
   balloons: []
   balloonTimeUntilPop: 0

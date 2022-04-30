@@ -12,6 +12,8 @@ public class Balloon : MonoBehaviour
 
     public bool isGolden;
 
+    public Transform balloonMesh;
+
     private float floatDirectionTime;
     private float floatDirectionTimer;
     private Vector3 floatDirection;

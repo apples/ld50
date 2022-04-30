@@ -188,6 +188,7 @@ MonoBehaviour:
   maxFloatSpeed: 2
   springMaxDist: 1.5
   isGolden: 0
+  balloonMesh: {fileID: 2151786381387309606}
 --- !u!114 &8622390416193867743
 MonoBehaviour:
   m_ObjectHideFlags: 0

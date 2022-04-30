@@ -16,6 +16,13 @@ public class AnchorPoint : MonoBehaviour
     public float minPopTimeGolden;
     public float maxPopTimeGolden;
 
+    public float maxInflationScale;
+    public float pulseTimeScale;
+    public float inflationStartTime;
+    public float inflationPulseTime;
+    public float inflationStartTimeGolden;
+    public float inflationPulseTimeGolden;
+
     public Vector3 offset;
     public List<Balloon> balloons = new List<Balloon>(8);
     public float balloonTimeUntilPop;
@@ -42,10 +49,28 @@ public class AnchorPoint : MonoBehaviour
         if (balloons.Count > 0)
         {
             balloonTimeUntilPop -= Time.deltaTime;
+
             if (balloonTimeUntilPop <= 0)
             {
                 PopBalloonAt(0);
                 ResetTimer();
+            }
+            else
+            {
+                var balloon = balloons[0];
+                var startTime = balloon.isGolden ? inflationStartTimeGolden : inflationStartTime;
+                var pulseTime = balloon.isGolden ? inflationPulseTimeGolden : inflationPulseTime;
+                var inflation =
+                    balloonTimeUntilPop < pulseTime ? (Mathf.Cos((pulseTime - balloonTimeUntilPop) * pulseTimeScale) * 0.5f + 0.5f) :
+                    balloonTimeUntilPop < startTime ? (startTime - balloonTimeUntilPop) / (startTime - pulseTime) :
+                    0f;
+                var inflationScale = Mathf.Lerp(1f, maxInflationScale, inflation);
+
+                balloons[0].balloonMesh.localScale = new Vector3(
+                    inflationScale,
+                    inflationScale,
+                    inflationScale
+                );
             }
         }
     }
