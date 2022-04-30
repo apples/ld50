@@ -648,7 +648,7 @@ MonoBehaviour:
   diveSpeed: 10
   diveMinVerticalVelocity: 1
   upwardMovementIgnoresLayer: 7
-  groundPoundSpeed: 25
+  groundPoundSpeed: 50
   handPrefab: {fileID: 298058154162252240, guid: 480b36405d85ca34681eb5445099035e, type: 3}
   handLaunchSpeed: 30
   maxHandDist: 25
