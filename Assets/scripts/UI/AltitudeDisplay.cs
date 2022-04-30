@@ -12,20 +12,12 @@ public class AltitudeDisplay : MonoBehaviour
 
     public float minHeight = 0;
     public float maxHeight = 500;
-    private float totalHeightScale;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        totalHeightScale = maxHeight - minHeight;
-    }
-
-    // Update is called once per frame
     void Update()
     {
         DisplayPlayerAndRaftHeight();
-        RaiseMaxHeight();
+        // RaiseMaxHeight();
+        AdjustMinAndMaxHeight();
     }
 
     private void DisplayPlayerAndRaftHeight(){
@@ -40,6 +32,12 @@ public class AltitudeDisplay : MonoBehaviour
             float raftHeightScale = (raft.position.y - minHeight) / maxHeight;
             raftHeight.localScale = new Vector3(1, Mathf.Clamp(raftHeightScale, 0, 1), 1);
         }
+    }
+
+    private void AdjustMinAndMaxHeight()
+    {
+        minHeight = Mathf.Max(Mathf.Min(player.position.y, raft.position.y) - 25, 0);
+        maxHeight = Mathf.Max(player.position.y, raft.position.y) + 25;
     }
 
     private void RaiseMaxHeight(){
