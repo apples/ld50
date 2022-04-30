@@ -116,6 +116,7 @@ public class RaftController : MonoBehaviour
         }
 
         var vel = rigidbody.velocity;
+        upwardSpeed = Math.Max(NumBalloons / 4, .5f);
         var accel = new Vector3(0, fuelTime > 0 ? upwardSpeed - vel.y : -upwardSpeed * Time.fixedDeltaTime, 0);
 
         rigidbody.AddForce(accel, ForceMode.VelocityChange);
