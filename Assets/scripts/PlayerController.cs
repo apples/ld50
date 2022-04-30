@@ -101,7 +101,6 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private bool jumpInput;
     private bool groundPoundInput;
-    private int groundPoundCharges = 1;
     private bool isOnGround;
     private float coyoteTime;
     private int coyoteCharges = 1;
@@ -534,7 +533,6 @@ public class PlayerController : MonoBehaviour
             coyoteTime = 0;
             coyoteCharges = 1;
             groundRigidbody = hitInfo.rigidbody;
-            groundPoundCharges = 1;
         }
         else
         {
@@ -606,7 +604,7 @@ public class PlayerController : MonoBehaviour
 
         if (jumpInput)
         {
-            var canJump = coyoteTime < .5 && coyoteCharges > 0;
+            var canJump = coyoteTime < .25 && coyoteCharges > 0;
 
             if (thrownHand != null && thrownHand.IsAttached && (thrownHand.transform.position - transform.position).magnitude < attachedHandMaxJumpDist)
             {
@@ -651,7 +649,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (groundPoundInput && !isOnGround && groundPoundCharges > 0)
+        if (groundPoundInput && !isOnGround)
         {
             rigidbody.velocity = transform.up * (-1 * groundPoundSpeed);
             isDiving = false;
