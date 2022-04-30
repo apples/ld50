@@ -527,12 +527,11 @@ public class PlayerController : MonoBehaviour
                 isSpinning = false;
                 isDiving = false;
                 comboJumpTimer = comboJumpTimerMax;
+                coyoteTime = 0;
+                coyoteCharges = 1;
+                isOnGround = true;
+                groundRigidbody = hitInfo.rigidbody;
             }
-
-            isOnGround = true;
-            coyoteTime = 0;
-            coyoteCharges = 1;
-            groundRigidbody = hitInfo.rigidbody;
         }
         else
         {
