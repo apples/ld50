@@ -187,6 +187,7 @@ MonoBehaviour:
   minFloatSpeed: 0.5
   maxFloatSpeed: 2
   springMaxDist: 1.5
+  isGolden: 0
 --- !u!114 &8622390416193867743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,8 +229,8 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.25
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 1
+  m_Center: {x: 0, y: -0.73, z: 0}
 --- !u!75 &8176483440702450914
 ConstantForce:
   m_ObjectHideFlags: 0

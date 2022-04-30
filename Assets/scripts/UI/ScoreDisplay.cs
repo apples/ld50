@@ -4,7 +4,6 @@ using UnityEngine;
 using TMPro;
 using System;
 
-// this class is Deprecated by FuelDisplay
 public class ScoreDisplay : MonoBehaviour
 {
     [SerializeField] private IntScriptableObject maxRaftHeight;
