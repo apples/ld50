@@ -20,16 +20,18 @@ public class AltitudeDisplay : MonoBehaviour
         AdjustMinAndMaxHeight();
     }
 
-    private void DisplayPlayerAndRaftHeight(){
+    private void DisplayPlayerAndRaftHeight()
+    {
+        float heightDifference = maxHeight - minHeight;
         if (player != null)
         {
-            float playerHeightScale = (player.position.y - minHeight) / maxHeight;
+            float playerHeightScale = (player.position.y - minHeight) / heightDifference;
             playerHeight.localScale = new Vector3(1, Mathf.Clamp(playerHeightScale, 0, 1), 1);
         }
 
         if (raft != null)
         {
-            float raftHeightScale = (raft.position.y - minHeight) / maxHeight;
+            float raftHeightScale = (raft.position.y - minHeight) / heightDifference;
             raftHeight.localScale = new Vector3(1, Mathf.Clamp(raftHeightScale, 0, 1), 1);
         }
     }
