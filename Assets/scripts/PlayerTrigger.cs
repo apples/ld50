@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DoorPlayerTrigger : MonoBehaviour
+public class PlayerTrigger : MonoBehaviour
 {
     public UnityEvent<GameObject> onPlayerEnter = new UnityEvent<GameObject>();
     public UnityEvent<GameObject> onPlayerExit = new UnityEvent<GameObject>();

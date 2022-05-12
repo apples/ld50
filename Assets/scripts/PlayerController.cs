@@ -60,8 +60,6 @@ public class PlayerController : MonoBehaviour
     public float legSpringConstant;
     public float legDamping;
 
-    public float groundMovementDamping;
-
     public LayerMask legsRaycastLayers;
 
     [Header("Jump")]
@@ -74,7 +72,7 @@ public class PlayerController : MonoBehaviour
     public float diveSpeed;
     public float diveMinVerticalVelocity;
 
-    public int upwardMovementIgnoresLayer;
+    public LayerMask upwardMovementIgnoresLayers;
 
     [Header("Ground Pound")] 
     public float groundPoundSpeed;
@@ -101,12 +99,18 @@ public class PlayerController : MonoBehaviour
     private PlayerInput playerInput;
     private bool jumpInput;
     private bool groundPoundInput;
+
     private bool isOnGround;
+    private Vector3 groundNormal;
+
     private float coyoteTime;
     private int coyoteCharges = 1;
     private Rigidbody groundRigidbody;
     private bool isJumping;
     private bool isDiving;
+
+    private float? lastStretchDistance;
+    private Rigidbody lastGround;
 
     private Rigidbody heldItem;
 
@@ -336,6 +340,7 @@ public class PlayerController : MonoBehaviour
         groundPoundInput = false;
 
         // grapple to hand
+
         if (thrownHand != null && thrownHand.IsAttached && !thrownHand.IsAttachedTo.isPulled)
         {
             var toHand = thrownHand.transform.position - transform.position;
@@ -347,6 +352,8 @@ public class PlayerController : MonoBehaviour
 
             isSpinning = false;
         }
+
+        // speed limits
 
         if (rigidbody.velocity.magnitude > softSpeedLimit)
         {
@@ -361,7 +368,19 @@ public class PlayerController : MonoBehaviour
             rigidbody.velocity = rigidbody.velocity.normalized * hardSpeedLimit;
         }
 
-        Physics.IgnoreLayerCollision(gameObject.layer, upwardMovementIgnoresLayer, rigidbody.velocity.y > 0);
+        // one-way platforms
+
+        var isMovingUpwards = rigidbody.velocity.y > 0;
+
+        for (var i = 0; i < 32; ++i)
+        {
+            if ((upwardMovementIgnoresLayers.value & (1 << i)) != 0)
+            {
+                Physics.IgnoreLayerCollision(gameObject.layer, i, isMovingUpwards);
+            }
+        }
+
+        // camera motion
 
         if (fixedCameraPosition is Vector3 pos)
         {
@@ -504,32 +523,42 @@ public class PlayerController : MonoBehaviour
     {
         var rayDir = Vector3.down;
 
+        Debug.DrawLine(rigidbody.position, rigidbody.position + rayDir * legRayDistance, Color.magenta);
         if (Physics.Raycast(transform.position + new Vector3(0, 0.1f, 0), rayDir, out RaycastHit hitInfo, legRayDistance + 0.1f, legsRaycastLayers))
         {
-            var compressionDistance = (hitInfo.distance - 0.1f) - legRideHeight;
+            var stretchDistance = (hitInfo.distance - 0.1f) - legRideHeight;
 
-            var selfVel = Vector3.Dot(rayDir, rigidbody.velocity);
-            var groundVel = hitInfo.rigidbody != null ? Vector3.Dot(rayDir, hitInfo.rigidbody.velocity) : 0f;
-            var relVel = selfVel - groundVel;
+            var relVel = lastGround == groundRigidbody && lastStretchDistance is float lsd ?
+                (lsd - stretchDistance) / Time.fixedDeltaTime :
+                Vector3.Dot(rayDir, rigidbody.velocity) - (
+                    hitInfo.rigidbody != null ?
+                    Vector3.Dot(rayDir, hitInfo.rigidbody.velocity) :
+                    0f);
 
-            var springForce = compressionDistance * legSpringConstant - relVel * legDamping;
+            lastStretchDistance = stretchDistance;
+            lastGround = groundRigidbody;
 
-            // only apply downward force if not jumping, but always apply upward force
-            if (springForce < 0 || !isJumping)
-            {
-                rigidbody.AddForce(rayDir * springForce);
-            }
+            var springForce = stretchDistance * legSpringConstant - relVel * legDamping;
+
+            var force = rayDir * springForce;
+            rigidbody.AddForce(force);
+            Debug.DrawLine(rigidbody.position, rigidbody.position + force, springForce < 0 ? Color.yellow : Color.green, 0.1f);
 
             // reset isJumping if we're travelling downwards towards ground
-            if (springForce < 0 && isJumping)
+            if (springForce < 0)
             {
-                isJumping = false;
+                if (isJumping)
+                {
+                    isJumping = false;
+                    comboJumpTimer = comboJumpTimerMax;
+                }
+
                 isSpinning = false;
                 isDiving = false;
-                comboJumpTimer = comboJumpTimerMax;
                 coyoteTime = 0;
                 coyoteCharges = 1;
                 isOnGround = true;
+                groundNormal = hitInfo.normal;
                 groundRigidbody = hitInfo.rigidbody;
             }
         }
@@ -539,6 +568,8 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
             coyoteTime += Time.fixedDeltaTime;
             groundRigidbody = null;
+            lastStretchDistance = null;
+            lastGround = null;
         }
     }
 
@@ -548,13 +579,16 @@ public class PlayerController : MonoBehaviour
 
         // move
 
-        var localVelocity = transform.InverseTransformDirection(rigidbody.velocity);
-        var velocity = new Vector2(localVelocity.x, localVelocity.z);
+        var basis = isOnGround ?
+            Quaternion.LookRotation(
+                Vector3.Cross(transform.right, groundNormal),
+                groundNormal) :
+            transform.rotation;
 
-        var speedClampedVelocity = velocity.normalized * Mathf.Min(velocity.magnitude, moveSpeed);
-
+        var localVelocity = Quaternion.Inverse(basis) * rigidbody.velocity;
+        var planarVelocity = new Vector2(localVelocity.x, localVelocity.z);
+        var speedClampedVelocity = planarVelocity.normalized * Mathf.Min(planarVelocity.magnitude, moveSpeed);
         var desiredVelocity = movementInput.normalized * moveSpeed;
-
         var toDesired = desiredVelocity - speedClampedVelocity;
 
         var accelVector = Mathf.Min(toDesired.magnitude, moveAcceleration * Time.fixedDeltaTime) * toDesired.normalized;
@@ -571,15 +605,14 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        velocity = velocity + accelVector;
+        planarVelocity = planarVelocity + accelVector;
 
-        rigidbody.velocity = transform.TransformDirection(
-            new Vector3(
-                velocity.x,
-                localVelocity.y,
-                velocity.y
-            )
-        );
+        var newLocalVelocity = new Vector3(planarVelocity.x, localVelocity.y, planarVelocity.y);
+
+        var newVelocity = basis * newLocalVelocity;
+
+        Debug.DrawLine(rigidbody.position, rigidbody.position + newVelocity - rigidbody.velocity, Color.blue, 0.1f);
+        rigidbody.velocity = newVelocity;
 
         // set animation parameters
 

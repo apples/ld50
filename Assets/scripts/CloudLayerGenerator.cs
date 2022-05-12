@@ -117,8 +117,17 @@ public class CloudLayerGenerator : MonoBehaviour
             }
         }
 
+        foreach (var structure in layer.structures)
+        {
+            if (structure != null)
+            {
+                Destroy(structure);
+            }
+        }
+
         layer.clouds.Clear();
         layer.objects.Clear();
+        layer.structures.Clear();
 
         layer.container.SetActive(false);
 
@@ -310,21 +319,16 @@ public class CloudLayerGenerator : MonoBehaviour
     {
         if (TryGetLayer(level, out var layer))
         {
-            return CreateLayerStructure(prefab, position, rotation, ref layer);
+            var obj = Instantiate(prefab, position, rotation, layer.container.transform);
+
+            layer.structures.Add(obj);
+
+            return obj;
         }
         else
         {
             return null;
         }
-    }
-
-    private GameObject CreateLayerStructure(GameObject prefab, Vector3 position, Quaternion rotation, ref Layer layer)
-    {
-        var obj = Instantiate(prefab, position, rotation, layer.container.transform);
-
-        layer.structures.Add(obj);
-
-        return obj;
     }
 
     private int LayerBinarySearch(int layer)

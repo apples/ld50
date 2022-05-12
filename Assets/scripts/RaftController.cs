@@ -24,6 +24,9 @@ public class RaftController : MonoBehaviour
     public float tiltDamping;
 
     public float upwardSpeed;
+    public float balloonSpeedFactor = 0.25f;
+    public float minSpeedMultiplier = 0.5f;
+    public float maxSpeedMultiplier = 10f;
 
     public ScoreManager scoreManager;
 
@@ -116,8 +119,8 @@ public class RaftController : MonoBehaviour
         }
 
         var vel = rigidbody.velocity;
-        upwardSpeed = Math.Max(NumBalloons / 4, .5f);
-        var accel = new Vector3(0, fuelTime > 0 ? upwardSpeed - vel.y : -upwardSpeed * Time.fixedDeltaTime, 0);
+        var actualSpeed = upwardSpeed * Math.Clamp(NumBalloons * balloonSpeedFactor, minSpeedMultiplier, maxSpeedMultiplier);
+        var accel = new Vector3(0, fuelTime > 0 ? actualSpeed - vel.y : -actualSpeed * Time.fixedDeltaTime, 0);
 
         rigidbody.AddForce(accel, ForceMode.VelocityChange);
 
