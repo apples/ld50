@@ -109,8 +109,8 @@ public class PlayerController : MonoBehaviour
     private bool isJumping;
     private bool isDiving;
 
-    private float? lastStretchDistance;
-    private Rigidbody lastGround;
+    private float lastLegStretchDistance;
+    private Collider lastLegGroundCollider;
 
     private Rigidbody heldItem;
 
@@ -523,30 +523,62 @@ public class PlayerController : MonoBehaviour
     {
         var rayDir = Vector3.down;
 
-        Debug.DrawLine(rigidbody.position, rigidbody.position + rayDir * legRayDistance, Color.magenta);
-        if (Physics.Raycast(transform.position + new Vector3(0, 0.1f, 0), rayDir, out RaycastHit hitInfo, legRayDistance + 0.1f, legsRaycastLayers))
+        // scoot the raycast origin up a bit to avoid errors when the player collider is resting on flat ground
+        var fudge = 0.01f;
+
+        var raycastOrigin = transform.position + new Vector3(0, fudge, 0);
+
+        if (Physics.Raycast(raycastOrigin, rayDir, out RaycastHit hitInfo, legRayDistance + fudge, legsRaycastLayers))
         {
-            var stretchDistance = (hitInfo.distance - 0.1f) - legRideHeight;
+            // calculate spring displacement (dy)
+ 
+            var stretchDistance = (hitInfo.distance - fudge) - legRideHeight;
 
-            var relVel = lastGround == groundRigidbody && lastStretchDistance is float lsd ?
-                (lsd - stretchDistance) / Time.fixedDeltaTime :
-                Vector3.Dot(rayDir, rigidbody.velocity) - (
-                    hitInfo.rigidbody != null ?
-                    Vector3.Dot(rayDir, hitInfo.rigidbody.velocity) :
-                    0f);
+            // calculate spring displacement velocity (dy/dt)
 
-            lastStretchDistance = stretchDistance;
-            lastGround = groundRigidbody;
+            float LegStretchVelocity() => (lastLegStretchDistance - stretchDistance) / Time.fixedDeltaTime;
 
-            var springForce = stretchDistance * legSpringConstant - relVel * legDamping;
+            float RelativeVelocity()
+            {
+                var playerVelocity = Vector3.Dot(rayDir, rigidbody.velocity);
+
+                var groundVelocity = hitInfo.rigidbody != null ?
+                   Vector3.Dot(rayDir, hitInfo.rigidbody.velocity) :
+                   0f;
+
+                return playerVelocity - groundVelocity;
+            }
+
+            // only calculate velocity based on stretch delta if we're still on the same collider,
+            // otherwise discontinuities can cause sudden jumps
+            var stretchVelocity = lastLegGroundCollider == hitInfo.collider ?
+                LegStretchVelocity() :
+                RelativeVelocity();
+            
+            // calculate spring force (F = k * dy - c * dy / dt), where
+            // k is spring stiffness (N/m)
+            // c is damping coefficient (Ns/m)
+            // critical damping coefficient is at c = 2 * sqrt(mass * k)
+
+            var springForce = stretchDistance * legSpringConstant - stretchVelocity * legDamping;
 
             var force = rayDir * springForce;
+
+            // apply force
+
             rigidbody.AddForce(force);
+
             Debug.DrawLine(rigidbody.position, rigidbody.position + force, springForce < 0 ? Color.yellow : Color.green, 0.1f);
 
-            // reset isJumping if we're travelling downwards towards ground
+            // update state
+
+            lastLegStretchDistance = stretchDistance;
+            lastLegGroundCollider = hitInfo.collider;
+
+            // reset state flags if our legs are pushing against the ground (we are standing)
             if (springForce < 0)
             {
+                // this is an edge detection so we're not constantly resetting the comboJumpTimer
                 if (isJumping)
                 {
                     isJumping = false;
@@ -568,8 +600,7 @@ public class PlayerController : MonoBehaviour
             isJumping = true;
             coyoteTime += Time.fixedDeltaTime;
             groundRigidbody = null;
-            lastStretchDistance = null;
-            lastGround = null;
+            lastLegGroundCollider = null;
         }
     }
 
@@ -579,6 +610,7 @@ public class PlayerController : MonoBehaviour
 
         // move
 
+        // orthonormal basis converting world input space to ground surface input space
         var basis = isOnGround ?
             Quaternion.LookRotation(
                 Vector3.Cross(transform.right, groundNormal),
@@ -587,32 +619,30 @@ public class PlayerController : MonoBehaviour
 
         var localVelocity = Quaternion.Inverse(basis) * rigidbody.velocity;
         var planarVelocity = new Vector2(localVelocity.x, localVelocity.z);
+
         var speedClampedVelocity = planarVelocity.normalized * Mathf.Min(planarVelocity.magnitude, moveSpeed);
         var desiredVelocity = movementInput.normalized * moveSpeed;
         var toDesired = desiredVelocity - speedClampedVelocity;
+
+        // compute acceleration
 
         var accelVector = Mathf.Min(toDesired.magnitude, moveAcceleration * Time.fixedDeltaTime) * toDesired.normalized;
 
         if (!isOnGround)
         {
-            if (movementInput == Vector2.zero && IsDivingOrGrappling)
-            {
-                accelVector = Vector2.zero;
-            }
-            else
-            {
-                accelVector /= airAccelerationFactor;
-            }
+            var factor = movementInput == Vector2.zero && IsDivingOrGrappling ?
+                0f :
+                airAccelerationFactor;
+
+            accelVector *= factor;
         }
 
-        planarVelocity = planarVelocity + accelVector;
+        // apply acceleration
 
-        var newLocalVelocity = new Vector3(planarVelocity.x, localVelocity.y, planarVelocity.y);
+        var worldAcceleration = basis * new Vector3(accelVector.x, 0, accelVector.y);
 
-        var newVelocity = basis * newLocalVelocity;
-
-        Debug.DrawLine(rigidbody.position, rigidbody.position + newVelocity - rigidbody.velocity, Color.blue, 0.1f);
-        rigidbody.velocity = newVelocity;
+        Debug.DrawLine(rigidbody.position, rigidbody.position + worldAcceleration, Color.blue);
+        rigidbody.AddForce(worldAcceleration, ForceMode.VelocityChange);
 
         // set animation parameters
 

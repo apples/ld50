@@ -629,7 +629,7 @@ MonoBehaviour:
   collider: {fileID: 8656908677814280122}
   moveSpeed: 10
   moveAcceleration: 100
-  airAccelerationFactor: 3
+  airAccelerationFactor: 0.35
   hardSpeedLimit: 200
   softSpeedLimit: 20
   softSpeedLimitDamping: 0.9
