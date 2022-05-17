@@ -83,24 +83,6 @@ public class RainbowController : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
-    {
-        ref readonly var circle = ref GetCircle();
-
-        if (circle.score > 0.5f)
-        {
-            UnityEditor.Handles.color = Color.red;
-        }
-        else
-        {
-            UnityEditor.Handles.color = Color.white;
-        }
-
-        var endAngle = Mathf.Repeat(Vector3.SignedAngle(circle.start, circle.end, circle.normal), 360f);
-
-        UnityEditor.Handles.DrawWireArc(circle.center, circle.normal, circle.start, endAngle, circle.radius);
-    }
-
     public ref readonly Circle GetCircle()
     {
         var currentHash = GetPropsHash();
@@ -112,6 +94,29 @@ public class RainbowController : MonoBehaviour
         }
 
         return ref cachedCircle;
+    }
+
+    void OnDrawGizmos()
+    {
+        ref readonly var circle = ref GetCircle();
+        #if UNITY_EDITOR
+        if (circle.score > 0.5f)
+        {
+            UnityEditor.Handles.color = Color.red;
+        }
+        else
+        {
+            UnityEditor.Handles.color = Color.white;
+        }
+        #endif
+
+
+        var endAngle = Mathf.Repeat(Vector3.SignedAngle(circle.start, circle.end, circle.normal), 360f);
+
+        #if UNITY_EDITOR
+        UnityEditor.Handles.DrawWireArc(circle.center, circle.normal, circle.start, endAngle, circle.radius);
+        #endif
+
     }
 
     public void StartPushing(GameObject gameObject)
