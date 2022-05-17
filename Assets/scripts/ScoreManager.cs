@@ -31,6 +31,12 @@ public class ScoreManager : MonoBehaviour
         if(other.gameObject.CompareTag("Crate")){
             Debug.Assert(crates.IndexOf(other.gameObject) == -1);
             crates.Add(other.gameObject);
+
+            if (other.gameObject.GetComponent<LayerObject>() is LayerObject layerObject)
+            {
+                layerObject.PreventDespawn = true;
+            }
+
             OnScoreChanged?.Invoke(this, new OnCratesChangedEventArgs{numCrates = NumCrates});
 
             if (NumCrates >= crateGoal)
