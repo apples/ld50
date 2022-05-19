@@ -77,8 +77,8 @@ public class PlayerController : MonoBehaviour
     [Header("Ground Pound")] 
     public float groundPoundSpeed;
 
-    [Header("Hand")]
-
+    [Header("Hand")] 
+    public bool isGrappleAllowed = true;
     public GameObject handPrefab;
     public float handLaunchSpeed;
     public float maxHandDist;
@@ -144,6 +144,11 @@ public class PlayerController : MonoBehaviour
 
         mouseSensitivity = PlayerPrefs.GetFloat(MOUSE_SENSITIVITY_KEYWORD, 10);
         controllerSensitivity = PlayerPrefs.GetFloat(CONTROLLER_SENSITIVITY_KEYWORD, 10);
+        
+        if (!isGrappleAllowed)
+        {
+            crosshair.gameObject.SetActive(false);
+        }
     }
 
     void Start()
@@ -220,7 +225,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //grapple
-        if (playerInputActions.Player.Grapple.WasPerformedThisFrame())
+        if (isGrappleAllowed && playerInputActions.Player.Grapple.WasPerformedThisFrame())
         {
             ThrowHand();
         }

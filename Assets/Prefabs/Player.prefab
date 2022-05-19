@@ -650,6 +650,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16512
   groundPoundSpeed: 50
+  isGrappleAllowed: 1
   handPrefab: {fileID: 298058154162252240, guid: 480b36405d85ca34681eb5445099035e, type: 3}
   handLaunchSpeed: 30
   maxHandDist: 25

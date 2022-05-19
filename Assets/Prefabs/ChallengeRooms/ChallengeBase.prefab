@@ -212,6 +212,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 3027132642091394259}
     - target: {fileID: 4195299652747866180, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
+      propertyPath: isGrappleAllowed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4195299652747866180, guid: 0ba1a9f70367b3c4f88cfa3fae0bfba3, type: 3}
       propertyPath: pauseMenuGameObject
       value: 
       objectReference: {fileID: 3027132642091394262}
