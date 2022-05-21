@@ -16,6 +16,7 @@ public class ChallengeGameManager : MonoBehaviour
     public float endingDuration = 4f;
 
     public TMP_Text challengeText;
+    public TMP_Text timeRemainingText;
 
     public ExitPortalController exitPortal;
 

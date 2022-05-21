@@ -27,12 +27,6 @@ EditorBuildSettings:
     path: Assets/Scenes/DoorScenes/StandardChallenge/Challenge3.unity
     guid: 11110a947e7227f4695b53214d70d32e
   - enabled: 1
-    path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge4.unity
-    guid: d2f0994b247444c468bc37ea42541129
-  - enabled: 1
-    path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge2.unity
-    guid: c71681971a649db45b903c56617d50f9
-  - enabled: 1
     path: Assets/Scenes/DoorScenes/HellChallenge/HellChallenge1.unity
     guid: 8f20f3ac14b842f4197e5f455a8a3061
   - enabled: 1
@@ -41,4 +35,28 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/DoorScenes/HellChallenge/HellChallenge3.unity
     guid: 47df1bc9b601ed2478326eb9e5126121
+  - enabled: 1
+    path: Assets/Scenes/DoorScenes/HellChallenge/HellChallenge4.unity
+    guid: d072931cfa9fee145ac382027e164a34
+  - enabled: 1
+    path: Assets/Scenes/DoorScenes/HellChallenge/HellChallenge5.unity
+    guid: d845b57067b97bb4880d8cb8d228d3ce
+  - enabled: 1
+    path: Assets/Scenes/DoorScenes/HellChallenge/HellChallenge6.unity
+    guid: 4faa57e6da1bcf545bdc019260b07fd7
+  - enabled: 1
+    path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge1.unity
+    guid: 6c79170008e3bf94aaa910f42643e97c
+  - enabled: 1
+    path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge2.unity
+    guid: c71681971a649db45b903c56617d50f9
+  - enabled: 1
+    path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge4.unity
+    guid: d2f0994b247444c468bc37ea42541129
+  - enabled: 1
+    path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge6.unity
+    guid: 4dd8bfce5e545c54eb2fafda4eb0e66f
+  - enabled: 1
+    path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge5.unity
+    guid: f2cb8c2a848d75d4c83169ad93f29072
   m_configObjects: {}

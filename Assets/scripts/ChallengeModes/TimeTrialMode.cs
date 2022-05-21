@@ -29,10 +29,8 @@ public class TimeTrialMode : ChallengeMode
         var seconds = (int)TimeRemaining;
         var milliseconds = (int)((TimeRemaining - seconds) * 1000);
 
-        manager.challengeText.text =
-            $"Find the exit!\n" +
-            $"\n" +
-            $"{seconds:D2}:{milliseconds:D3}\n";
+        manager.challengeText.text = "Find the Exit!";
+        manager.timeRemainingText.text = $"{seconds:D2}:{milliseconds:D3}\n";
 
         if (TimeRemaining <= 0)
         {

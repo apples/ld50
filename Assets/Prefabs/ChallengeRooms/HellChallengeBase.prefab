@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 84583657961608845, guid: 1fda5c2e12b6c9d408ef792e74c7ed94, type: 3}
+      propertyPath: m_fontColorGradientPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: cba4616c904589e46b13afd61ae7511e, type: 2}
     - target: {fileID: 3027132641122969049, guid: 1fda5c2e12b6c9d408ef792e74c7ed94, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -107,5 +111,9 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8721261595324448603, guid: 1fda5c2e12b6c9d408ef792e74c7ed94, type: 3}
+      propertyPath: m_fontColorGradientPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: cba4616c904589e46b13afd61ae7511e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fda5c2e12b6c9d408ef792e74c7ed94, type: 3}

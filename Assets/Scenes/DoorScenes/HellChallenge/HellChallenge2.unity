@@ -209,6 +209,10 @@ PrefabInstance:
       propertyPath: isGrappleAllowed
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7399140486463592892, guid: 940c199557962284395d178043cfeb8f, type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7431282874721178598, guid: 940c199557962284395d178043cfeb8f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 40

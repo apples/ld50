@@ -19,9 +19,16 @@ MonoBehaviour:
   - EasyBalloonChallenge
   - BalloonChallenge1
   - BalloonChallenge2
+  - BalloonChallenge3
+  - BalloonChallenge4
+  - BalloonChallenge5
+  - BalloonChallenge6
   - HellChallenge1
   - HellChallenge2
   - HellChallenge3
+  - HellChallenge4
+  - HellChallenge5
+  - HellChallenge6
   - Challenge1
   - Challenge2
   - Challenge3

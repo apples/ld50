@@ -36,9 +36,9 @@ public class GoldenBalloonsMode : ChallengeMode
         var milliseconds = (int)((TimeRemaining - seconds) * 1000);
 
         manager.challengeText.text =
-            $"Find the balloons!\n" +
-            $"{BalloonsFound} / {NumBalloons}\n" +
-            $"{seconds:D2}:{milliseconds:D3}\n";
+            $"Find the balloons:\n" +
+            $"{BalloonsFound} / {NumBalloons}\n";
+        manager.timeRemainingText.text = $"{seconds:D2}:{milliseconds:D3}\n";
         
         if (BalloonsFound == NumBalloons)
         {
