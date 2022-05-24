@@ -470,7 +470,7 @@ public class PlayerController : MonoBehaviour
 
         foreach (var collider in colliders)
         {
-            if (collider.gameObject.CompareTag("Crate"))
+            if (collider.gameObject.CompareTag("Crate") || collider.gameObject.CompareTag("GoldenCrate"))
             {
                 GrabCrate(collider.attachedRigidbody);
                 return true;
@@ -504,7 +504,7 @@ public class PlayerController : MonoBehaviour
 
     private void GrabCrate(Rigidbody crateRigidbody)
     {
-        Debug.Assert(crateRigidbody.gameObject.CompareTag("Crate"));
+        Debug.Assert(crateRigidbody.gameObject.CompareTag("Crate") || crateRigidbody.gameObject.CompareTag("GoldenCrate"));
         heldItem = crateRigidbody;
         heldItem.transform.SetParent(transform);
         heldItem.transform.localPosition = new Vector3(0, 1.5f, 0);
@@ -758,7 +758,7 @@ public class PlayerController : MonoBehaviour
 
     public void GiveItem(GrapplePoint isAttachedTo)
     {
-        if (isAttachedTo.gameObject.CompareTag("Crate"))
+        if (isAttachedTo.gameObject.CompareTag("Crate") || isAttachedTo.gameObject.CompareTag("GoldenCrate"))
         {
             if (heldItem == null)
             {

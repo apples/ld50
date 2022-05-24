@@ -20,7 +20,7 @@ public class ScoreManager : MonoBehaviour
 
     private List<GameObject> crates = new List<GameObject>();
 
-    public int NumCrates => crates.Count;
+    public int NumCrates => crates.Count + crates.FindAll(x => x.CompareTag("GoldenCrate")).Count;
     public IReadOnlyList<GameObject> Crates => crates;
 
     private void Update() {
@@ -28,7 +28,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        if(other.gameObject.CompareTag("Crate")){
+        if(other.gameObject.CompareTag("Crate") || other.gameObject.CompareTag("GoldenCrate")){
             Debug.Assert(crates.IndexOf(other.gameObject) == -1);
             crates.Add(other.gameObject);
 
@@ -47,7 +47,7 @@ public class ScoreManager : MonoBehaviour
     }
 
     private void OnTriggerExit(Collider other){
-        if(other.gameObject.CompareTag("Crate")){
+        if(other.gameObject.CompareTag("Crate") || other.gameObject.CompareTag("GoldenCrate")){
             var idx = crates.IndexOf(other.gameObject);
             if (idx >= 0)
             {

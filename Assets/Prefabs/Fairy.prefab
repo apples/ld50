@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   possibleRewards:
-  - prefab: {fileID: 21420973097778823, guid: ff3cfe93b61f36449bfa2a97c761a833, type: 3}
+  - prefab: {fileID: 21420973097778823, guid: a7292defc5af00442bfc81db92ba64e7, type: 3}
     randomRotation: 1
   - prefab: {fileID: 5642216667086855902, guid: cdb5abf13b6215c4ba51c4fbf3dcb78b, type: 3}
     randomRotation: 0
