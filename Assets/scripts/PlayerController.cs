@@ -533,73 +533,91 @@ public class PlayerController : MonoBehaviour
 
         var raycastOrigin = transform.position + new Vector3(0, fudge, 0);
 
-        if (Physics.Raycast(raycastOrigin, rayDir, out RaycastHit hitInfo, legRayDistance + fudge, legsRaycastLayers))
+        if (!Physics.Raycast(raycastOrigin, rayDir, out RaycastHit hitInfo, legRayDistance + fudge, legsRaycastLayers))
         {
-            // calculate spring displacement (dy)
- 
-            var stretchDistance = (hitInfo.distance - fudge) - legRideHeight;
-
-            // calculate spring displacement velocity (dy/dt)
-
-            float LegStretchVelocity() => (lastLegStretchDistance - stretchDistance) / Time.fixedDeltaTime;
-
-            float RelativeVelocity()
-            {
-                var playerVelocity = Vector3.Dot(rayDir, rigidbody.velocity);
-
-                var groundVelocity = hitInfo.rigidbody != null ?
-                   Vector3.Dot(rayDir, hitInfo.rigidbody.velocity) :
-                   0f;
-
-                return playerVelocity - groundVelocity;
-            }
-
-            // only calculate velocity based on stretch delta if we're still on the same collider,
-            // otherwise discontinuities can cause sudden jumps
-            var stretchVelocity = lastLegGroundCollider == hitInfo.collider ?
-                LegStretchVelocity() :
-                RelativeVelocity();
-            
-            // calculate spring force (F = k * dy - c * dy / dt), where
-            // k is spring stiffness (N/m)
-            // c is damping coefficient (Ns/m)
-            // critical damping coefficient is at c = 2 * sqrt(mass * k)
-
-            var springForce = stretchDistance * legSpringConstant - stretchVelocity * legDamping;
-
-            var force = rayDir * springForce;
-
-            // apply force
-
-            rigidbody.AddForce(force);
-
-            Debug.DrawLine(rigidbody.position, rigidbody.position + force, springForce < 0 ? Color.yellow : Color.green, 0.1f);
-
-            // update state
-
-            lastLegStretchDistance = stretchDistance;
-            lastLegGroundCollider = hitInfo.collider;
-
-            // reset state flags if our legs are pushing against the ground (we are standing)
-            if (springForce < 0)
-            {
-                // this is an edge detection so we're not constantly resetting the comboJumpTimer
-                if (isJumping)
-                {
-                    isJumping = false;
-                    comboJumpTimer = comboJumpTimerMax;
-                }
-
-                isSpinning = false;
-                isDiving = false;
-                coyoteTime = 0;
-                coyoteCharges = 1;
-                isOnGround = true;
-                groundNormal = hitInfo.normal;
-                groundRigidbody = hitInfo.rigidbody;
-            }
+            ResetStateFlagsAerial();
+            return;
         }
-        else
+
+        // calculate spring displacement (dy)
+
+        var stretchDistance = (hitInfo.distance - fudge) - legRideHeight;
+
+        // calculate spring displacement velocity (dy/dt)
+
+        float LegStretchVelocity() => (stretchDistance - lastLegStretchDistance) / Time.fixedDeltaTime;
+
+        float RelativeVelocity()
+        {
+            var playerVelocity = Vector3.Dot(rayDir, rigidbody.velocity);
+
+            var groundVelocity = hitInfo.rigidbody != null ?
+               Vector3.Dot(rayDir, hitInfo.rigidbody.velocity) :
+               0f;
+
+            return groundVelocity - playerVelocity;
+        }
+
+        // only calculate velocity based on stretch delta if we're still on the same collider,
+        // otherwise discontinuities can cause sudden jumps
+        var stretchVelocity = lastLegGroundCollider == hitInfo.collider ?
+            LegStretchVelocity() :
+            RelativeVelocity();
+        
+        // don't consider legs to be touching the ground if we are moving away from the ground and are coming from the air
+        // this usually only occurs when moving upwards through a semi-solid platform (e.g. clouds)
+        if (stretchVelocity > 0f && !isOnGround)
+        {
+            ResetStateFlagsAerial();
+            return;
+        }
+
+        // calculate spring force (F = k * dy + c * dy / dt), where
+        // k is spring stiffness (N/m)
+        // c is damping coefficient (Ns/m)
+        // critical damping coefficient is at c = 2 * sqrt(mass * k)
+
+        var springForce = stretchDistance * legSpringConstant + stretchVelocity * legDamping;
+
+        var force = rayDir * springForce;
+
+        // apply force
+
+        rigidbody.AddForce(force);
+
+        Debug.DrawLine(rigidbody.position, rigidbody.position + force, springForce < 0 ? Color.yellow : Color.green, 0.1f);
+
+        // update state
+
+        lastLegStretchDistance = stretchDistance;
+        lastLegGroundCollider = hitInfo.collider;
+
+        // reset state flags because we are standing
+
+        // this is an edge detection so we're not constantly resetting the comboJumpTimer
+        if (isJumping)
+        {
+            isJumping = false;
+            comboJumpTimer = comboJumpTimerMax;
+        }
+
+        isSpinning = false;
+        isDiving = false;
+        coyoteTime = 0;
+        coyoteCharges = 1;
+        isOnGround = true;
+        groundNormal = hitInfo.normal;
+        groundRigidbody = hitInfo.rigidbody;
+
+        // apply moving platform velocity
+        if (hitInfo.rigidbody != null)
+        {
+            var groundVel = hitInfo.rigidbody.GetPointVelocity(hitInfo.point);
+
+            rigidbody.MovePosition(rigidbody.position + groundVel * Time.deltaTime);
+        }
+
+        void ResetStateFlagsAerial()
         {
             isOnGround = false;
             isJumping = true;
