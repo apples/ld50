@@ -427,6 +427,9 @@ MonoBehaviour:
   tiltSpringConstant: 500
   tiltDamping: 400
   upwardSpeed: 1
+  balloonSpeedFactor: 0.15
+  minSpeedMultiplier: 0.5
+  maxSpeedMultiplier: 7
   scoreManager: {fileID: 0}
   refuelTime: 60
   infiniteFuel: 0

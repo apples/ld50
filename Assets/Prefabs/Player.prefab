@@ -640,7 +640,7 @@ MonoBehaviour:
   legsRaycastLayers:
     serializedVersion: 2
     m_Bits: 18931
-  jumpSpeed: 10
+  jumpSpeed: 15
   spinJumpExtraSpeed: 5
   comboJumpTimerMax: 0.5
   attachedHandMaxJumpDist: 4
@@ -652,8 +652,8 @@ MonoBehaviour:
   groundPoundSpeed: 50
   isGrappleAllowed: 1
   handPrefab: {fileID: 298058154162252240, guid: 480b36405d85ca34681eb5445099035e, type: 3}
-  handLaunchSpeed: 30
-  maxHandDist: 25
+  handLaunchSpeed: 35
+  maxHandDist: 30
   handGrappleForce: 75
   minHandGrappleDistance: 3
   itemThrowForce: 15
