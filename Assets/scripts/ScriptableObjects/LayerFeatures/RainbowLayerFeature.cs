@@ -15,6 +15,18 @@ public class RainbowLayerFeature : LayerFeature
 
     public override void Spawn(CloudLayerGenerator generator, int level)
     {
+        int playerLevel = PlayerPrefs.GetInt("PlayerLevel", -1);
+
+        if(playerLevel > 1){
+            SpawnRainbow(generator, level);
+            if(playerLevel > 33){
+                SpawnRainbow(generator, level);
+            }
+        }
+    }
+
+    private void SpawnRainbow(CloudLayerGenerator generator, int level)
+    {
         var (minY, maxY) = generator.GetLayerBoundsY(level);
 
         var rainbowObj = generator.CreateLayerStructure(prefab, Vector3.zero, Quaternion.identity, level);
@@ -57,4 +69,5 @@ public class RainbowLayerFeature : LayerFeature
 
         Destroy(rainbowObj);
     }
+
 }

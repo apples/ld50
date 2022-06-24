@@ -16,21 +16,26 @@ public class DoorCloudPlatformLayerFeature : LayerFeature
     {
         Debug.Assert(doorChallengeScenes.Count > 0);
 
-        var (minY, maxY) = generator.GetLayerBoundsY(level);
+        int playerLevel = PlayerPrefs.GetInt("PlayerLevel", -1);
 
-        var radius = (generator.layerRadius - generator.deadzoneRadius) * radiusRatio + generator.deadzoneRadius;
-        var angleRad = Random.Range(0f, Mathf.PI * 2f);
+        if(playerLevel > 3){
+            var (minY, maxY) = generator.GetLayerBoundsY(level);
 
-        var x = Mathf.Sin(angleRad) * radius;
-        var z = Mathf.Cos(angleRad) * radius;
+            var radius = (generator.layerRadius - generator.deadzoneRadius) * radiusRatio + generator.deadzoneRadius;
+            var angleRad = Random.Range(0f, Mathf.PI * 2f);
 
-        var coord = new Vector3(x, Random.Range(minY, maxY), z);
-        var rotation = Quaternion.LookRotation(-(Vector3.Scale(coord, new Vector3(1, 0, 1))).normalized, Vector3.up);
+            var x = Mathf.Sin(angleRad) * radius;
+            var z = Mathf.Cos(angleRad) * radius;
 
-        var obj = generator.CreateLayerStructure(prefab, coord, rotation, level);
+            var coord = new Vector3(x, Random.Range(minY, maxY), z);
+            var rotation = Quaternion.LookRotation(-(Vector3.Scale(coord, new Vector3(1, 0, 1))).normalized, Vector3.up);
 
-        var sceneName = doorChallengeScenes[Random.Range(0, doorChallengeScenes.Count)];
+            var obj = generator.CreateLayerStructure(prefab, coord, rotation, level);
 
-        obj.GetComponentInChildren<DoorController>().warpToScene = sceneName;
+            var sceneName = doorChallengeScenes[Random.Range(0, Mathf.Min((playerLevel / 2) - 1, doorChallengeScenes.Count))];
+
+            obj.GetComponentInChildren<DoorController>().warpToScene = sceneName;
+        }
+        
     }
 }
