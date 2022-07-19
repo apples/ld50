@@ -11,6 +11,8 @@ public class HighScores : MonoBehaviour
     [SerializeField] private Transform scoreEntryTemplate;
     [SerializeField] private IntScriptableObject newScore;
 
+    [SerializeField] private bool showLevelInfo = true;
+    
     public string scoreMetricText = "";
 
     private List<ScoreEntry> scoreEntriesList;
@@ -41,49 +43,53 @@ public class HighScores : MonoBehaviour
 
     private void Awake() {
 
-        //do levelups first
-        level = PlayerPrefs.GetInt("PlayerLevel", -1);
-        if(level == -1){
-            level = 0;
-        }
-        int oldLevel = level;
-        currentTarget = level * 50;
+        if (showLevelInfo)
+        {
+            //do levelups first
+            level = PlayerPrefs.GetInt("PlayerLevel", -1);
+            if(level == -1){
+                level = 0;
+            }
+            int oldLevel = level;
+            currentTarget = level * 50;
 
-        if(newScore.value > currentTarget){
-            level++;
-            if(!LoadSavedScoreEntries().Exists(x => x.score > newScore.value)){
+            if(newScore.value > currentTarget){
                 level++;
-                GameObject.Find("Level Summary").GetComponent<TextMeshProUGUI>().text = "You hit your target height and got a new personal best!";
+                if(!LoadSavedScoreEntries().Exists(x => x.score > newScore.value)){
+                    level++;
+                    GameObject.Find("Level Summary").GetComponent<TextMeshProUGUI>().text = "You hit your target height and got a new personal best!";
+                }
+                else{
+                    GameObject.Find("Level Summary").GetComponent<TextMeshProUGUI>().text = "You hit your target height!";
+                }
+            }
+            else if(!LoadSavedScoreEntries().Exists(x => x.score > newScore.value)){
+                level++;
+                GameObject.Find("Level Summary").GetComponent<TextMeshProUGUI>().text = "You got a new personal best!";
             }
             else{
-                GameObject.Find("Level Summary").GetComponent<TextMeshProUGUI>().text = "You hit your target height!";
+                GameObject.Find("Level Summary").GetComponent<TextMeshProUGUI>().text = "";
             }
-        }
-        else if(!LoadSavedScoreEntries().Exists(x => x.score > newScore.value)){
-            level++;
-            GameObject.Find("Level Summary").GetComponent<TextMeshProUGUI>().text = "You got a new personal best!";
-        }
-        else{
-            GameObject.Find("Level Summary").GetComponent<TextMeshProUGUI>().text = "";
-        }
 
-        GameObject.Find("Current Level").GetComponent<TextMeshProUGUI>().text = "Current Level: " + level;
+            GameObject.Find("Current Level").GetComponent<TextMeshProUGUI>().text = "Current Level: " + level;
 
-        currentTarget = level * 50;
-        GameObject.Find("Current Target").GetComponent<TextMeshProUGUI>().text = "Next Target: " + currentTarget + scoreMetricText;
+            currentTarget = level * 50;
+            GameObject.Find("Current Target").GetComponent<TextMeshProUGUI>().text = "Next Target: " + currentTarget + scoreMetricText;
 
-        //get rewards every even level up to level 34
-        if(oldLevel != level && (level % 2 == 0 || level - oldLevel == 2) && level < unlocks.Count + 1){
-            GameObject.Find("Level Rewards").GetComponent<TextMeshProUGUI>().text = "You've unlocked " + unlocks[(level / 2) - 1] + "!";
-        }
-        else if(level < unlocks.Count + 1){
-            GameObject.Find("Level Rewards").GetComponent<TextMeshProUGUI>().text = "New unlock in " + (level % 2 == 0 ? "2 levels" : "1 level");
+            //get rewards every even level up to level 34
+            if(oldLevel != level && (level % 2 == 0 || level - oldLevel == 2) && level < unlocks.Count + 1){
+                GameObject.Find("Level Rewards").GetComponent<TextMeshProUGUI>().text = "You've unlocked " + unlocks[(level / 2) - 1] + "!";
+            }
+            else if(level < unlocks.Count + 1){
+                GameObject.Find("Level Rewards").GetComponent<TextMeshProUGUI>().text = "New unlock in " + (level % 2 == 0 ? "2 levels" : "1 level");
+            }
+            
+            PlayerPrefs.SetInt("PlayerLevel", level);
+
+            AddScoreEntryToSavedScoreEntries(newScore.value);
         }
         
-        PlayerPrefs.SetInt("PlayerLevel", level);
-
         scoreEntryTemplate.gameObject.SetActive(false);
-        AddScoreEntryToSavedScoreEntries(newScore.value);
         scoreEntriesList = LoadSavedScoreEntries();
 
         CreateScoreEntriesTransform();
