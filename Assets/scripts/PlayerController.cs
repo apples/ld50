@@ -179,7 +179,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // If we don't have focus and you click in the game, capture the mouse
-        if (Cursor.lockState == CursorLockMode.None && playerInputActions.Player.Grapple.WasPerformedThisFrame())
+        if (Cursor.lockState == CursorLockMode.None && (playerInputActions.Player.Grapple.WasPerformedThisFrame() || inputDevice != "Mouse"))
         {
             Cursor.lockState = CursorLockMode.Locked;
             return;
@@ -191,7 +191,7 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // Press Escapse to release mouse control
+        // Press Escape to release mouse control
         if (playerInputActions.Player.Escape.WasPerformedThisFrame())
         {
             Cursor.lockState = CursorLockMode.None;

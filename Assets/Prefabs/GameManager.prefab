@@ -90,5 +90,5 @@ MonoBehaviour:
   objectToFollow: {fileID: 0}
   fogPlane: {fileID: 0}
   minimumY: -50
-  followDist: 150
+  followDist: 70
   freezeFog: 0

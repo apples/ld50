@@ -15,9 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/endScene.unity
     guid: 83c98c8de79e81146ad3a2a47aaec674
   - enabled: 1
-    path: Assets/Scenes/DoorScenes/EasyDoorChallenge.unity
-    guid: 13304f39fcc348346be4a69b5ca4d7d7
-  - enabled: 1
     path: Assets/Scenes/DoorScenes/StandardChallenge/Challenge1.unity
     guid: 7339543605de4fd468164bd78092a21d
   - enabled: 1
@@ -51,12 +48,15 @@ EditorBuildSettings:
     path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge2.unity
     guid: c71681971a649db45b903c56617d50f9
   - enabled: 1
+    path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge3.unity
+    guid: 26a9a04cb594afd48803331209ee33c2
+  - enabled: 1
     path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge4.unity
     guid: d2f0994b247444c468bc37ea42541129
   - enabled: 1
-    path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge6.unity
-    guid: 4dd8bfce5e545c54eb2fafda4eb0e66f
-  - enabled: 1
     path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge5.unity
     guid: f2cb8c2a848d75d4c83169ad93f29072
+  - enabled: 1
+    path: Assets/Scenes/DoorScenes/BalloonChallenge/BalloonChallenge6.unity
+    guid: 4dd8bfce5e545c54eb2fafda4eb0e66f
   m_configObjects: {}

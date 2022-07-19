@@ -13,7 +13,7 @@ public class SelectOrDeselectBasedOnInput : MonoBehaviour
     private PlayerInputActions playerInputActions;
     private string currentDeviceName;
 
-    private void Awake() 
+    private void Start() 
     {
         playerInputActions = InputManager.inputActions;
         playerInputActions.Player.Enable();    
@@ -26,7 +26,7 @@ public class SelectOrDeselectBasedOnInput : MonoBehaviour
 
     void Update()
     {
-        if (focusedSelectable == null)
+        if (!focusedSelectable)
         {
             return;
         }
