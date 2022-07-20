@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61eba3a91840e2b4fae42fad95f5538a, type: 3}
   m_Name: DoorCloudPlatform
   m_EditorClassIdentifier: 
-  chancePerLayer: 100
+  chancePerLayer: 20
   prefab: {fileID: 3813356279811022786, guid: c70b41dc78caeba498a36c811f552d8c, type: 3}
   radiusRatio: 0.5
   doorChallengeScenes:
