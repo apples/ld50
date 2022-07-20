@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -64,9 +65,17 @@ public class ChallengeGameManager : MonoBehaviour
         }
     }
 
+    public void CloseExit()
+    {
+        Debug.Assert(exitPortal != null);
+        Debug.Log($"Closing exit portal.");
+        exitPortal.Close();
+    }
+
     public void OpenExit()
     {
         Debug.Assert(exitPortal != null);
+        Debug.Log($"Opening exit portal.");
         exitPortal.Open();
     }
 

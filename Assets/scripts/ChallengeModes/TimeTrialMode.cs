@@ -12,12 +12,14 @@ public class TimeTrialMode : ChallengeMode
 
     void Awake()
     {
+        Debug.Log("Awake!");
         manager = GetComponent<ChallengeGameManager>();
         Debug.Assert(manager != null);
     }
 
     void Start()
     {
+        Debug.Log("Start!");
         TimeRemaining = seconds;
         manager.OpenExit();
     }

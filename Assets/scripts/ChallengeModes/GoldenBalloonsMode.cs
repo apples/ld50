@@ -26,6 +26,7 @@ public class GoldenBalloonsMode : ChallengeMode
     void Start()
     {
         TimeRemaining = seconds;
+        manager.CloseExit();
     }
 
     protected override void ChallengeUpdate()

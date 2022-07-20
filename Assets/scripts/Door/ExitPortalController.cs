@@ -15,7 +15,7 @@ public class ExitPortalController : MonoBehaviour
 
     private int isOpenParam = Animator.StringToHash("IsOpen");
 
-    void Start()
+    public void Close()
     {
         playerTrigger.SetActive(false);
         animator.SetBool(isOpenParam, false);
@@ -23,12 +23,16 @@ public class ExitPortalController : MonoBehaviour
 
     public void Open()
     {
+        Debug.Log($"Portal opened");
+
         playerTrigger.SetActive(true);
         animator.SetBool(isOpenParam, true);
     }
 
     public void WarpPlayer()
     {
+        Debug.Log($"Warping player");
+
         if (hasBeenUsed) return;
         hasBeenUsed = true;
 

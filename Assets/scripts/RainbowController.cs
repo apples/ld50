@@ -179,8 +179,6 @@ public class RainbowController : MonoBehaviour
 
         if (circle.hash != lastCircleHash)
         {
-            Debug.Log($"REFRESH {Time.time}");
-
             if (startCloud != null && endCloud != null)
             {
                 transform.position = circle.center;
