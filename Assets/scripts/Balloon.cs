@@ -48,9 +48,18 @@ public class Balloon : MonoBehaviour
 
     void OnEnable()
     {
+        if (AnchoredTo != null && AnchoredTo.gameObject.activeInHierarchy)
+        {
+            ResetSpring();
+        }
+    }
+
+    void OnDisable()
+    {
         if (spring != null)
         {
-            spring.connectedBody = AnchoredTo;
+            Destroy(spring);
+            spring = null;
         }
     }
 
@@ -66,6 +75,10 @@ public class Balloon : MonoBehaviour
     {
         if (IsAnchored)
         {
+            if (spring == null && AnchoredTo.gameObject.activeInHierarchy)
+            {
+                ResetSpring();
+            }
             tether.SetPosition(1, transform.InverseTransformPoint(spring.connectedBody.transform.position));
         }
         else
@@ -90,14 +103,21 @@ public class Balloon : MonoBehaviour
 
     public void AnchorTo(Rigidbody connectedRigidbody)
     {
-        if (connectedRigidbody != null)
+        AnchoredTo = connectedRigidbody;
+        ResetSpring();
+    }
+
+    private void ResetSpring()
+    {
+        if (AnchoredTo != null)
         {
-            Debug.Assert(IsAnchored == false);
-            Debug.Assert(spring == null);
-            AnchoredTo = connectedRigidbody;
+            if (spring != null)
+            {
+                Destroy(spring);
+            }
             spring = gameObject.AddComponent<SpringJoint>();
             spring.autoConfigureConnectedAnchor = false;
-            spring.connectedBody = connectedRigidbody;
+            spring.connectedBody = AnchoredTo;
             spring.connectedAnchor = Vector3.zero;
             spring.maxDistance = springMaxDist;
             spring.connectedMassScale = 0.00001f;
@@ -108,15 +128,14 @@ public class Balloon : MonoBehaviour
         }
         else
         {
-            Debug.Assert(IsAnchored == true);
-            Debug.Assert(spring != null);
-            AnchoredTo = null;
-            Destroy(spring);
-            spring = null;
+            if (spring != null)
+            {
+                Destroy(spring);
+                spring = null;
 
-            constantForce.enabled = false;
-
-            grapplePoint.disabled = false;
+                constantForce.enabled = false;
+                grapplePoint.disabled = false;
+            }
         }
     }
 }
