@@ -1,26 +1,25 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ScoreManager : MonoBehaviour
 {
-    public event EventHandler<OnCratesChangedEventArgs> OnScoreChanged;
-    public class OnCratesChangedEventArgs : EventArgs{
-        public int numCrates;
-    }
+    public event Action<int> OnScoreChanged;
+    public event Action<int, int> OnCrateGoalReached;
 
-    public event EventHandler<OnCrateGoalReachedEventArgs> OnCrateGoalReached;
-    public class OnCrateGoalReachedEventArgs : EventArgs
-    {
-    }
+    public int goldenCrateBonus = 3;
 
     public int crateGoal = 1;
     public IntScriptableObject raftMaxHeight;
 
     private List<GameObject> crates = new List<GameObject>();
 
-    public int NumCrates => crates.Count + crates.FindAll(x => x.CompareTag("GoldenCrate")).Count;
+    public int NumCrates =>
+        crates.Count +
+        crates.Count(x => x.CompareTag("GoldenCrate")) * goldenCrateBonus;
+    
     public IReadOnlyList<GameObject> Crates => crates;
 
     private void Update() {
@@ -37,11 +36,13 @@ public class ScoreManager : MonoBehaviour
                 layerObject.PreventDespawn = true;
             }
 
-            OnScoreChanged?.Invoke(this, new OnCratesChangedEventArgs{numCrates = NumCrates});
+            var numCrates = NumCrates;
 
-            if (NumCrates >= crateGoal)
+            OnScoreChanged?.Invoke(numCrates);
+
+            if (numCrates >= crateGoal)
             {
-                OnCrateGoalReached?.Invoke(this, new OnCrateGoalReachedEventArgs());
+                OnCrateGoalReached?.Invoke(numCrates, crateGoal);
             }
         }
     }
@@ -52,7 +53,7 @@ public class ScoreManager : MonoBehaviour
             if (idx >= 0)
             {
                 crates.RemoveAt(idx);
-                OnScoreChanged?.Invoke(this, new OnCratesChangedEventArgs { numCrates = NumCrates });
+                OnScoreChanged?.Invoke(NumCrates);
             }
         }
     }

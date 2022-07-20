@@ -19,12 +19,17 @@ public class RaftController : MonoBehaviour
 
     public GameObject balloonPrefab;
     public GameObject poofPrefab;
+    public GameObject cratePrefab;
+
+    public Transform crateSpawn;
+    public float crateSpawnRadius = 1f;
 
     public float tiltSpringConstant;
     public float tiltDamping;
 
     public float upwardSpeed;
     public float balloonSpeedFactor = 0.25f;
+    public float balloonSpeedFactorGolden = 1f;
     public float minSpeedMultiplier = 0.5f;
     public float maxSpeedMultiplier = 10f;
 
@@ -42,11 +47,11 @@ public class RaftController : MonoBehaviour
 
     public float FuelTime => fuelTime;
 
-    public float NumBalloons =>
-        anchorPointA1.BalloonCount +
-        anchorPointA2.BalloonCount +
-        anchorPointB1.BalloonCount +
-        anchorPointB2.BalloonCount;
+    public float BalloonFactor =>
+        anchorPointA1.BalloonFactor(balloonSpeedFactor, balloonSpeedFactorGolden) +
+        anchorPointA2.BalloonFactor(balloonSpeedFactor, balloonSpeedFactorGolden) +
+        anchorPointB1.BalloonFactor(balloonSpeedFactor, balloonSpeedFactorGolden) +
+        anchorPointB2.BalloonFactor(balloonSpeedFactor, balloonSpeedFactorGolden);
 
     void Awake()
     {
@@ -119,7 +124,7 @@ public class RaftController : MonoBehaviour
         }
 
         var vel = rigidbody.velocity;
-        var actualSpeed = upwardSpeed * Math.Clamp(NumBalloons * balloonSpeedFactor, minSpeedMultiplier, maxSpeedMultiplier);
+        var actualSpeed = upwardSpeed * Math.Clamp(BalloonFactor, minSpeedMultiplier, maxSpeedMultiplier);
         var accel = new Vector3(0, fuelTime > 0 ? actualSpeed - vel.y : -actualSpeed * Time.fixedDeltaTime, 0);
 
         rigidbody.AddForce(accel, ForceMode.VelocityChange);
@@ -135,7 +140,7 @@ public class RaftController : MonoBehaviour
         bigBalloon.transform.rotation = Quaternion.identity;
     }
 
-    private void scoreManager_onCrateGoalReached(object sender, ScoreManager.OnCrateGoalReachedEventArgs e)
+    private void scoreManager_onCrateGoalReached(int numCrates, int crateGoal)
     {
         if (!isDead)
         {
@@ -146,6 +151,11 @@ public class RaftController : MonoBehaviour
             }
             scoreManager.DestroyAllCrates();
             ++scoreManager.crateGoal;
+
+            for (var i = 0; i < numCrates - crateGoal; ++i)
+            {
+                Instantiate(cratePrefab, crateSpawn.position + Random.insideUnitSphere * crateSpawnRadius, Random.rotation);
+            }
 
             sfxFuel.Play();
         }

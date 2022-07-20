@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,6 +29,10 @@ public class AnchorPoint : MonoBehaviour
     public float balloonTimeUntilPop;
 
     public int BalloonCount => balloons.Count;
+
+    public float BalloonFactor(float normalFactor, float goldenFactor) =>
+        balloons.Count(x => x.isGolden) * goldenFactor +
+        balloons.Count(x => !x.isGolden) * normalFactor;
 
     private new Rigidbody rigidbody;
 

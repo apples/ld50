@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63996f0c61cf57442a4af595ddaeccc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goldenCrateBonus: 3
   crateGoal: 1
   raftMaxHeight: {fileID: 0}
 --- !u!114 &9082819502741664801
@@ -202,6 +203,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &6735643290753523413
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6349766714351175052}
+  m_Layer: 0
+  m_Name: CrateSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6349766714351175052
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6735643290753523413}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 3, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8900917675488513151}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8767938838267594554
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,6 +403,7 @@ Transform:
   - {fileID: 7596318585520409778}
   - {fileID: 185732884974141178}
   - {fileID: 6559377176515366602}
+  - {fileID: 6349766714351175052}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -424,10 +457,14 @@ MonoBehaviour:
   sfxBoom: {fileID: 7850920666322189107}
   balloonPrefab: {fileID: 4793763489754372762, guid: 62882d6585703c848bba2cc99012303b, type: 3}
   poofPrefab: {fileID: 614180569998570486, guid: 4a0b12f54c45cb341b93e943990d07f4, type: 3}
+  cratePrefab: {fileID: 21420973097778823, guid: ff3cfe93b61f36449bfa2a97c761a833, type: 3}
+  crateSpawn: {fileID: 6349766714351175052}
+  crateSpawnRadius: 1.5
   tiltSpringConstant: 500
   tiltDamping: 400
   upwardSpeed: 1
   balloonSpeedFactor: 0.15
+  balloonSpeedFactorGolden: 1
   minSpeedMultiplier: 0.5
   maxSpeedMultiplier: 7
   scoreManager: {fileID: 0}
