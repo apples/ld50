@@ -52,13 +52,13 @@ public class ChallengeGameManager : MonoBehaviour
                 hasEnded = true;
                 exitFlags.Value = hasSucceeded ? ExitFlags.Success : ExitFlags.None;
 
-                Debug.Log($"Exiting challenge scene with ExitFlags = {exitFlags.Value}");
+                //Debug.Log($"Exiting challenge scene with ExitFlags = {exitFlags.Value}");
 
                 var pendingUnload = SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
                 pendingUnload.completed += (_) =>
                 {
                     var scene = inactiveSceneStack.Pop();
-                    Debug.Log($"Making scene \"{scene.name}\" active");
+                    //Debug.Log($"Making scene \"{scene.name}\" active");
                     SceneManager.SetActiveScene(scene);
                 };
             }
@@ -68,14 +68,14 @@ public class ChallengeGameManager : MonoBehaviour
     public void CloseExit()
     {
         Debug.Assert(exitPortal != null);
-        Debug.Log($"Closing exit portal.");
+        //Debug.Log($"Closing exit portal.");
         exitPortal.Close();
     }
 
     public void OpenExit()
     {
         Debug.Assert(exitPortal != null);
-        Debug.Log($"Opening exit portal.");
+        //Debug.Log($"Opening exit portal.");
         exitPortal.Open();
     }
 

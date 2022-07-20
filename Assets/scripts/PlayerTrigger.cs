@@ -10,7 +10,7 @@ public class PlayerTrigger : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        Debug.Log($"PlayerTrigger collided with {collider.gameObject}");
+        //Debug.Log($"PlayerTrigger collided with {collider.gameObject}");
         if (collider.gameObject.CompareTag("Player"))
         {
             onPlayerEnter.Invoke(collider.gameObject);
@@ -19,7 +19,7 @@ public class PlayerTrigger : MonoBehaviour
 
     void OnTriggerExit(Collider collider)
     {
-        Debug.Log($"PlayerTrigger exited {collider.gameObject}");
+        //Debug.Log($"PlayerTrigger exited {collider.gameObject}");
         if (collider.gameObject.CompareTag("Player"))
         {
             onPlayerExit.Invoke(collider.gameObject);

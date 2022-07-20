@@ -220,7 +220,7 @@ public class PlayerController : MonoBehaviour
             if (groundPoundPressed)
             {
                 groundPoundInput = true;
-                Debug.Log("groundPoundPressed");
+                //Debug.Log("groundPoundPressed");
             }
         }
 
