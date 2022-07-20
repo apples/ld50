@@ -16,9 +16,10 @@ public class DoorCloudPlatformLayerFeature : LayerFeature
     {
         Debug.Assert(doorChallengeScenes.Count > 0);
 
-        int playerLevel = PlayerPrefs.GetInt("PlayerLevel", -1);
+        int playerLevel = PersistentDataManager.Instance.Data.playerLevel;
 
-        if(playerLevel > 3){
+        if (playerLevel > 3)
+        {
             var (minY, maxY) = generator.GetLayerBoundsY(level);
 
             var radius = (generator.layerRadius - generator.deadzoneRadius) * radiusRatio + generator.deadzoneRadius;

@@ -15,7 +15,7 @@ public class RainbowLayerFeature : LayerFeature
 
     public override void Spawn(CloudLayerGenerator generator, int level)
     {
-        int playerLevel = PlayerPrefs.GetInt("PlayerLevel", -1);
+        int playerLevel = PersistentDataManager.Instance.Data.playerLevel;
 
         if(playerLevel > 1){
             SpawnRainbow(generator, level);

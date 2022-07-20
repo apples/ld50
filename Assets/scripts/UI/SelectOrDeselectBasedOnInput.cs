@@ -43,9 +43,12 @@ public class SelectOrDeselectBasedOnInput : MonoBehaviour
         
         currentDeviceName = deviceName;
 
-        if(currentDeviceName == "Mouse"){
+        if (currentDeviceName == "Mouse")
+        {
             eventSystem.SetSelectedGameObject(null);
-        }else{
+        }
+        else
+        {
             eventSystem.SetSelectedGameObject(focusedSelectable.gameObject);
         }
     }
