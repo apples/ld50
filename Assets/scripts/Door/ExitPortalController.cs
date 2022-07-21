@@ -13,20 +13,29 @@ public class ExitPortalController : MonoBehaviour
 
     private bool hasBeenUsed;
 
+    private bool? isOpen;
+
     private int isOpenParam = Animator.StringToHash("IsOpen");
 
     public void Close()
     {
-        playerTrigger.SetActive(false);
-        animator.SetBool(isOpenParam, false);
+        if (isOpen != false)
+        {
+            playerTrigger.SetActive(false);
+            animator.SetBool(isOpenParam, false);
+            isOpen = false;
+        }
     }
 
     public void Open()
     {
-        Debug.Log($"Portal opened");
-
-        playerTrigger.SetActive(true);
-        animator.SetBool(isOpenParam, true);
+        if (isOpen != true)
+        {
+            Debug.Log($"Portal opened");
+            playerTrigger.SetActive(true);
+            animator.SetBool(isOpenParam, true);
+            isOpen = true;
+        }
     }
 
     public void WarpPlayer()
