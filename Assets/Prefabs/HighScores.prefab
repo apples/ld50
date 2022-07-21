@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5063417602134609791}
   - component: {fileID: 7975119946192137267}
   - component: {fileID: 3005481440391935308}
+  - component: {fileID: 4408486070433153255}
   m_Layer: 5
   m_Name: BackButton
   m_TagString: Untagged
@@ -146,6 +147,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+--- !u!114 &4408486070433153255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3178607310090635219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d3709faaa44c5641bac6d75bb5c3719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5022916326694833400
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +389,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6193946107891105602
 Transform:
   m_ObjectHideFlags: 0
@@ -1539,7 +1552,6 @@ GameObject:
   - component: {fileID: 6193946109276501492}
   - component: {fileID: 6193946109276501493}
   - component: {fileID: 6193946109276501494}
-  - component: {fileID: 2120896912103259460}
   m_Layer: 0
   m_Name: HighScoresCanvas
   m_TagString: Untagged
@@ -1630,20 +1642,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2120896912103259460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6193946109276501480}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e1ec298f9d99184da789672cd7b04e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
-  focusedSelectable: {fileID: 3005481440391935308}
 --- !u!1 &6193946109354435542
 GameObject:
   m_ObjectHideFlags: 0

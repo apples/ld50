@@ -81,16 +81,7 @@ public class TabGroup : MonoBehaviour
 
         if (this.gameObject.activeInHierarchy)
         {
-            StartCoroutine(DeferSelect(firstSelectable));
+            firstSelectable?.Select();
         }
-    }
-
-    private IEnumerator DeferSelect(Selectable select)
-    {
-        // bro idk
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
-        yield return new WaitForEndOfFrame();
-        select?.Select();
     }
 }

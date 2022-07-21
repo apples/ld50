@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 5544829859699297698}
   - component: {fileID: 8871213014934771206}
   - component: {fileID: 4318263509908409544}
+  - component: {fileID: 7070120929823377864}
   - component: {fileID: 5356122944563443096}
   m_Layer: 5
   m_Name: BackButton
@@ -110,6 +111,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7070120929823377864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4109585949528754044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d3709faaa44c5641bac6d75bb5c3719, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5356122944563443096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,7 +203,6 @@ GameObject:
   - component: {fileID: 4072375377562838655}
   - component: {fileID: 5817173609919109311}
   - component: {fileID: 6033090560019751922}
-  - component: {fileID: 7564218546156202817}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -281,20 +293,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &7564218546156202817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4412730487012545541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e1ec298f9d99184da789672cd7b04e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  eventSystem: {fileID: 0}
-  focusedSelectable: {fileID: 5356122944563443096}
 --- !u!1 &4697253317837204794
 GameObject:
   m_ObjectHideFlags: 0
