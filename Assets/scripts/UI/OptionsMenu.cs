@@ -17,6 +17,8 @@ public class OptionsMenu : MonoBehaviour
     public TMP_Dropdown resolutionDropdown;
     public Toggle fullscreenToggle;
 
+    public TabGroup tabGroup;
+
     private string optionsFilename = "Options";
 
     private List<ResolutionInfo> resolutions;
@@ -35,11 +37,6 @@ public class OptionsMenu : MonoBehaviour
             x.resolution.refreshRate == Screen.currentResolution.refreshRate);
         resolutionDropdown.RefreshShownValue();
         fullscreenToggle.isOn = Screen.fullScreen;
-    }
-
-    private void Update()
-    {
-        Debug.Log(EventSystem.current.currentSelectedGameObject);
     }
 
     public void SetMasterVolume(float value){

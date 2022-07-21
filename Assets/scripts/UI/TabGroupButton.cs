@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class TabGroupButton : MonoBehaviour
 {
-    public GameObject displayObject;
+    [SerializeField]
+    private GameObject displayObject;
 
     private bool showObject = false;
 
     private TabGroup tabGroup;
+
+    public TabGroup TabGroup => tabGroup;
+
+    public GameObject DisplayObject => displayObject;
 
     void OnEnable()
     {

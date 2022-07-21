@@ -128,6 +128,11 @@ Rigidbody:
   m_CorrespondingSourceObject: {fileID: 317040209427465406, guid: 7426b9def0ec4d64db187da31ec6136c, type: 3}
   m_PrefabInstance: {fileID: 1645702368}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &36058744 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6350757078138663012, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+  m_PrefabInstance: {fileID: 6350757078389349751}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &74396478
 GameObject:
   m_ObjectHideFlags: 0
@@ -1159,6 +1164,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4306113004398144261, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_FirstSelected
+      value: 
+      objectReference: {fileID: 36058744}
     - target: {fileID: 4846340024183402554, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
       propertyPath: m_AnchorMax.x
       value: 1
