@@ -1,7 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class OptionsMenu : MonoBehaviour
@@ -11,11 +14,32 @@ public class OptionsMenu : MonoBehaviour
     public Slider musicSlider;
     public Slider sfxSlider;
 
+    public TMP_Dropdown resolutionDropdown;
+    public Toggle fullscreenToggle;
 
     private string optionsFilename = "Options";
 
+    private List<ResolutionInfo> resolutions;
+
     private void Awake() {
         LoadSavedOptions();
+    }
+
+    private void Start()
+    {
+        resolutionDropdown.ClearOptions();
+        resolutionDropdown.AddOptions(resolutions.Select(x => x.displayName).ToList());
+        resolutionDropdown.value = resolutions.FindIndex(x =>
+            x.resolution.width == Screen.currentResolution.width &&
+            x.resolution.height == Screen.currentResolution.height &&
+            x.resolution.refreshRate == Screen.currentResolution.refreshRate);
+        resolutionDropdown.RefreshShownValue();
+        fullscreenToggle.isOn = Screen.fullScreen;
+    }
+
+    private void Update()
+    {
+        Debug.Log(EventSystem.current.currentSelectedGameObject);
     }
 
     public void SetMasterVolume(float value){
@@ -40,7 +64,21 @@ public class OptionsMenu : MonoBehaviour
         SaveCurrentOptions();
     }
 
+    public void SetResolutionIndex(int value)
+    {
+        var res = resolutions[value].resolution;
+        Screen.SetResolution(res.width, res.height, Screen.fullScreen, res.refreshRate);
+        SaveCurrentOptions();
+    }
+
+    public void SetFullscreen(bool value)
+    {
+        Screen.fullScreen = value;
+    }
+
     public void LoadSavedOptions(){
+        resolutions = Screen.resolutions.Select(x => new ResolutionInfo(x)).ToList();
+
         OptionsEntry optionsEntry = JsonUtility.FromJson<OptionsEntry>(PlayerPrefs.GetString(optionsFilename));
         if(optionsEntry == null){
             SetDefaultOptions();
@@ -52,10 +90,41 @@ public class OptionsMenu : MonoBehaviour
         musicSlider.value = optionsEntry.musicVolume;
         SetSFXVolume(optionsEntry.sfxVolume);
         sfxSlider.value = optionsEntry.sfxVolume;
+
+        if (optionsEntry.screenWidth == 0)
+        {
+            optionsEntry.screenWidth = Screen.currentResolution.width;
+            optionsEntry.screenHeight = Screen.currentResolution.height;
+            optionsEntry.screenRefreshRate = Screen.currentResolution.refreshRate;
+            optionsEntry.fullscreen = Screen.fullScreen;
+        }
+        else
+        {
+            var idx = resolutions.FindIndex(x =>
+                x.resolution.width == optionsEntry.screenWidth &&
+                x.resolution.height == optionsEntry.screenHeight &&
+                x.resolution.refreshRate == optionsEntry.screenRefreshRate);
+
+            if (idx >= 0)
+            {
+                SetResolutionIndex(idx);
+            }
+
+            Screen.fullScreen = optionsEntry.fullscreen;
+        }
     }
 
     public void SaveCurrentOptions(){
-        OptionsEntry optionsEntry = new OptionsEntry{masterVolume = masterSlider.value, sfxVolume = sfxSlider.value, musicVolume = musicSlider.value};
+        OptionsEntry optionsEntry = new OptionsEntry
+        {
+            masterVolume = masterSlider.value,
+            sfxVolume = sfxSlider.value,
+            musicVolume = musicSlider.value,
+            screenWidth = Screen.currentResolution.width,
+            screenHeight = Screen.currentResolution.height,
+            screenRefreshRate = Screen.currentResolution.refreshRate,
+            fullscreen = Screen.fullScreen,
+        };
         SaveOptions(optionsEntry);
     }
 
@@ -69,6 +138,12 @@ public class OptionsMenu : MonoBehaviour
     public void SetDefaultOptions(){
         Debug.Log("OptionsMenu setting default options");
         OptionsEntry optionsEntry = new OptionsEntry{musicVolume = 0f, sfxVolume = 0f, masterVolume = 0f};
+
+        optionsEntry.screenWidth = Screen.currentResolution.width;
+        optionsEntry.screenHeight = Screen.currentResolution.height;
+        optionsEntry.screenRefreshRate = Screen.currentResolution.refreshRate;
+        optionsEntry.fullscreen = Screen.fullScreen;
+
         SaveOptions(optionsEntry);
     }
 
@@ -77,6 +152,23 @@ public class OptionsMenu : MonoBehaviour
         public float musicVolume;
         public float sfxVolume;
         public float masterVolume;
-        
+
+        public int screenWidth;
+        public int screenHeight;
+        public int screenRefreshRate;
+
+        public bool fullscreen;
+    }
+
+    private class ResolutionInfo
+    {
+        public Resolution resolution;
+        public string displayName;
+
+        public ResolutionInfo(Resolution res)
+        {
+            resolution = res;
+            displayName = $"{res.width}x{res.height}@{res.refreshRate}";
+        }
     }
 }

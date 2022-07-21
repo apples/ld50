@@ -68,14 +68,12 @@ public class ChallengeGameManager : MonoBehaviour
     public void CloseExit()
     {
         Debug.Assert(exitPortal != null);
-        //Debug.Log($"Closing exit portal.");
         exitPortal.Close();
     }
 
     public void OpenExit()
     {
         Debug.Assert(exitPortal != null);
-        //Debug.Log($"Opening exit portal.");
         exitPortal.Open();
     }
 

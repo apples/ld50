@@ -1323,6 +1323,26 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7583922624504587018, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_ItemText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583922624504587018, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_Template
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583922624504587018, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_CaptionText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583922624504587018, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_Options.m_Options.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7583922624504587018, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7760156839215641695, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
       propertyPath: m_Colors.m_NormalColor.a
       value: 1

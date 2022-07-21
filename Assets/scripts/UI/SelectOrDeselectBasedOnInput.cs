@@ -15,6 +15,11 @@ public class SelectOrDeselectBasedOnInput : MonoBehaviour
 
     private void Start() 
     {
+        if (eventSystem == null)
+        {
+            eventSystem = EventSystem.current;
+        }
+
         playerInputActions = InputManager.inputActions;
         playerInputActions.Player.Enable();    
     }
