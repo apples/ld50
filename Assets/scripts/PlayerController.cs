@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.InputSystem;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
 
     public GameObject tetherGroup;
     public GameObject crosshair;
+    public AnchorReticle reticle;
 
     [Header("Audio")]
 
@@ -137,6 +139,8 @@ public class PlayerController : MonoBehaviour
 
     private Vector3? fixedCameraPosition;
 
+    private List<AnchorPoint> anchorPoints = new List<AnchorPoint>(4);
+
     void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
@@ -173,7 +177,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(pauseMenu.IsGamePaused)
+        if (pauseMenu.IsGamePaused)
         {
             return;
         }
@@ -206,7 +210,7 @@ public class PlayerController : MonoBehaviour
         var groundPoundPressed = playerInputActions.Player.GroundPound.WasPerformedThisFrame();
 
         GetInputDevice();
-        
+
         if (Cursor.lockState == CursorLockMode.Locked)
         {
             movementInput = new Vector2(h, v);
@@ -230,10 +234,25 @@ public class PlayerController : MonoBehaviour
             ThrowHand();
         }
 
-        // tie balloon
-        if (playerInputActions.Player.TieDown.WasPerformedThisFrame())
+        // anchor reticles
+        var anchorPoint = anchorPoints
+            .OrderByDescending(x => Vector3.Dot(camera.transform.forward, x.transform.position - this.transform.position))
+            .FirstOrDefault();
+
+        if (anchorPoint != null && balloons.Count > 0)
         {
-            TryTieBalloon();
+            reticle.target = anchorPoint.reticle.transform;
+            reticle.gameObject.SetActive(true);
+        }
+        else
+        {
+            reticle.gameObject.SetActive(false);
+        }
+
+        // tie balloon
+        if (anchorPoint != null && playerInputActions.Player.TieDown.WasPerformedThisFrame())
+        {
+            TryTieBalloon(anchorPoint);
         }
 
         //grab/throw
@@ -480,26 +499,26 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
-    private bool TryTieBalloon()
+    private void TryTieBalloon(AnchorPoint anchorPoint)
     {
-        if (balloons.Count == 0) return false;
+        if (balloons.Count == 0) return;
 
-        var colliders = Physics.OverlapSphere(transform.position - new Vector3(0, 0.5f, 0), 1f);
+        var balloon = balloons[balloons.Count - 1];
 
-        foreach (var collider in colliders)
-        {
-            if (collider.GetComponent<AnchorPoint>() is AnchorPoint anchorPoint)
-            {
-                var balloon = balloons[balloons.Count - 1];
-                balloon.AnchorTo(null);
-                anchorPoint.GiveBalloon(balloon.gameObject);
-                balloons.RemoveAt(balloons.Count - 1);
-                sfxBalloon.Play();
-                return true;
-            }
-        }
+        balloon.AnchorTo(null);
+        anchorPoint.GiveBalloon(balloon.gameObject);
+        balloons.RemoveAt(balloons.Count - 1);
+        sfxBalloon.Play();
+    }
 
-        return false;
+    public void OnAnchorPointEnter(AnchorPoint anchorPoint)
+    {
+        anchorPoints.Add(anchorPoint);
+    }
+
+    public void OnAnchorPointExit(AnchorPoint anchorPoint)
+    {
+        anchorPoints.Remove(anchorPoint);
     }
 
     private void GrabCrate(Rigidbody crateRigidbody)

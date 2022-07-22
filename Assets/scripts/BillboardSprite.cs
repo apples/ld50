@@ -6,8 +6,16 @@ public class BillboardSprite : MonoBehaviour
     public bool lockPitch;
     public bool lockRoll;
 
+    public bool isSimple = false;
+
     void LateUpdate()
     {
+        if (isSimple)
+        {
+            transform.LookAt(Camera.main.transform, Camera.main.transform.up);
+            return;
+        }
+
         var lookat = Camera.main.transform.position;
 
         var quat = Quaternion.LookRotation(transform.position - lookat, Vector3.up);

@@ -33,6 +33,7 @@ Transform:
   m_Children:
   - {fileID: 5099043106104806148}
   - {fileID: 7554856339868964590}
+  - {fileID: 6842996930723570370}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -50,6 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poofPrefab: {fileID: 614180569998570486, guid: 4a0b12f54c45cb341b93e943990d07f4, type: 3}
   sfxPop: {fileID: 1212803297094183975}
+  reticle: {fileID: 5527643339013954996}
   minPopTime: 15
   maxPopTime: 45
   minPopTimeGolden: 30
@@ -91,8 +93,39 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 9, y: 1, z: 9}
-  m_Center: {x: -4, y: 0.5, z: -4}
+  m_Size: {x: 11, y: 2, z: 11}
+  m_Center: {x: -4, y: 1, z: -4}
+--- !u!1 &5527643339013954996
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6842996930723570370}
+  m_Layer: 0
+  m_Name: ReticlePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6842996930723570370
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5527643339013954996}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3714247736721857164}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8013517365383304612
 GameObject:
   m_ObjectHideFlags: 0

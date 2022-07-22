@@ -10,6 +10,7 @@ public class AnchorPoint : MonoBehaviour
     public GameObject poofPrefab;
 
     public AudioSource sfxPop;
+    public GameObject reticle;
 
     public float minPopTime;
     public float maxPopTime;
@@ -42,6 +43,7 @@ public class AnchorPoint : MonoBehaviour
     {
         rigidbody = GetComponent<Rigidbody>();
         Debug.Assert(rigidbody != null);
+        reticle.SetActive(false);
     }
 
     void Start()
