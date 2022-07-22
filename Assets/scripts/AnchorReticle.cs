@@ -13,8 +13,11 @@ public class AnchorReticle : MonoBehaviour
 
     void OnEnable()
     {
-        transform.position = target.transform.position;
-        actualPosition = transform.position;
+        if (target != null)
+        {
+            transform.position = target.transform.position;
+            actualPosition = transform.position;
+        }
     }
 
     void LateUpdate()
