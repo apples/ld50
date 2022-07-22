@@ -6,6 +6,9 @@ using UnityEngine.SceneManagement;
 [CreateAssetMenu(menuName = "Scriptable Objects/Layer Features/Rainbow")]
 public class RainbowLayerFeature : LayerFeature
 {
+    [Range(0, 100)]
+    public int chancePerLayer;
+
     public GameObject prefab;
 
     public float maxCircleScore = 0.75f;
@@ -13,8 +16,13 @@ public class RainbowLayerFeature : LayerFeature
     public float maxPlanarCloudDistance = 50f;
     public int maxAttempts = 10;
 
-    public override void Spawn(CloudLayerGenerator generator, int level)
+    public override void TrySpawn(CloudLayerGenerator generator, int level)
     {
+        if (chancePerLayer <= Random.value * 100f)
+        {
+            return;
+        }
+
         int playerLevel = PersistentDataManager.Instance.Data.playerLevel;
 
         if(playerLevel > 1){

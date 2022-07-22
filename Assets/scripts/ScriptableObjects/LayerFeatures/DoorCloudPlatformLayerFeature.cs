@@ -6,19 +6,27 @@ using UnityEngine.SceneManagement;
 [CreateAssetMenu(menuName = "Scriptable Objects/Layer Features/Door Cloud Platform")]
 public class DoorCloudPlatformLayerFeature : LayerFeature
 {
+    [Range(0, 100)]
+    public int chancePerLayer;
+
     public GameObject prefab;
 
     public float radiusRatio;
 
     public List<string> doorChallengeScenes;
 
-    public override void Spawn(CloudLayerGenerator generator, int level)
+    public override void TrySpawn(CloudLayerGenerator generator, int level)
     {
+        if (chancePerLayer <= Random.value * 100f)
+        {
+            return;
+        }
+
         Debug.Assert(doorChallengeScenes.Count > 0);
 
         int playerLevel = PersistentDataManager.Instance.Data.playerLevel;
 
-        if (playerLevel > 3)
+        if (playerLevel >= 4)
         {
             var (minY, maxY) = generator.GetLayerBoundsY(level);
 

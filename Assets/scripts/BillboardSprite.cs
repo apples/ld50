@@ -2,25 +2,14 @@ using UnityEngine;
 
 public class BillboardSprite : MonoBehaviour
 {
-    public bool lockYaw;
-    public bool lockPitch;
-    public bool lockRoll;
+    public Vector3 localUp = Vector3.up;
 
     void LateUpdate()
     {
-        var lookat = Camera.main.transform.position;
+        var up = transform.parent != null ? transform.parent.TransformDirection(localUp) : localUp;
 
-        var quat = Quaternion.LookRotation(transform.position - lookat, Vector3.up);
+        var forward = Vector3.ProjectOnPlane(-Camera.main.transform.forward, up);
 
-        var targetEuler = quat.eulerAngles;
-        var currentEuler = transform.eulerAngles;
-
-        if (lockYaw) targetEuler.y = currentEuler.y;
-        if (lockPitch) targetEuler.x = currentEuler.x;
-        if (lockRoll) targetEuler.z = currentEuler.z;
-
-        quat.eulerAngles = targetEuler;
-
-        transform.rotation = quat;
+        transform.rotation = Quaternion.LookRotation(forward, up);
     }
 }

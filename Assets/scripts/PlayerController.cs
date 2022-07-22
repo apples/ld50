@@ -617,6 +617,19 @@ public class PlayerController : MonoBehaviour
             rigidbody.MovePosition(rigidbody.position + groundVel * Time.deltaTime);
         }
 
+        // check surface properties
+
+        var surface = hitInfo.collider.GetComponent<SurfaceProperties>();
+
+        if (surface != null)
+        {
+            if (surface.bounceOff != 0f)
+            {
+                rigidbody.AddForce(hitInfo.normal * surface.bounceOff, ForceMode.VelocityChange);
+                ResetStateFlagsAerial();
+            }
+        }
+
         void ResetStateFlagsAerial()
         {
             isOnGround = false;

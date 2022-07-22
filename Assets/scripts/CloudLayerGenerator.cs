@@ -216,10 +216,7 @@ public class CloudLayerGenerator : MonoBehaviour
 
         foreach (var layerFeature in layerFeatures)
         {
-            if (Random.value * 100f < layerFeature.chancePerLayer)
-            {
-                layerFeature.Spawn(this, level);
-            }
+            layerFeature.TrySpawn(this, level);
         }
 
         void SpawnCloud(Vector3 coord)

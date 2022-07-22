@@ -9,8 +9,6 @@ public class AnimatorFacing : MonoBehaviour
     private int paramFacingX = Animator.StringToHash("FacingX");
     private int paramFacingY = Animator.StringToHash("FacingY");
 
-    private Vector3 facingDir = Vector3.forward;
-
     void Start()
     {
         Debug.Assert(animator != null);
@@ -22,11 +20,15 @@ public class AnimatorFacing : MonoBehaviour
         }
     }
 
-    void Update()
+    void LateUpdate()
     {
-        var animatorFacing = Quaternion.Inverse(Camera.main.transform.rotation) * forwardTransform.forward;
+        var up = forwardTransform.up;
 
-        animator.SetFloat(paramFacingX, -animatorFacing.x);
+        var forward = transform.forward;
+
+        var animatorFacing = forwardTransform.InverseTransformDirection(-forward);
+
+        animator.SetFloat(paramFacingX, animatorFacing.x);
         animator.SetFloat(paramFacingY, animatorFacing.z);
 
         spriteRenderer.flipX = animatorFacing.x > 0 && animatorFacing.x > animatorFacing.z;

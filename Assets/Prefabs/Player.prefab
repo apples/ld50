@@ -441,7 +441,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4195299652306973752}
-  - component: {fileID: 4195299652306973754}
   - component: {fileID: 6857374859543846151}
   - component: {fileID: 3856681795921222983}
   m_Layer: 0
@@ -468,14 +467,6 @@ Transform:
   m_Father: {fileID: 243761516077276651}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &4195299652306973754
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4195299652306973755}
-  m_Enabled: 1
 --- !u!20 &6857374859543846151
 Camera:
   m_ObjectHideFlags: 0
@@ -561,6 +552,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4195299652747866179}
+  - component: {fileID: 7100535878881697130}
   - component: {fileID: 4195299652747866180}
   - component: {fileID: 5271438184990526633}
   - component: {fileID: 4195299652747866178}
@@ -598,6 +590,14 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &7100535878881697130
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4195299652747866181}
+  m_Enabled: 1
 --- !u!114 &4195299652747866180
 MonoBehaviour:
   m_ObjectHideFlags: 0

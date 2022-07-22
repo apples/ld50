@@ -96,10 +96,11 @@ public class RainbowController : MonoBehaviour
         return ref cachedCircle;
     }
 
+#if UNITY_EDITOR
     void OnDrawGizmos()
     {
         ref readonly var circle = ref GetCircle();
-        #if UNITY_EDITOR
+
         if (circle.score > 0.5f)
         {
             UnityEditor.Handles.color = Color.red;
@@ -108,16 +109,12 @@ public class RainbowController : MonoBehaviour
         {
             UnityEditor.Handles.color = Color.white;
         }
-        #endif
-
 
         var endAngle = Mathf.Repeat(Vector3.SignedAngle(circle.start, circle.end, circle.normal), 360f);
 
-        #if UNITY_EDITOR
         UnityEditor.Handles.DrawWireArc(circle.center, circle.normal, circle.start, endAngle, circle.radius);
-        #endif
-
     }
+#endif
 
     public void StartPushing(GameObject gameObject)
     {

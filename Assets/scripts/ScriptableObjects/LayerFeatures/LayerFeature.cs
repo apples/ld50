@@ -5,8 +5,5 @@ using UnityEngine.SceneManagement;
 
 public abstract class LayerFeature : ScriptableObject
 {
-    [Range(0, 100)]
-    public int chancePerLayer;
-
-    public abstract void Spawn(CloudLayerGenerator generator, int level);
+    public abstract void TrySpawn(CloudLayerGenerator generator, int level);
 }
