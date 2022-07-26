@@ -805,6 +805,7 @@ public class PlayerController : MonoBehaviour
         else if (isAttachedTo.GetComponent<Balloon>() is Balloon balloon)
         {
             balloons.Add(balloon);
+            balloons = balloons.OrderBy(x => x.isGolden).ToList();
             balloon.AnchorTo(rigidbody);
             sfxBalloon.Play();
             balloon.GetComponent<LayerObject>().PreventDespawn = true;
