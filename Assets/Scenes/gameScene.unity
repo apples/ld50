@@ -524,6 +524,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2058619647880979557, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
+      propertyPath: m_DeselectOnBackgroundClick
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2965597633952369872, guid: 618f90caeb59cde4eacb311a1cb35f60, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -0.000015259

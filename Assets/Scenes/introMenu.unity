@@ -1472,6 +1472,10 @@ PrefabInstance:
       propertyPath: m_Colors.m_HighlightedColor.r
       value: 0.2735849
       objectReference: {fileID: 0}
+    - target: {fileID: 9149740526553233272, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
+      propertyPath: m_DeselectOnBackgroundClick
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5715609262530643937, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
     - {fileID: 6723990451335959552, guid: 35418aeb12c0b7c4a9d379c30bd13329, type: 3}
