@@ -28,21 +28,20 @@ public class ScoreManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if(other.gameObject.CompareTag("Crate") || other.gameObject.CompareTag("GoldenCrate")){
-            Debug.Assert(crates.IndexOf(other.gameObject) == -1);
-            crates.Add(other.gameObject);
+            if (!crates.Contains(other.gameObject))
+            {
+                crates.Add(other.gameObject);
+                OnScoreChanged?.Invoke(NumCrates);
+            }
 
             if (other.gameObject.GetComponent<LayerObject>() is LayerObject layerObject)
             {
                 layerObject.PreventDespawn = true;
             }
 
-            var numCrates = NumCrates;
-
-            OnScoreChanged?.Invoke(numCrates);
-
-            if (numCrates >= crateGoal)
+            if (NumCrates >= crateGoal)
             {
-                OnCrateGoalReached?.Invoke(numCrates, crateGoal);
+                OnCrateGoalReached?.Invoke(NumCrates, crateGoal);
             }
         }
     }

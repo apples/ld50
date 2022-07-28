@@ -13,8 +13,8 @@ public class HandController : MonoBehaviour
 
     public PlayerController playerController;
 
-    public bool IsAttached { get; private set; }
     public GrapplePoint IsAttachedTo { get; private set; }
+    public bool IsAttached => IsAttachedTo != null;
 
     public bool IsPulling => IsAttached && IsAttachedTo.isPulled;
 
@@ -68,10 +68,12 @@ public class HandController : MonoBehaviour
         {
             if (IsPulling)
             {
-
-                if(itemsContainer.Value != null && itemTags.Contains(IsAttachedTo.tag)){
+                if (itemsContainer.Value != null && itemTags.Contains(IsAttachedTo.tag))
+                {
                     IsAttachedTo.transform.SetParent(itemsContainer.Value.transform);
-                }else{
+                }
+                else
+                {
                     IsAttachedTo.transform.SetParent(null);
                 }
 
@@ -83,7 +85,6 @@ public class HandController : MonoBehaviour
             }
 
             IsAttachedTo = null;
-            IsAttached = false;
         }
     }
 
@@ -144,7 +145,6 @@ public class HandController : MonoBehaviour
             returning = true;
         }
 
-        IsAttached = true;
         IsAttachedTo = grapplePoint;
         rigidbody.velocity = Vector3.zero;
         rigidbody.detectCollisions = false;
