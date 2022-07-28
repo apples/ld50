@@ -54,8 +54,8 @@ MonoBehaviour:
   reticle: {fileID: 5527643339013954996}
   minPopTime: 15
   maxPopTime: 45
-  minPopTimeGolden: 30
-  maxPopTimeGolden: 60
+  minPopTimeGolden: 50
+  maxPopTimeGolden: 70
   maxInflationScale: 2
   pulseTimeScale: 15
   inflationStartTime: 15
