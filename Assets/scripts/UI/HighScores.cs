@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using System;
 using static PersistentData;
+using Steamworks;
+
 
 public class HighScores : MonoBehaviour
 {
@@ -20,6 +22,12 @@ public class HighScores : MonoBehaviour
     private List<Transform> scoreEntriesTransformList;
     private int level;
     private int currentTarget;
+    
+    // Steamworks Integration
+    private CallResult<LeaderboardFindResult_t> _leaderboardFindResult;
+    private CallResult<LeaderboardScoreUploaded_t> _leaderboardScoreUploadedResult;
+    private SteamLeaderboard_t _steamLeaderboard;
+    private int scoreToUpload = 0;
 
     private List<string> unlocks = new List<string>(){
         "Rainbows",
@@ -105,6 +113,12 @@ public class HighScores : MonoBehaviour
         CreateScoreEntriesTransform();
     }
 
+    private void Awake()
+    {
+        InitializeSteamLeaderboards();
+    }
+
+
     private List<ScoreEntry> LoadSavedScoreEntries()
     {
         scoreEntriesList = new List<ScoreEntry>(PersistentDataManager.Instance.Data.highScores);
@@ -146,6 +160,7 @@ public class HighScores : MonoBehaviour
         }
 
         SaveScoreEntries(scoreEntries);
+        scoreToUpload = score;
     }
 
     private void CreateScoreEntryTransform(ScoreEntry scoreEntry, Transform scoreEntriesContainer, List<Transform> scoreEntriesTransformList)
@@ -183,4 +198,54 @@ public class HighScores : MonoBehaviour
         DateTime now = DateTime.Now;
         return now.ToString("M/d/yyyy");
     }
+    
+    #region Steam Integration
+    private void InitializeSteamLeaderboards()
+    {
+        if (!SteamManager.Initialized) return;
+        // Create Callback objects
+        _leaderboardFindResult = CallResult<LeaderboardFindResult_t>.Create(OnLeaderboardFindResult);
+        _leaderboardScoreUploadedResult = CallResult<LeaderboardScoreUploaded_t>.Create(OnLeaderboardUploaded);
+        
+        // Find or create leaderboard
+        SteamAPICall_t handle = SteamUserStats.FindOrCreateLeaderboard("AllTimeHighScores", ELeaderboardSortMethod.k_ELeaderboardSortMethodDescending, ELeaderboardDisplayType.k_ELeaderboardDisplayTypeNumeric);
+        _leaderboardFindResult.Set(handle);
+    }
+    
+    private void OnLeaderboardFindResult(LeaderboardFindResult_t pCallback, bool bIOFailure)
+    {
+        if (!SteamManager.Initialized) return;
+        if (!pCallback.m_bLeaderboardFound.Equals(1))
+        {
+            Debug.Log("Error Finding Leaderboard");
+            return;
+        }
+        _steamLeaderboard = pCallback.m_hSteamLeaderboard;
+
+        if (scoreToUpload != 0)
+        {
+            UploadScoreToSteam(scoreToUpload);
+        }
+    }
+
+    private void OnLeaderboardUploaded(LeaderboardScoreUploaded_t pCallback, bool bIOFailure)
+    {
+        if (!bIOFailure)
+        {
+            Debug.Log("Steam Score Upload Success");
+        }
+        else
+        {
+            Debug.Log("Steam Score Upload Failure");
+        }
+    }
+
+    private void UploadScoreToSteam(int score)
+    {
+        SteamAPICall_t handle = SteamUserStats.UploadLeaderboardScore(_steamLeaderboard, ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodKeepBest, score, null, 0);
+        _leaderboardScoreUploadedResult.Set(handle);
+    }
+
+    #endregion
+
 }
