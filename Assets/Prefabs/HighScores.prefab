@@ -383,6 +383,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6193946107891105602}
   - component: {fileID: 6193946107891105603}
+  - component: {fileID: 2385941476741363953}
   m_Layer: 0
   m_Name: HighScores
   m_TagString: Untagged
@@ -424,6 +425,18 @@ MonoBehaviour:
   newScore: {fileID: 11400000, guid: 4262452a8e5d5854b9a560ae9960f410, type: 2}
   showLevelInfo: 0
   scoreMetricText: M
+--- !u!114 &2385941476741363953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6193946107891105604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72c5808d518b4447a76d9e49dbb3253b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6193946107894211992
 GameObject:
   m_ObjectHideFlags: 0
