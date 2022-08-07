@@ -2067,7 +2067,7 @@ MonoBehaviour:
   localScoreEntryTemplate: {fileID: 6193946109199983031}
   globalScoreEntriesContainer: {fileID: 4867942066758377178}
   globalScoreEntryTemplate: {fileID: 1376734993771077401}
-  unableToLoadContainer: {fileID: 0}
+  unableToLoadContainer: {fileID: 7256828559111459549}
   newScore: {fileID: 11400000, guid: 4262452a8e5d5854b9a560ae9960f410, type: 2}
   showLevelInfo: 0
   scoreMetricText: M

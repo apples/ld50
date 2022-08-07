@@ -119,6 +119,7 @@ public class HighScores : MonoBehaviour
 
     public void LoadGlobalScoreEntries()
     {
+        globalScoreEntriesList = new List<ScoreEntry>();
         unableToLoadContainer.gameObject.SetActive(false);
         globalScoreEntriesList = steamLeaderboardController.ScoreEntries;
         CreateGlobalScoreEntriesTransform();
@@ -149,6 +150,11 @@ public class HighScores : MonoBehaviour
     private void CreateGlobalScoreEntriesTransform()
     {
         globalScoreEntriesTransformList = new List<Transform>();
+        // Transform[] previousEntries = globalScoreEntriesContainer.GetComponentsInChildren<Transform>();
+        // foreach (Transform entry in previousEntries)
+        // {
+        //     entry.gameObject.SetActive(false);
+        // }
         foreach (ScoreEntry scoreEntry in globalScoreEntriesList)
         {
             CreateGlobalScoreEntryTransform(scoreEntry, globalScoreEntriesContainer, globalScoreEntriesTransformList);

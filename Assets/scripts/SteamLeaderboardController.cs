@@ -32,6 +32,7 @@
      private void InitializeSteamLeaderboards()
      {
          if (!SteamManager.Initialized) return;
+         if (!_steamLeaderboard.m_SteamLeaderboard.Equals(0)) return;
          // Create Callback objects
          _leaderboardFindResult = CallResult<LeaderboardFindResult_t>.Create(OnLeaderboardFindResult);
          _leaderboardScoreUploadedResult = CallResult<LeaderboardScoreUploaded_t>.Create(OnLeaderboardScoreUploaded);
@@ -54,6 +55,7 @@
      {
          if (!bIOFailure)
          {
+             scoreEntries = new List<PersistentData.ScoreEntry>();
              Debug.Log("Steam Score Download Success");
              for (int i = 0; i < pCallback.m_cEntryCount; i++)
              {
