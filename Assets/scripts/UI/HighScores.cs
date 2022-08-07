@@ -5,21 +5,26 @@ using TMPro;
 using System;
 using static PersistentData;
 using Steamworks;
+using UnityEngine.Serialization;
 
 
 public class HighScores : MonoBehaviour
 {
-    [SerializeField] private string highScoreFileName;
-    [SerializeField] private Transform scoreEntriesContainer;
-    [SerializeField] private Transform scoreEntryTemplate;
+    [FormerlySerializedAs("scoreEntriesContainer")] [SerializeField] private Transform localScoreEntriesContainer;
+    [FormerlySerializedAs("scoreEntryTemplate")] [SerializeField] private Transform localScoreEntryTemplate;    
+    [SerializeField] private Transform globalScoreEntriesContainer;
+    [SerializeField] private Transform globalScoreEntryTemplate;
+    [SerializeField] private Transform unableToLoadContainer;
     [SerializeField] private IntScriptableObject newScore;
 
     [SerializeField] private bool showLevelInfo = true;
     
     public string scoreMetricText = "";
 
-    private List<ScoreEntry> scoreEntriesList;
-    private List<Transform> scoreEntriesTransformList;
+    private List<ScoreEntry> localScoreEntriesList;
+    private List<ScoreEntry> globalScoreEntriesList;
+    private List<Transform> localScoreEntriesTransformList;
+    private List<Transform> globalScoreEntriesTransformList;
     private int level;
     private int currentTarget;
 
@@ -65,7 +70,7 @@ public class HighScores : MonoBehaviour
             if (newScore.value > currentTarget)
             {
                 level++;
-                if (!LoadSavedScoreEntries().Exists(x => x.score > newScore.value))
+                if (!LoadLocalSavedScoreEntries().Exists(x => x.score > newScore.value))
                 {
                     level++;
                     GameObject.Find("Level Summary").GetComponent<TextMeshProUGUI>().text = "You hit your target height and got a new personal best!";
@@ -75,7 +80,7 @@ public class HighScores : MonoBehaviour
                     GameObject.Find("Level Summary").GetComponent<TextMeshProUGUI>().text = "You hit your target height!";
                 }
             }
-            else if (!LoadSavedScoreEntries().Exists(x => x.score > newScore.value))
+            else if (!LoadLocalSavedScoreEntries().Exists(x => x.score > newScore.value))
             {
                 level++;
                 GameObject.Find("Level Summary").GetComponent<TextMeshProUGUI>().text = "You got a new personal best!";
@@ -102,21 +107,28 @@ public class HighScores : MonoBehaviour
 
             PersistentDataManager.Instance.Data.playerLevel = level;
             PersistentDataManager.Instance.WriteCachedData();
-
-            AddScoreEntryToSavedScoreEntries(newScore.value);
         }
-
-        scoreEntryTemplate.gameObject.SetActive(false);
-
-        scoreEntriesList = LoadSavedScoreEntries();
-        CreateScoreEntriesTransform();
+        
+        AddScoreEntryToSavedScoreEntries(newScore.value);
+        localScoreEntryTemplate.gameObject.SetActive(false);
+        globalScoreEntryTemplate.gameObject.SetActive(false);
+        
+        localScoreEntriesList = LoadLocalSavedScoreEntries();
+        CreateLocalScoreEntriesTransform();
     }
 
-    private List<ScoreEntry> LoadSavedScoreEntries()
+    public void LoadGlobalScoreEntries()
     {
-        scoreEntriesList = new List<ScoreEntry>(PersistentDataManager.Instance.Data.highScores);
-        SortScoreEntries(scoreEntriesList);
-        return scoreEntriesList;
+        unableToLoadContainer.gameObject.SetActive(false);
+        globalScoreEntriesList = steamLeaderboardController.ScoreEntries;
+        CreateGlobalScoreEntriesTransform();
+    }
+
+    private List<ScoreEntry> LoadLocalSavedScoreEntries()
+    {
+        localScoreEntriesList = new List<ScoreEntry>(PersistentDataManager.Instance.Data.highScores);
+        SortScoreEntries(localScoreEntriesList);
+        return localScoreEntriesList;
     }
 
     private void SaveScoreEntries(List<ScoreEntry> scoreEntriesList)
@@ -125,12 +137,21 @@ public class HighScores : MonoBehaviour
         PersistentDataManager.Instance.WriteCachedData();
     }
 
-    private void CreateScoreEntriesTransform()
+    private void CreateLocalScoreEntriesTransform()
     {
-        scoreEntriesTransformList = new List<Transform>();
-        foreach (ScoreEntry scoreEntry in scoreEntriesList)
+        localScoreEntriesTransformList = new List<Transform>();
+        foreach (ScoreEntry scoreEntry in localScoreEntriesList)
         {
-            CreateScoreEntryTransform(scoreEntry, scoreEntriesContainer, scoreEntriesTransformList);
+            CreateLocalScoreEntryTransform(scoreEntry, localScoreEntriesContainer, localScoreEntriesTransformList);
+        }
+    }
+    
+    private void CreateGlobalScoreEntriesTransform()
+    {
+        globalScoreEntriesTransformList = new List<Transform>();
+        foreach (ScoreEntry scoreEntry in globalScoreEntriesList)
+        {
+            CreateGlobalScoreEntryTransform(scoreEntry, globalScoreEntriesContainer, globalScoreEntriesTransformList);
         }
     }
 
@@ -143,7 +164,7 @@ public class HighScores : MonoBehaviour
         
         ScoreEntry scoreEntry = new ScoreEntry{ score = score, date = GetCurrentDisplayDate() };
 
-        List<ScoreEntry> scoreEntries = LoadSavedScoreEntries();
+        List<ScoreEntry> scoreEntries = LoadLocalSavedScoreEntries();
 
         scoreEntries.Add(scoreEntry);
         SortScoreEntries(scoreEntries);
@@ -156,18 +177,34 @@ public class HighScores : MonoBehaviour
         steamLeaderboardController.UploadScoreToSteamLeaderboard(allTimeHighScoreLeaderboardName, score);
     }
 
-    private void CreateScoreEntryTransform(ScoreEntry scoreEntry, Transform scoreEntriesContainer, List<Transform> scoreEntriesTransformList)
+    private void CreateLocalScoreEntryTransform(ScoreEntry scoreEntry, Transform scoreEntriesContainer, List<Transform> scoreEntriesTransformList)
     {
         float templateHeight = 33f;
         
-        Transform scoreEntryTransform = Instantiate(scoreEntryTemplate, scoreEntriesContainer);
+        Transform scoreEntryTransform = Instantiate(localScoreEntryTemplate, scoreEntriesContainer);
         RectTransform scoreEntryRectTransform = scoreEntryTransform.GetComponent<RectTransform>();
         scoreEntryRectTransform.anchoredPosition = new Vector2(0, -templateHeight * scoreEntriesTransformList.Count);
         scoreEntryTransform.gameObject.SetActive(true);
 
-        scoreEntryTransform.Find("Position").GetComponent<TextMeshProUGUI>().text = GetDisplayRankString(scoreEntriesTransformList.Count);
+        scoreEntryTransform.Find("Position").GetComponent<TextMeshProUGUI>().text = GetDisplayRankString(scoreEntriesTransformList.Count + 1);
         scoreEntryTransform.Find("Score").GetComponent<TextMeshProUGUI>().text = scoreEntry.score.ToString() + " " + scoreMetricText;
         scoreEntryTransform.Find("Date").GetComponent<TextMeshProUGUI>().text = scoreEntry.date;
+
+        scoreEntriesTransformList.Add(scoreEntryTransform);
+    }
+    
+    private void CreateGlobalScoreEntryTransform(ScoreEntry scoreEntry, Transform scoreEntriesContainer, List<Transform> scoreEntriesTransformList)
+    {
+        float templateHeight = 33f;
+        
+        Transform scoreEntryTransform = Instantiate(globalScoreEntryTemplate, scoreEntriesContainer);
+        RectTransform scoreEntryRectTransform = scoreEntryTransform.GetComponent<RectTransform>();
+        scoreEntryRectTransform.anchoredPosition = new Vector2(0, -templateHeight * scoreEntriesTransformList.Count);
+        scoreEntryTransform.gameObject.SetActive(true);
+
+        scoreEntryTransform.Find("Position").GetComponent<TextMeshProUGUI>().text = GetDisplayRankString(scoreEntry.globalRank);
+        scoreEntryTransform.Find("Score").GetComponent<TextMeshProUGUI>().text = scoreEntry.score + " " + scoreMetricText;
+        scoreEntryTransform.Find("User").GetComponent<TextMeshProUGUI>().text = scoreEntry.persona;
 
         scoreEntriesTransformList.Add(scoreEntryTransform);
     }
@@ -178,7 +215,6 @@ public class HighScores : MonoBehaviour
     }
 
     private string GetDisplayRankString(int rank){
-        rank = rank + 1; // display rank should not be 0 indexed
         switch(rank){
             default: return rank + "TH";
             case 1: return "1ST";

@@ -118,6 +118,12 @@ public class PersistentData
     public class ScoreEntry
     {
         public int score;
+        
+        // local
         public string date;
+        
+        // online
+        public string persona;
+        public int globalRank;
     }
 }
