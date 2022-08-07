@@ -41,7 +41,15 @@
          SteamAPICall_t handle = SteamUserStats.FindOrCreateLeaderboard("AllTimeHighScores", ELeaderboardSortMethod.k_ELeaderboardSortMethodDescending, ELeaderboardDisplayType.k_ELeaderboardDisplayTypeNumeric);
          _leaderboardFindResult.Set(handle);
      }
+     
+     private void UploadScoreToSteam(int score)
+     {
+         SteamAPICall_t handle = SteamUserStats.UploadLeaderboardScore(_steamLeaderboard, ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodKeepBest, score, null, 0);
+         _leaderboardScoreUploadedResult.Set(handle);
+     }
 
+     #region Steam Callbacks
+     
      private void OnLeaderboardScoresDownloaded(LeaderboardScoresDownloaded_t pCallback, bool bIOFailure)
      {
          if (!bIOFailure)
@@ -59,8 +67,10 @@
                  scoreEntry.persona = userNickname ?? "Steam User";
                  scoreEntries.Add(scoreEntry);
              }
-             // we get 9 entries before and after the player's score
-             // this will cut down the number of entries
+             // we get 9 entries before and 9 entries after the player's score
+             // this will cut down the number of entries so that only 10 will be shown
+             // this current implementation will show either the top ten scores if the user is in the top ten
+             //    or it will show the user as the bottom entry if they are not within the top ten entries
              scoreEntries = scoreEntries.GetRange(0, Math.Min(scoreEntries.Count, 10));
              onSteamScoresLoaded.Raise();
              Debug.Log("Loaded all leaderboard entries");
@@ -106,10 +116,7 @@
              Debug.Log("Steam Score Upload Failure");
          }
      }
- 
-     private void UploadScoreToSteam(int score)
-     {
-         SteamAPICall_t handle = SteamUserStats.UploadLeaderboardScore(_steamLeaderboard, ELeaderboardUploadScoreMethod.k_ELeaderboardUploadScoreMethodKeepBest, score, null, 0);
-         _leaderboardScoreUploadedResult.Set(handle);
-     }
-}
+     
+     #endregion
+
+ }
